@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "utilizadors",
+  "info": {
+    "name": "utilizador"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

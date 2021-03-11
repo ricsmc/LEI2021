@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collections",
+  "info": {
+    "name": "Collection",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "date_of_creation": {
+      "type": "datetime",
+      "required": true
+    },
+    "public": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "utilizador": {
+      "model": "utilizador",
+      "via": "collections"
+    },
+    "memories": {
+      "via": "collections",
+      "collection": "memory"
+    }
+  }
+}

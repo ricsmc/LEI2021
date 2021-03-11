@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/utilizadors": {
+    "/people": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Utilizador"
+                    "$ref": "#/components/schemas/Person"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewPerson"
               }
             }
           }
         }
       }
     },
-    "/utilizadors/count": {
+    "/people/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "parameters": []
       }
     },
-    "/utilizadors/{id}": {
+    "/people/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewPerson"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Person"
         ],
         "parameters": [
           {
@@ -514,129 +514,28 @@
   },
   "components": {
     "schemas": {
-      "Utilizador": {
+      "Person": {
         "required": [
-          "id"
+          "id",
+          "name"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "username": {
+          "name": {
             "type": "string"
           },
-          "password": {
+          "local_of_birth": {
             "type": "string"
           },
-          "email": {
-            "type": "string"
+          "date_of_birth": {
+            "type": "string",
+            "format": "date"
           },
-          "profile_picture": {
-            "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "collections": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "date_of_creation",
-                "public"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
-                  "type": "string"
-                },
-                "public": {
-                  "type": "boolean"
-                },
-                "utilizador": {
-                  "type": "string"
-                },
-                "memories": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "date_of_death": {
+            "type": "string",
+            "format": "date"
           },
           "memories": {
             "type": "array",
@@ -704,22 +603,24 @@
           }
         }
       },
-      "NewUtilizador": {
+      "NewPerson": {
+        "required": [
+          "name"
+        ],
         "properties": {
-          "username": {
+          "name": {
             "type": "string"
           },
-          "password": {
+          "local_of_birth": {
             "type": "string"
           },
-          "email": {
-            "type": "string"
+          "date_of_birth": {
+            "type": "string",
+            "format": "date"
           },
-          "collections": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "date_of_death": {
+            "type": "string",
+            "format": "date"
           },
           "memories": {
             "type": "array",
@@ -739,7 +640,7 @@
   },
   "tags": [
     {
-      "name": "Utilizador"
+      "name": "Person"
     }
   ]
 }

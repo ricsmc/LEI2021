@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/utilizadors": {
+    "/memories": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Utilizador"
+                    "$ref": "#/components/schemas/Memory"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Memory"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewMemory"
               }
             }
           }
         }
       }
     },
-    "/utilizadors/count": {
+    "/memories/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "parameters": []
       }
     },
-    "/utilizadors/{id}": {
+    "/memories/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Memory"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Memory"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewMemory"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Memory"
         ],
         "parameters": [
           {
@@ -514,87 +514,171 @@
   },
   "components": {
     "schemas": {
-      "Utilizador": {
+      "Memory": {
         "required": [
-          "id"
+          "id",
+          "title",
+          "date_of_creation",
+          "content"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "username": {
+          "title": {
             "type": "string"
           },
-          "password": {
+          "local": {
             "type": "string"
           },
-          "email": {
+          "date_of_creation": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_of_memory": {
+            "type": "string",
+            "format": "date"
+          },
+          "content": {
             "type": "string"
           },
-          "profile_picture": {
-            "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
+          "images": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "videos": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -638,56 +722,70 @@
               }
             }
           },
-          "memories": {
+          "utilizador": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "profile_picture": {
+                "type": "string"
+              },
+              "collections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "memories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "people": {
             "type": "array",
             "items": {
               "required": [
                 "id",
-                "title",
-                "date_of_creation",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "title": {
+                "name": {
                   "type": "string"
                 },
-                "local": {
+                "local_of_birth": {
                   "type": "string"
                 },
-                "date_of_creation": {
+                "date_of_birth": {
                   "type": "string"
                 },
-                "date_of_memory": {
+                "date_of_death": {
                   "type": "string"
                 },
-                "content": {
-                  "type": "string"
-                },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "collections": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "utilizador": {
-                  "type": "string"
-                },
-                "people": {
+                "memories": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -704,15 +802,28 @@
           }
         }
       },
-      "NewUtilizador": {
+      "NewMemory": {
+        "required": [
+          "title",
+          "date_of_creation",
+          "content"
+        ],
         "properties": {
-          "username": {
+          "title": {
             "type": "string"
           },
-          "password": {
+          "local": {
             "type": "string"
           },
-          "email": {
+          "date_of_creation": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_of_memory": {
+            "type": "string",
+            "format": "date"
+          },
+          "content": {
             "type": "string"
           },
           "collections": {
@@ -721,7 +832,10 @@
               "type": "string"
             }
           },
-          "memories": {
+          "utilizador": {
+            "type": "string"
+          },
+          "people": {
             "type": "array",
             "items": {
               "type": "string"
@@ -739,7 +853,7 @@
   },
   "tags": [
     {
-      "name": "Utilizador"
+      "name": "Memory"
     }
   ]
 }

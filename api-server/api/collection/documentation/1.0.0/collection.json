@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/utilizadors": {
+    "/collections": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Utilizador"
+                    "$ref": "#/components/schemas/Collection"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewCollection"
               }
             }
           }
         }
       }
     },
-    "/utilizadors/count": {
+    "/collections/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "parameters": []
       }
     },
-    "/utilizadors/{id}": {
+    "/collections/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Utilizador"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUtilizador"
+                "$ref": "#/components/schemas/NewCollection"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Utilizador"
+          "Collection"
         ],
         "parameters": [
           {
@@ -514,127 +514,65 @@
   },
   "components": {
     "schemas": {
-      "Utilizador": {
+      "Collection": {
         "required": [
-          "id"
+          "id",
+          "name",
+          "date_of_creation",
+          "public"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "username": {
+          "name": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
+          "date_of_creation": {
+            "type": "string",
+            "format": "date-time"
           },
-          "email": {
-            "type": "string"
+          "public": {
+            "type": "boolean",
+            "default": true
           },
-          "profile_picture": {
+          "utilizador": {
             "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
+              "id"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "username": {
                 "type": "string"
               },
-              "alternativeText": {
+              "password": {
                 "type": "string"
               },
-              "caption": {
+              "email": {
                 "type": "string"
               },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
+              "profile_picture": {
                 "type": "string"
               },
-              "ext": {
-                "type": "string"
+              "collections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
+              "memories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "created_by": {
                 "type": "string"
               },
               "updated_by": {
                 "type": "string"
-              }
-            }
-          },
-          "collections": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "date_of_creation",
-                "public"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
-                  "type": "string"
-                },
-                "public": {
-                  "type": "boolean"
-                },
-                "utilizador": {
-                  "type": "string"
-                },
-                "memories": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
               }
             }
           },
@@ -704,22 +642,26 @@
           }
         }
       },
-      "NewUtilizador": {
+      "NewCollection": {
+        "required": [
+          "name",
+          "date_of_creation",
+          "public"
+        ],
         "properties": {
-          "username": {
+          "name": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
+          "date_of_creation": {
+            "type": "string",
+            "format": "date-time"
           },
-          "email": {
-            "type": "string"
+          "public": {
+            "type": "boolean",
+            "default": true
           },
-          "collections": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "utilizador": {
+            "type": "string"
           },
           "memories": {
             "type": "array",
@@ -739,7 +681,7 @@
   },
   "tags": [
     {
-      "name": "Utilizador"
+      "name": "Collection"
     }
   ]
 }

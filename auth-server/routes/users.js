@@ -4,8 +4,14 @@ var passport = require('passport')
 var UserControl = require('../controllers/user')
 var jwt = require('jsonwebtoken');
 const user = require('../models/user');
+var cors = require('cors');
 
-router.post('/login', passport.authenticate('local'), function(req,res){
+var corsOptions = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
+router.post('/login',cors(), passport.authenticate('local'), function(req,res){
   jwt.sign({username: req.user.username, level: req.user.level, 
             sub:'Trabalho de LEI2021'},
             "LEI2021",
@@ -14,6 +20,8 @@ router.post('/login', passport.authenticate('local'), function(req,res){
               else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level})
   });
 })
+
+router.options('/*',  cors())
 
 
 // Post user

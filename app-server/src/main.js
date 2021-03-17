@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 import apolloClient from "./vue-apollo";
 
 import App from "./App.vue";
+import vuetify from './plugins/vuetify';
 
 Vue.use(VueApollo);
 Vue.use(VueRouter);
@@ -24,6 +25,10 @@ const router = new VueRouter({
     {
       path: "/login",
       components: require("./views/Login.vue")
+    },
+    {
+      path: "/about",
+      components: require("./views/About.vue")
     }
 
   ]
@@ -32,5 +37,6 @@ const router = new VueRouter({
 new Vue({
   apolloProvider,
   router,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");

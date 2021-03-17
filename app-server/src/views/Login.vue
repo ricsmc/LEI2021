@@ -1,9 +1,18 @@
 <template>
     <div id="login">
         <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
+        <v-card width="500" class="mx-auto mt-15">
+            <v-card-text>
+              <input type="text" v-model="username" placeholder="Username">
+              <input :type="type" v-model="password" placeholder="Password"/>
+            </v-card-text>
+
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-btn v-on:click="login()" color="info">Login</v-btn>
+                <v-btn v-on:click="showPwd()" color="info">{{ btnText }}</v-btn>
+            </v-card-actions>
+        </v-card>
     </div>
 </template>
 
@@ -13,22 +22,31 @@ import axios from 'axios'
         name: 'Login',
         data() {
             return {
-                input: {
                     username: "",
-                    password: ""
-                }
+                    password: "",
+                    btnText: "Show Password",
+                    type: "password",
             }
         },
         methods: {
             login() {
                 var json = {}
-                json['username'] = this.input.username
-                json['password'] = this.input.password
+                json['username'] = this.username
+                json['password'] = this.password
                 axios.post("http://localhost:7000/users/login", json)
                     .then(data => console.log(data.data))
                     .catch(err => console.log(err))
-                console.log(this.input.username);
-            }
+                console.log(this.username);
+            },
+             showPwd() {
+                if(this.type === "password") {
+                   this.type = "text"
+                   this.btnText = "Hide Password"
+                } else {
+                   this.type = "password"
+                   this.btnText = "Show Password"
+                }
+            },
         },
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

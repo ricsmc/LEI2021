@@ -38,10 +38,12 @@
     </v-app-bar>
   
     <v-main>
+      <h1>{{data}}</h1>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/login">Login</router-link>
       <router-view/>
+     
     </v-main>
   </v-app>
 </template>
@@ -49,13 +51,21 @@
 <script>
 
 export default {
-  name: 'App',
 
+  name: 'App',
+   data() {
+            return {
+                    data:localStorage.getItem('user')
+            }
+        },
   components: {
   },
+  methods: {
+    loged: function(da){
+      this.data = da
+      console.log("username: " + da)
+    },
+  }
 
-  data: () => ({
-    //
-  }),
 };
 </script>

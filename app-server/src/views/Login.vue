@@ -34,7 +34,13 @@ import axios from 'axios'
                 json['username'] = this.username
                 json['password'] = this.password
                 axios.post("http://localhost:7000/users/login", json)
-                    .then(data => console.log(data.data))
+                    .then(data => {
+                        localStorage.setItem('user',data.data.username)
+                        localStorage.setItem('jwt',data.data.token)
+                        this.$emit('loggedIn')
+                        console.log(localStorage.getItem('user'))
+                        this.$router.push('/')
+                        })
                     .catch(err => console.log(err))
                 console.log(this.username);
             },

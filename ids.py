@@ -46,6 +46,6 @@ with open('people_input.json') as people_file:
             if item not in collections:
                 memories.append(item)
             i = i+1
-        c['memories'] = collections
+        c['memories'] = memories
     with open('people_output.json', 'w') as outfile:
         json.dump(data_people, outfile)

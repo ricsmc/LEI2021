@@ -518,7 +518,6 @@
         "required": [
           "id",
           "title",
-          "date_of_creation",
           "content"
         ],
         "properties": {
@@ -530,10 +529,6 @@
           },
           "local": {
             "type": "string"
-          },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
           },
           "date_of_memory": {
             "type": "string",
@@ -688,7 +683,6 @@
               "required": [
                 "id",
                 "name",
-                "date_of_creation",
                 "public"
               ],
               "properties": {
@@ -696,9 +690,6 @@
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "public": {
@@ -724,7 +715,8 @@
           },
           "utilizador": {
             "required": [
-              "id"
+              "id",
+              "email"
             ],
             "properties": {
               "id": {
@@ -805,7 +797,6 @@
       "NewMemory": {
         "required": [
           "title",
-          "date_of_creation",
           "content"
         ],
         "properties": {
@@ -814,10 +805,6 @@
           },
           "local": {
             "type": "string"
-          },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
           },
           "date_of_memory": {
             "type": "string",

@@ -516,7 +516,8 @@
     "schemas": {
       "Utilizador": {
         "required": [
-          "id"
+          "id",
+          "email"
         ],
         "properties": {
           "id": {
@@ -604,7 +605,6 @@
               "required": [
                 "id",
                 "name",
-                "date_of_creation",
                 "public"
               ],
               "properties": {
@@ -612,9 +612,6 @@
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "public": {
@@ -644,7 +641,6 @@
               "required": [
                 "id",
                 "title",
-                "date_of_creation",
                 "content"
               ],
               "properties": {
@@ -655,9 +651,6 @@
                   "type": "string"
                 },
                 "local": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "date_of_memory": {
@@ -705,6 +698,9 @@
         }
       },
       "NewUtilizador": {
+        "required": [
+          "email"
+        ],
         "properties": {
           "username": {
             "type": "string"

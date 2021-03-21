@@ -543,7 +543,6 @@
               "required": [
                 "id",
                 "title",
-                "date_of_creation",
                 "content"
               ],
               "properties": {
@@ -554,9 +553,6 @@
                   "type": "string"
                 },
                 "local": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "date_of_memory": {

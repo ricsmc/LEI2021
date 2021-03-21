@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/11/2021 6:41:27 PM"
+    "x-generation-date": "03/18/2021 7:59:21 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4194,7 +4194,6 @@
         "required": [
           "id",
           "name",
-          "date_of_creation",
           "public"
         ],
         "properties": {
@@ -4204,17 +4203,14 @@
           "name": {
             "type": "string"
           },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
-          },
           "public": {
             "type": "boolean",
             "default": true
           },
           "utilizador": {
             "required": [
-              "id"
+              "id",
+              "email"
             ],
             "properties": {
               "id": {
@@ -4258,7 +4254,6 @@
               "required": [
                 "id",
                 "title",
-                "date_of_creation",
                 "content"
               ],
               "properties": {
@@ -4269,9 +4264,6 @@
                   "type": "string"
                 },
                 "local": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "date_of_memory": {
@@ -4321,16 +4313,11 @@
       "NewCollection": {
         "required": [
           "name",
-          "date_of_creation",
           "public"
         ],
         "properties": {
           "name": {
             "type": "string"
-          },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
           },
           "public": {
             "type": "boolean",
@@ -4357,7 +4344,6 @@
         "required": [
           "id",
           "title",
-          "date_of_creation",
           "content"
         ],
         "properties": {
@@ -4369,10 +4355,6 @@
           },
           "local": {
             "type": "string"
-          },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
           },
           "date_of_memory": {
             "type": "string",
@@ -4527,7 +4509,6 @@
               "required": [
                 "id",
                 "name",
-                "date_of_creation",
                 "public"
               ],
               "properties": {
@@ -4535,9 +4516,6 @@
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "public": {
@@ -4563,7 +4541,8 @@
           },
           "utilizador": {
             "required": [
-              "id"
+              "id",
+              "email"
             ],
             "properties": {
               "id": {
@@ -4644,7 +4623,6 @@
       "NewMemory": {
         "required": [
           "title",
-          "date_of_creation",
           "content"
         ],
         "properties": {
@@ -4653,10 +4631,6 @@
           },
           "local": {
             "type": "string"
-          },
-          "date_of_creation": {
-            "type": "string",
-            "format": "date-time"
           },
           "date_of_memory": {
             "type": "string",
@@ -4717,7 +4691,6 @@
               "required": [
                 "id",
                 "title",
-                "date_of_creation",
                 "content"
               ],
               "properties": {
@@ -4728,9 +4701,6 @@
                   "type": "string"
                 },
                 "local": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "date_of_memory": {
@@ -4812,7 +4782,8 @@
       },
       "Utilizador": {
         "required": [
-          "id"
+          "id",
+          "email"
         ],
         "properties": {
           "id": {
@@ -4900,7 +4871,6 @@
               "required": [
                 "id",
                 "name",
-                "date_of_creation",
                 "public"
               ],
               "properties": {
@@ -4908,9 +4878,6 @@
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "public": {
@@ -4940,7 +4907,6 @@
               "required": [
                 "id",
                 "title",
-                "date_of_creation",
                 "content"
               ],
               "properties": {
@@ -4951,9 +4917,6 @@
                   "type": "string"
                 },
                 "local": {
-                  "type": "string"
-                },
-                "date_of_creation": {
                   "type": "string"
                 },
                 "date_of_memory": {
@@ -5001,6 +4964,9 @@
         }
       },
       "NewUtilizador": {
+        "required": [
+          "email"
+        ],
         "properties": {
           "username": {
             "type": "string"

@@ -18,10 +18,6 @@
     "local": {
       "type": "string"
     },
-    "date_of_creation": {
-      "type": "datetime",
-      "required": true
-    },
     "date_of_memory": {
       "type": "date"
     },

@@ -18,7 +18,9 @@
       "type": "string"
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "unique": true,
+      "required": true
     },
     "profile_picture": {
       "model": "file",

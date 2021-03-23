@@ -29,6 +29,14 @@ const router = new VueRouter({
     {
       path: "/about",
       components: require("./views/About.vue")
+    },
+    {
+      path: "/users",
+      components: require("./views/Users.vue")
+    },
+    {
+      path: "/users/:id",
+      components: require("./views/User.vue")
     }
 
   ]

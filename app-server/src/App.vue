@@ -1,47 +1,43 @@
 <template>
+
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text>
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-      <v-icon>mdi-open-in-new</v-icon>
+    <v-app-bar app color="#3c22cc" dark>
       
-    </v-app-bar>
-  
-    <v-main>
+      <Burger></Burger>
+      <v-spacer/>
       <h1>{{data}}</h1>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link>
+    </v-app-bar>
+    
+    <v-main>
+      <Sidebar>
+        <v-list style="background-color: #3c22cc;">
+          <v-list-item-group v-model="selectedItem" color="primary" class="sidebar-panel-nav">
+            <v-list-item class="sidebar-list" link color="#3c22cc" href="/">
+              <v-list-item-content class="sidebar-content"> 
+                Home
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item link color="#3c22cc" href="/about">
+              <v-list-item-content class="sidebar-content"> 
+                About
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item link color="#3c22cc" href="/login">
+              <v-list-item-content class="sidebar-content"> 
+                Login
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item link color="#3c22cc" href="/users">
+              <v-list-item-content class="sidebar-content"> 
+                Users
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </Sidebar>
+      
+      
       <router-view/>
      
     </v-main>
@@ -49,6 +45,9 @@
 </template>
 
 <script>
+import Burger from '@/components/menu/Burger.vue';
+import Sidebar from '@/components/menu/Sidebar.vue';
+
 
 export default {
 
@@ -59,6 +58,8 @@ export default {
             }
         },
   components: {
+    Burger,
+    Sidebar
   },
   methods: {
     loged: function(da){
@@ -69,3 +70,25 @@ export default {
 
 };
 </script>
+<style>
+  .v-main {
+    background-color: #fffef6;
+  }
+
+  .sidebar-panel-nav {
+    background-color: #3c22cc;
+  }
+  .sidebar-content {
+    background-color: #3c22cc;
+    color: white; 
+    font-size: 150%;
+    list-style-type: none;
+    font-weight: bold;
+    
+  }
+
+  .sidebar-content:hover{
+    color: #ea00ff;
+  }
+</style>
+

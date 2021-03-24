@@ -37,6 +37,14 @@ const router = new VueRouter({
     {
       path: "/users/:id",
       components: require("./views/User.vue")
+    },
+    {
+      path: "/memories",
+      components: require("./views/Memories.vue")
+    },
+    {
+      path: "/memories/:id",
+      components: require("./views/Memory.vue")
     }
 
   ]

@@ -5,6 +5,7 @@
     <v-app-bar app color="#3c22cc" dark>
       
       <Burger></Burger>
+      <a href="/" class="logo"><b>memorybook</b></a>
       <v-spacer/>
       <h1>{{data}}</h1>
     </v-app-bar>
@@ -33,6 +34,11 @@
                 Users
               </v-list-item-content>
             </v-list-item>
+            <v-list-item link color="#3c22cc" href="/memories">
+              <v-list-item-content class="sidebar-content"> 
+                Memories
+              </v-list-item-content>
+            </v-list-item>
           </v-list-item-group>
         </v-list>
       </Sidebar>
@@ -54,9 +60,12 @@ export default {
   name: 'App',
    data() {
             return {
-                    data:localStorage.getItem('user')
+                    data:""
             }
         },
+  created() {
+    this.data=localStorage.getItem('user')
+  },
   components: {
     Burger,
     Sidebar
@@ -89,6 +98,19 @@ export default {
 
   .sidebar-content:hover{
     color: #ea00ff;
+  }
+
+  .logo {
+    font-size: 250%;
+    -webkit-text-fill-color: #3c22cc; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #ea00ff;
+    text-decoration: none;
+    padding: 0px 0px 0px 25px;
+  }
+
+  .logo:hover{
+    -webkit-text-fill-color: white;
   }
 </style>
 

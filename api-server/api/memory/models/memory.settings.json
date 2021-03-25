@@ -49,8 +49,8 @@
       "dominant": true
     },
     "utilizador": {
-      "model": "utilizador",
-      "via": "memories"
+      "via": "memories",
+      "model": "utilizador"
     },
     "people": {
       "collection": "person",

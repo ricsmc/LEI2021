@@ -21,6 +21,17 @@ router.post('/login',cors(), passport.authenticate('local'), function(req,res){
   });
 })
 
+router.post('/google/login',cors(), passport.authenticate('google-local'), function(req,res){
+  jwt.sign({username: req.user.username, level: req.user.level, 
+            sub:'Trabalho de LEI2021'},
+            "LEI2021",
+            function(e,token){
+              if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
+              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level})
+  });
+})
+
+
 router.options('/*',  cors())
 
 

@@ -34,12 +34,15 @@
       "required": false
     },
     "collections": {
-      "via": "utilizador",
-      "collection": "collection"
+      "collection": "collection",
+      "via": "utilizador"
     },
     "memories": {
-      "via": "utilizador",
-      "collection": "memory"
+      "collection": "memory",
+      "via": "utilizador"
+    },
+    "googleId": {
+      "type": "string"
     }
   }
 }

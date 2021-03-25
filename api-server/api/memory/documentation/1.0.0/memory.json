@@ -746,6 +746,9 @@
                   "type": "string"
                 }
               },
+              "googleId": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

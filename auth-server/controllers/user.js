@@ -11,6 +11,10 @@ module.exports.lookUp = id => {
     return User.findOne({username: id}).exec()
 }
 
+module.exports.google = id => {
+    return User.findOne({googleId: id}).exec()
+}
+
 // Inserir o user u
 module.exports.insert = u => {
     console.log(JSON.stringify(u))

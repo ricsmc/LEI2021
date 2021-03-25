@@ -21,8 +21,8 @@
       "required": true
     },
     "utilizador": {
-      "model": "utilizador",
-      "via": "collections"
+      "via": "collections",
+      "model": "utilizador"
     },
     "memories": {
       "via": "collections",

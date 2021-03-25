@@ -1,42 +1,31 @@
-<!-- <template>
-    <div id="login">
-        <h1>Login</h1>
-        <v-card width="500" class="mx-auto mt-15">
-            <v-card-text>
-              <input type="text" v-model="username" placeholder="Username">
-              <input :type="type" v-model="password" placeholder="Password"/>
-            </v-card-text>
-
-            <v-divider></v-divider>
-            <v-card-actions>
-                <v-btn v-on:click="login()" color="info">Login</v-btn>
-                <v-btn v-on:click="showPwd()" color="info">{{ btnText }}</v-btn>
-            </v-card-actions>
-        </v-card>
-    </div>
-</template> -->
 
 <template>
   <div id="login">
-    <v-dialog v-model="login" width="500">
-       <!-- <template v-slot:activator="{ on }"> -->
-       <!--   <v-btn class="success" dark v-on="on">Login</v-btn> -->
-       <!-- </template> -->
-      <v-card width="500" class="mx-auto mt-15">
+      <v-dialog max-width="300px">
+        <template v-slot:activator="{ on }">
+            <v-btn
+            color="primary"
+            v-on="on"
+            >Login</v-btn>
+        </template>
+      <v-card width="300px" height="130px">
             <v-card-text>
               <input type="text" v-model="username" placeholder="Username">
               <input :type="type" v-model="password" placeholder="Password"/>
             </v-card-text>
 
             <v-divider></v-divider>
+            
             <v-card-actions>
                 <v-btn v-on:click="login()" color="info">Login</v-btn>
                 <v-btn v-on:click="showPwd()" color="info">{{ btnText }}</v-btn>
             </v-card-actions>
         </v-card>
-    </v-dialog>
+      </v-dialog>
   </div>
 </template>
+
+
 
 
 <script>
@@ -85,11 +74,6 @@ import axios from 'axios'
 
 <style scoped>
     #login {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
         margin: auto;
-        margin-top: 200px;
-        padding: 20px;
     }
 </style>

@@ -7,7 +7,13 @@
       <Burger></Burger>
       <a href="/" class="logo"><b>memorybook</b></a>
       <v-spacer/>
+      
       <h1>{{data}}</h1>
+
+      <Login></Login>
+      
+      
+          
     </v-app-bar>
     
     <v-main>
@@ -22,11 +28,6 @@
             <v-list-item link color="#3c22cc" href="/about">
               <v-list-item-content class="sidebar-content"> 
                 About
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link color="#3c22cc" href="/login">
-              <v-list-item-content class="sidebar-content"> 
-                Login
               </v-list-item-content>
             </v-list-item>
             <v-list-item link color="#3c22cc" href="/users">
@@ -53,6 +54,8 @@
 <script>
 import Burger from '@/components/menu/Burger.vue';
 import Sidebar from '@/components/menu/Sidebar.vue';
+import Login from '@/components/Login.vue';
+
 
 
 export default {
@@ -60,7 +63,8 @@ export default {
   name: 'App',
    data() {
             return {
-                    data:""
+                    data:"",
+                    show_login:false 
             }
         },
   created() {
@@ -68,12 +72,18 @@ export default {
   },
   components: {
     Burger,
-    Sidebar
+    Sidebar,
+    Login
   },
   methods: {
     loged: function(da){
       this.data = da
       console.log("username: " + da)
+    },
+    toggle_login: function(){
+      if(this.show_login) this.show_login=false
+      else this.show_login=true
+      console.log(this.show_login)
     },
   }
 
@@ -113,4 +123,5 @@ export default {
     -webkit-text-fill-color: white;
   }
 </style>
+
 

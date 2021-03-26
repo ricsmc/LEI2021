@@ -8,7 +8,7 @@
       <a href="/" class="logo"><b>memorybook</b></a>
       <v-spacer/>
       
-      <div v-if="this.token!=null">
+      <div v-if="this.token">
         <h1>{{data}}
         <v-avatar size="50">
           <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
@@ -19,12 +19,6 @@
           <Login></Login>
       </div>
 
-      
-
-    
-      
-      
-          
     </v-app-bar>
     
     <v-main>

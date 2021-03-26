@@ -126,10 +126,6 @@ export default {
     
   }
 
-  .sidebar-content:hover{
-    color: #ea00ff;
-  }
-
   .logo {
     font-size: 250%;
     -webkit-text-fill-color: #3c22cc; /* Will override color (regardless of order) */
@@ -157,6 +153,10 @@ export default {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+  }
+
+  .dropdown .dropbtn:hover{
+    color: #ea00ff;
   }
      
   .dropdown-content {

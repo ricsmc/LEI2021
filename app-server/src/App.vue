@@ -8,9 +8,20 @@
       <a href="/" class="logo"><b>memorybook</b></a>
       <v-spacer/>
       
-      <h1>{{data}}</h1>
+      <div v-if="this.token!=null">
+        <h1>{{data}}
+        <v-avatar size="50">
+          <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+        </v-avatar>
+        </h1>
+      </div>
+      <div v-else>
+          <Login></Login>
+      </div>
 
-      <Login></Login>
+      
+
+    
       
       
           
@@ -64,7 +75,8 @@ export default {
    data() {
             return {
                     data:"",
-                    show_login:false 
+                    show_login:false,
+                    token:localStorage.getItem('jwt')
             }
         },
   created() {

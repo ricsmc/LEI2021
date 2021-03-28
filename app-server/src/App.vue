@@ -45,6 +45,11 @@
                 About
               </v-list-item-content>
             </v-list-item>
+            <v-list-item link color="#3c22cc" href="/profile">
+              <v-list-item-content class="sidebar-content"> 
+                Profile
+              </v-list-item-content>
+            </v-list-item>
             <v-list-item link color="#3c22cc" href="/users">
               <v-list-item-content class="sidebar-content"> 
                 Users

@@ -1,25 +1,42 @@
 
 <template>
   <div id="login">
-      <v-dialog max-width="300px">
+      <v-dialog max-width="400px">
         <template v-slot:activator="{ on }">
             <v-btn
             color="primary"
             v-on="on"
             >Login</v-btn>
         </template>
-      <v-card width="300px" height="130px">
-            <v-card-text>
-              <input type="text" v-model="username" placeholder="Username">
-              <input :type="type" v-model="password" placeholder="Password"/>
-            </v-card-text>
-
-            <v-divider></v-divider>
+      <v-card>
+          <v-card-title>
+            <span class="headline">Login</span>
+          </v-card-title>
+          <v-card-text>
+              <v-container pa-0>
+          <v-col cols="12">
             
-            <v-card-actions>
-                <v-btn v-on:click="login()" color="info">Login</v-btn>
-                <v-btn v-on:click="showPwd()" color="info">{{ btnText }}</v-btn>
+              <v-text-field type="text" v-model="username" label="Username"></v-text-field>
+            
+          </v-col>
+          <v-col cols="12">
+              <v-text-field 
+              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'" 
+              :type="value ? 'password' : 'text'" 
+              v-model="password" label="Password"
+              @click:append="() => (value = !value)"></v-text-field>
+          </v-col>
+          </v-container>
+            </v-card-text>
+        
+            
+            <v-card-actions class="justify-center">
+                <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="login()" color="#3c22cc">Login</v-btn>
             </v-card-actions>
+            <v-card-actions class="justify-center">
+                <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+            </v-card-actions>
+            
         </v-card>
       </v-dialog>
   </div>
@@ -30,7 +47,9 @@
 
 <script>
 import axios from 'axios'
+import GoogleLogin from 'vue-google-login';
     export default {
+
         name: 'Login',
         data() {
             return {
@@ -38,10 +57,20 @@ import axios from 'axios'
                     password: "",
                     btnText: "Show Password",
                     type: "password",
+                    value: String,
+                    params: {
+                        client_id: "700992731861-u8shkr16p914ldvtbnsq4ketr09m62ul.apps.googleusercontent.com"
+                    },
+                    renderParams: {
+                        width: 300,
+                        height: 40,
+                        longtitle: true
+                    }
             }
         },
         methods: {
             login() {
+                console.log(this.username)
                 var json = {}
                 json['username'] = this.username
                 json['password'] = this.password
@@ -51,23 +80,35 @@ import axios from 'axios'
                         localStorage.setItem('jwt',data.data.token)
                         this.$emit('loggedIn')
                         console.log(localStorage.getItem('user'))
-                        this.$router.push('/')
+                        this.$router.go()
                         })
                     .catch(err => console.log(err))
                 console.log(this.username);
             },
-             showPwd() {
-                if(this.type === "password") {
-                   this.type = "text"
-                   this.btnText = "Hide Password"
-                } else {
-                   this.type = "password"
-                   this.btnText = "Show Password"
-                }
+            onSuccess(googleUser) {
+                var json = {}
+                json['username'] = googleUser.getBasicProfile().zt
+                json['password'] = "empty"
+                axios.post("http://localhost:7000/users/google/login", json)
+                    .then(data => {
+                        localStorage.setItem('user',data.data.username)
+                        localStorage.setItem('jwt',data.data.token)
+                        this.$emit('loggedIn')
+                        console.log(localStorage.getItem('user'))
+                        this.$router.go()
+                        })
+                    .catch(err => console.log(err))
             },
+            onFailure(){
+                
+            }
+             
         },
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        components: {
+            GoogleLogin
         }
     }
 </script>
@@ -76,4 +117,5 @@ import axios from 'axios'
     #login {
         margin: auto;
     }
+
 </style>

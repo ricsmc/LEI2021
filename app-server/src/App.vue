@@ -34,7 +34,7 @@
     <v-main>
       <Sidebar>
         <v-list style="background-color: #3c22cc;">
-          <v-list-item-group v-model="selectedItem" color="primary" class="sidebar-panel-nav">
+          <v-list-item-group color="primary" class="sidebar-panel-nav">
             <v-list-item class="sidebar-list" link color="#3c22cc" href="/">
               <v-list-item-content class="sidebar-content"> 
                 Home
@@ -61,8 +61,9 @@
       
       
       <router-view/>
-     
+      
     </v-main>
+    <Footer/>
   </v-app>
 </template>
 
@@ -70,6 +71,7 @@
 import Burger from '@/components/menu/Burger.vue';
 import Sidebar from '@/components/menu/Sidebar.vue';
 import Login from '@/components/Login.vue';
+import Footer from '@/components/Footer.vue'
 
 
 
@@ -90,7 +92,8 @@ export default {
   components: {
     Burger,
     Sidebar,
-    Login
+    Login,
+    Footer
   },
   methods: {
     loged: function(da){
@@ -112,6 +115,7 @@ export default {
 <style>
   .v-main {
     background-color: #fffef6;
+
   }
 
   .sidebar-panel-nav {

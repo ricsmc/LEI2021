@@ -1,4 +1,3 @@
-
 <template>
   <div id="login">
       <v-dialog max-width="400px">
@@ -14,6 +13,7 @@
           </v-card-title>
           <v-card-text>
               <v-container pa-0>
+                  <p v-if="alert" class="alert">{{this.message}}</p>
           <v-col cols="12">
             
               <v-text-field type="text" v-model="username" label="Username"></v-text-field>
@@ -65,12 +65,13 @@ import GoogleLogin from 'vue-google-login';
                         width: 300,
                         height: 40,
                         longtitle: true
-                    }
+                    },
+                    alert:false,
+                    message:''
             }
         },
         methods: {
             login() {
-                console.log(this.username)
                 var json = {}
                 json['username'] = this.username
                 json['password'] = this.password
@@ -82,7 +83,12 @@ import GoogleLogin from 'vue-google-login';
                         console.log(localStorage.getItem('user'))
                         this.$router.go()
                         })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                            this.alert = true
+                            this.message = err.response.data.message
+                            console.log(err.response.data.message)
+
+                    })
                 console.log(this.username);
             },
             onSuccess(googleUser) {
@@ -97,7 +103,12 @@ import GoogleLogin from 'vue-google-login';
                         console.log(localStorage.getItem('user'))
                         this.$router.go()
                         })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                            this.alert = true
+                            this.message = err.response.data.message
+                            console.log(err.response)
+                  
+                    })
             },
             onFailure(){
                 
@@ -116,6 +127,10 @@ import GoogleLogin from 'vue-google-login';
 <style scoped>
     #login {
         margin: auto;
+    }
+    .alert {
+        text-align: center;
+        color: red;
     }
 
 </style>

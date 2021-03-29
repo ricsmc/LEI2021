@@ -10,8 +10,25 @@ var corsOptions = {
   origin: 'http://localhost:8080',
   optionsSuccessStatus: 200 // For legacy browser support
 }
+function auth(req,res,next){
+  passport.authenticate('local', function(err, user, info) {
+    if (err) return next(err);
+    if (!user) {
+      
+       res.status(401).json(info);
+       return;
+      
+    // Register failed, flash message is in info
+    } 
+    req.logIn(user, function(err) {
+      if (err) return next(err);
+    });
+    
+  })(req, res, next);
+}
 
-router.post('/login',cors(), passport.authenticate('local'), function(req,res){
+router.post('/login',cors(), auth,  function(req,res,next){
+  
   jwt.sign({username: req.user.username, level: req.user.level, 
             sub:'Trabalho de LEI2021'},
             "LEI2021",

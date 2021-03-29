@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+var flash = require('connect-flash');
 
 
 var {v4: uuidv4} = require('uuid');
@@ -25,7 +26,6 @@ var User = require('./controllers/user')
 //Confiugração da estratégia local
 passport.use(new LocalStrategy(
   {usernameField: 'username'}, (username,password,done) => {
-    console.log('Olá ' + username)
     User.lookUp(username)
       .then(dados => {
         const user = dados
@@ -42,7 +42,6 @@ passport.use('google-local',
       usernameField: 'username',
       passwordField: 'password'
   }, (username, password, done) => {
-      console.log('Boas ' + username)
       // passport callback function
       //check if user already exists in our db with the given profile ID
       User.google(username)
@@ -51,7 +50,7 @@ passport.use('google-local',
           if(!user) { return done(null, false, {message: 'Utilizador inexistente!\n'})}
           return done(null, user)
       })
-        .catch(erro => done(null, false, {message: 'Utilizador inexistente!\n'}))
+        .catch(erro => done(erro))
     })
 );
 
@@ -72,6 +71,9 @@ passport.deserializeUser((uname,done) => {
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+
+app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

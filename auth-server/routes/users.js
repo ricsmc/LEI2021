@@ -22,6 +22,7 @@ function auth(req,res,next){
     } 
     req.logIn(user, function(err) {
       if (err) return next(err);
+      return next()
     });
     
   })(req, res, next);

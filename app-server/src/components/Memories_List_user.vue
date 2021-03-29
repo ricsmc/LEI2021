@@ -2,6 +2,7 @@
     <v-container>
         <v-data-table :headers="headers" :items="memories" :items-per-page="5" class="elevation-1" @click:row="handleClick">
         </v-data-table>
+    <v-btn @click="handleClick1">Back</v-btn>
     </v-container>
 </template>
 
@@ -41,6 +42,9 @@ export default {
   methods : {
       handleClick: function(value){
           this.$router.push('/profile/memories/' + value.id)
+      },
+      handleClick1: function(){
+          this.$router.push('/profile')
       }
   }
 }

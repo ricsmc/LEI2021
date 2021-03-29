@@ -37,5 +37,24 @@
             </div>
             </div>
         </div>
-    </div>
+    <v-btn @click="handleClick1">My Memories</v-btn>
+    <v-btn @click="handleClick2">My Collections</v-btn>
+    </div> 
 </template>
+
+
+<script>
+export default {
+    data() {
+        return;
+    },
+  methods : {
+      handleClick1: function(){
+          this.$router.push('/profile/memories')
+      },
+      handleClick2: function(){
+          this.$router.push('/profile/collections')
+      }
+  }
+}
+</script>

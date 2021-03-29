@@ -32,7 +32,7 @@ const router = new VueRouter({
     },
     {
       path: "/profile",
-      components: require("./views/Profile.vue")
+      components: require("./components/Profile.vue")
     },
     {
       path: "/users",
@@ -49,6 +49,14 @@ const router = new VueRouter({
     {
       path: "/memories/:id",
       components: require("./views/Memory.vue")
+    },
+    {
+      path: "/profile/memories",
+      components: require("./components/Memories_List_user.vue")
+    },
+    {
+      path: "/profile/collections",
+      components: require("./components/Collections_List_user.vue")
     }
 
   ]

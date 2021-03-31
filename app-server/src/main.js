@@ -20,31 +20,12 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-      components: require("./views/Home.vue")
+      components: require("./App.vue")
     },
-    {
-      path: "/login",
-      components: require("./views/Login.vue")
-    },
-    {
-      path: "/about",
-      components: require("./views/About.vue")
-    },
-    {
-      path: "/profile",
-      components: require("./components/Profile.vue")
-    },
-    {
-      path: "/users",
-      components: require("./views/Users.vue")
-    },
+    
     {
       path: "/users/:id",
       components: require("./views/User.vue")
-    },
-    {
-      path: "/memories",
-      components: require("./views/Memories.vue")
     },
     {
       path: "/memories/:id",

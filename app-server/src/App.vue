@@ -32,30 +32,31 @@
     </v-app-bar>
     
     <v-main>
+      
       <Sidebar>
         <v-list style="background-color: #3c22cc;">
           <v-list-item-group color="primary" class="sidebar-panel-nav">
-            <v-list-item class="sidebar-list" link color="#3c22cc" href="/">
+            <v-list-item class="sidebar-list" link color="#3c22cc" @click="sidebar_click('home')" >
               <v-list-item-content class="sidebar-content"> 
                 Home
               </v-list-item-content>
             </v-list-item>
-            <v-list-item link color="#3c22cc" href="/about">
+            <v-list-item link color="#3c22cc" @click="sidebar_click('about')">
               <v-list-item-content class="sidebar-content"> 
                 About
               </v-list-item-content>
             </v-list-item>
-            <v-list-item link color="#3c22cc" href="/profile">
+            <v-list-item link color="#3c22cc" @click="sidebar_click('profile')">
               <v-list-item-content class="sidebar-content"> 
                 Profile
               </v-list-item-content>
             </v-list-item>
-            <v-list-item link color="#3c22cc" href="/users">
+            <v-list-item link color="#3c22cc"  @click="sidebar_click('users')">
               <v-list-item-content class="sidebar-content"> 
                 Users
               </v-list-item-content>
             </v-list-item>
-            <v-list-item link color="#3c22cc" href="/memories">
+            <v-list-item link color="#3c22cc"  @click="sidebar_click('memories')">
               <v-list-item-content class="sidebar-content"> 
                 Memories
               </v-list-item-content>
@@ -64,8 +65,11 @@
         </v-list>
       </Sidebar>
       
-      
-      <router-view/>
+      <Home v-if="this.home"/>
+      <About v-if="this.about"/>
+      <Users v-if="this.users"/>
+      <Memories v-if="this.memories"/>
+      <Profile v-if="this.profile"/>
       
     </v-main>
     <Footer/>
@@ -76,7 +80,13 @@
 import Burger from '@/components/menu/Burger.vue';
 import Sidebar from '@/components/menu/Sidebar.vue';
 import Login from '@/components/Login.vue';
-import Footer from '@/components/Footer.vue'
+import Footer from '@/components/Footer.vue';
+import Home from '@/components/Home.vue'
+import About from '@/components/About.vue';
+import Users from '@/components/Users.vue'
+import Memories from '@/components/Memories.vue';
+import Profile from '@/components/Profile.vue';
+import {mutations} from '@/store.js'
 
 
 
@@ -87,7 +97,12 @@ export default {
             return {
                     data:"",
                     show_login:false,
-                    token:false
+                    token:false,
+                    home:true,
+                    about:false,
+                    users:false,
+                    memories:false,
+                    profile: false,
             }
         },
   created() {
@@ -98,7 +113,12 @@ export default {
     Burger,
     Sidebar,
     Login,
-    Footer
+    Footer,
+    Home,
+    About,
+    Users,
+    Memories,
+    Profile
   },
   methods: {
     loged: function(da){
@@ -112,6 +132,18 @@ export default {
     },
     handleLogout() {
        localStorage.clear();
+    },
+    sidebar_click(redir){
+      this.home = false
+      this.about = false
+      this.users = false
+      this.memories = false
+      if(redir == 'home') this.home = true
+      if (redir == 'about') this.about = true
+      if(redir == 'users') this.users = true
+      if (redir == 'memories') this.memories = true
+      if (redir == 'profile') this.profile = true
+      mutations.toggleNav()
     }
   }
 

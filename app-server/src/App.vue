@@ -33,44 +33,9 @@
     
     <v-main>
       
-      <Sidebar>
-        <v-list style="background-color: #3c22cc;">
-          <v-list-item-group color="primary" class="sidebar-panel-nav">
-            <v-list-item class="sidebar-list" link color="#3c22cc" @click="sidebar_click('home')" >
-              <v-list-item-content class="sidebar-content"> 
-                Home
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link color="#3c22cc" @click="sidebar_click('about')">
-              <v-list-item-content class="sidebar-content"> 
-                About
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link color="#3c22cc" @click="sidebar_click('profile')">
-              <v-list-item-content class="sidebar-content"> 
-                Profile
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link color="#3c22cc"  @click="sidebar_click('users')">
-              <v-list-item-content class="sidebar-content"> 
-                Users
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link color="#3c22cc"  @click="sidebar_click('memories')">
-              <v-list-item-content class="sidebar-content"> 
-                Memories
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </Sidebar>
+      <Menu/>
       
-      <Home v-if="this.home"/>
-      <About v-if="this.about"/>
-      <Users v-if="this.users"/>
-      <Memories v-if="this.memories"/>
-      <Profile v-if="this.profile"/>
-      
+      <router-view/>
     </v-main>
     <Footer/>
   </v-app>
@@ -78,14 +43,9 @@
 
 <script>
 import Burger from '@/components/menu/Burger.vue';
-import Sidebar from '@/components/menu/Sidebar.vue';
+import Menu from '@/components/menu/Menu.vue';
 import Login from '@/components/Login.vue';
 import Footer from '@/components/Footer.vue';
-import Home from '@/components/Home.vue'
-import About from '@/components/About.vue';
-import Users from '@/components/Users.vue'
-import Memories from '@/components/Memories.vue';
-import Profile from '@/components/Profile.vue';
 import {mutations} from '@/store.js'
 
 
@@ -98,11 +58,7 @@ export default {
                     data:"",
                     show_login:false,
                     token:false,
-                    home:true,
-                    about:false,
-                    users:false,
-                    memories:false,
-                    profile: false,
+
             }
         },
   created() {
@@ -111,14 +67,9 @@ export default {
   },
   components: {
     Burger,
-    Sidebar,
+    Menu,
     Login,
     Footer,
-    Home,
-    About,
-    Users,
-    Memories,
-    Profile
   },
   methods: {
     loged: function(da){
@@ -133,19 +84,10 @@ export default {
     handleLogout() {
        localStorage.clear();
     },
-    sidebar_click(redir){
-      this.home = false
-      this.about = false
-      this.users = false
-      this.memories = false
-      this.profile = false
-      if(redir == 'home') this.home = true
-      if (redir == 'about') this.about = true
-      if(redir == 'users') this.users = true
-      if (redir == 'memories') this.memories = true
-      if (redir == 'profile') this.profile = true
+    sidebar_click() {
       mutations.toggleNav()
     }
+
   }
 
 };
@@ -154,18 +96,6 @@ export default {
   .v-main {
     background-color: #fffef6;
 
-  }
-
-  .sidebar-panel-nav {
-    background-color: #3c22cc;
-  }
-  .sidebar-content {
-    background-color: #3c22cc;
-    color: white; 
-    font-size: 150%;
-    list-style-type: none;
-    font-weight: bold;
-    
   }
 
   .logo {
@@ -232,6 +162,7 @@ export default {
   margin-right:10px;
   font-size:24px
 }
+
 
 
 </style>

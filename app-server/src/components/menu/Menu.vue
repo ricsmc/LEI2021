@@ -1,7 +1,7 @@
 <template>
     <div id="menu">
         <Sidebar>
-        <v-list style="background-color: #3c22cc;">
+        <v-list style="background-color: #ffffff;">
           <v-list-item-group color="primary" class="sidebar-panel-nav">
 
             <router-link to="/" class="rtr-link">
@@ -52,10 +52,17 @@
 
 <script>
 import Sidebar from '@/components/menu/Sidebar.vue';
+import {mutations} from '@/store.js'
+
 
 export default {
     components : {
         Sidebar,
+    },
+    methods : {
+        sidebar_click() {
+            mutations.toggleNav()
+    }
     }
 }
 </script>
@@ -66,11 +73,11 @@ export default {
 }
 
 .sidebar-panel-nav {
-    background-color: #3c22cc;
+    background-color: #ffffff;
   }
   .sidebar-content {
-    background-color: #3c22cc;
-    color: white; 
+    background-color: #ffffff;
+    color: #4F4E81; 
     font-size: 150%;
     list-style-type: none;
     font-weight: bold;

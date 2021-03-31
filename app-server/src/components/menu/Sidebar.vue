@@ -37,7 +37,8 @@
     }
 
     .sidebar-backdrop {
-        filter: brightness(0.1);
+        filter: brightness(50%);
+        background-color: rgba(0,0,0,.5);
         width: 100vw;
         height: 100vh;
         position: fixed;
@@ -48,7 +49,7 @@
 
     .sidebar-panel {
         overflow-y: auto;
-        background-color: #3c22cc;
+        background-color: #ffffff;
         position: fixed;
         left: 0;
         top: 1;

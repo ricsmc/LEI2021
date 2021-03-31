@@ -53,11 +53,11 @@
         background-color: transparent;
         pointer-events: all;
         transition: transform .6s cubic-bezier(.165,.84,.44,1);
-        color: #ea00ff;
+        color: #4F4E81;
     }
 
     .burger-bar {
-        background-color: #ea00ff;
+        background-color: #4F4E81;
         position: absolute;
         top: 50%;
         right: 6px;
@@ -95,7 +95,7 @@
     }
 
     #burger.active .burger-bar {
-        background-color: rgb(255, 255, 255);
+        background-color: #4F4E81;
     }
 
     #burger.active .burger-bar--1 {

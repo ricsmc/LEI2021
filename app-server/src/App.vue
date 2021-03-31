@@ -138,6 +138,7 @@ export default {
       this.about = false
       this.users = false
       this.memories = false
+      this.profile = false
       if(redir == 'home') this.home = true
       if (redir == 'about') this.about = true
       if(redir == 'users') this.users = true

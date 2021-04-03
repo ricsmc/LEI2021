@@ -39,7 +39,7 @@ export default {
   components: {
     MemoryCard
   },
-  prop : {
+  props : {
     items : Object
   },
   methods: {

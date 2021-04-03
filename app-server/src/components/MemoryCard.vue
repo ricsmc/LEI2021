@@ -26,7 +26,7 @@ export default {
 
 .card {
     width: 150px;
-    height: 200px;
+    height: 180px;
 }
 
 .card h5 {

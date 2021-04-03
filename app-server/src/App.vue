@@ -1,8 +1,7 @@
 <template>
+  <v-app id="app">
 
-  <v-app>
-
-    <v-app-bar app color="#ffffff" dark>
+    <v-app-bar fixed app color="#ffffff" light elevate-on-scroll scroll-target=".v-main">
       
       <Burger></Burger>
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
@@ -17,7 +16,8 @@
         </div>
         <div class="dropdown-content">
           <router-link to="/">Link 1</router-link>
-          <router-link to="/">Link 2</router-link>
+          <router-link to="/new_memory">Nova Memória</router-link>
+          <router-link to="/">Nova Coleção</router-link>
           <a v-on:click="handleLogout()" href="/">
             <i style="margin-right:2px" class="fa fa-sign-out" aria-hidden="true"></i>
             Logout
@@ -29,12 +29,9 @@
       </div>
 
     </v-app-bar>
-    
     <v-main>
-      
       <Menu/>
-      
-      <router-view/>
+        <router-view/>
     </v-main>
     <Footer/>
   </v-app>
@@ -82,20 +79,23 @@ export default {
     handleLogout() {
        localStorage.clear();
     },
+
     
 
-  }
+  },
+  
 
 };
 </script>
 <style>
-  .v-main {
-    background-color: #ffffff;
-
-  }
+body {
+    overflow: hidden;
+    height: 100vh;
+} 
+html { overflow-y: hidden }
 
   .logo {
-    width: 300px;
+    width: 260px;
     padding: 6px 0px 0px 20px;
   }
 
@@ -117,6 +117,7 @@ export default {
   .dropbtn {
     padding: 10px 10px 10px 10px;
   }
+  
      
   .dropdown-content {
     display: none;
@@ -159,10 +160,6 @@ export default {
 .avatar {
   box-shadow: 0px 0px 5px 0.1px rgba(0,0,0,0.2);
 }
-
-
-
-
 
 
 </style>

@@ -526,9 +526,6 @@
           "username": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
-          },
           "email": {
             "type": "string"
           },
@@ -694,9 +691,6 @@
                 }
               }
             }
-          },
-          "googleId": {
-            "type": "string"
           }
         }
       },
@@ -706,9 +700,6 @@
         ],
         "properties": {
           "username": {
-            "type": "string"
-          },
-          "password": {
             "type": "string"
           },
           "email": {
@@ -725,9 +716,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "googleId": {
-            "type": "string"
           },
           "created_by": {
             "type": "string"

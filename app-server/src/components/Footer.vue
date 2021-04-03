@@ -1,11 +1,11 @@
 <template>
-    <v-footer color="primary lighten-1" padless>
+    <v-footer color="white" padless>
 
       <v-row justify="center" no-gutters>
           <v-btn 
             v-for="icon in icons"
             :key="icon"
-            color="white"
+            color="#4F4E81"
             rounded
             class="my-2"
             icon
@@ -20,7 +20,7 @@
         <v-btn
           v-for="link in links"
           :key="link"
-          color="white"
+          color="#4F4E81"
           text
           rounded
           class="my-2"
@@ -33,12 +33,12 @@
             <b >
                 Memories:
             </b> 
-                <span style="color:white; margin-left:2px"> {{this.memories}} </span>
+                <span style="color:#4F4E81; margin-left:2px"> {{this.memories}} </span>
             
             <b style="margin-left:20px">
                 Users:
             </b> 
-                <span style="color:white; margin-left:2px"> {{this.utilizadors}} </span>
+                <span style="color:#4F4E81; margin-left:2px"> {{this.utilizadors}} </span>
        </v-row>
 
     </v-footer>
@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
     b {
-        color:white
+        color:#4F4E81
     }
 
 

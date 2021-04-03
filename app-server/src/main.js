@@ -57,7 +57,11 @@ const router = new VueRouter({
     {
       path: "/profile/collections",
       components: require("./components/Collections_List_user.vue")
-    }
+    },
+    {
+      path: "/new_memory",
+      components: require("./components/forms/New_Memory.vue")
+    },
 
   ]
 });

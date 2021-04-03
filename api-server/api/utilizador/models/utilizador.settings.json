@@ -14,9 +14,6 @@
     "username": {
       "type": "string"
     },
-    "password": {
-      "type": "string"
-    },
     "email": {
       "type": "email",
       "unique": true,
@@ -40,9 +37,6 @@
     "memories": {
       "collection": "memory",
       "via": "utilizador"
-    },
-    "googleId": {
-      "type": "string"
     }
   }
 }

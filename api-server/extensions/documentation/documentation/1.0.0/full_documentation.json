@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/25/2021 5:03:06 PM"
+    "x-generation-date": "04/03/2021 8:50:43 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4219,9 +4219,6 @@
               "username": {
                 "type": "string"
               },
-              "password": {
-                "type": "string"
-              },
               "email": {
                 "type": "string"
               },
@@ -4239,9 +4236,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "googleId": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -4554,9 +4548,6 @@
               "username": {
                 "type": "string"
               },
-              "password": {
-                "type": "string"
-              },
               "email": {
                 "type": "string"
               },
@@ -4574,9 +4565,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "googleId": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -4798,9 +4786,6 @@
           "username": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
-          },
           "email": {
             "type": "string"
           },
@@ -4966,9 +4951,6 @@
                 }
               }
             }
-          },
-          "googleId": {
-            "type": "string"
           }
         }
       },
@@ -4978,9 +4960,6 @@
         ],
         "properties": {
           "username": {
-            "type": "string"
-          },
-          "password": {
             "type": "string"
           },
           "email": {
@@ -4997,9 +4976,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "googleId": {
-            "type": "string"
           },
           "created_by": {
             "type": "string"

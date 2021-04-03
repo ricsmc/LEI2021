@@ -30,10 +30,7 @@
 
 
 
-
-
 <script>
-
 
 import MemoryCard from '@/components/MemoryCard.vue'
 
@@ -42,20 +39,8 @@ export default {
   components: {
     MemoryCard
   },
-  data() {
-    return {
-      items: [
-      { number: '1', title: "Desert", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '2', title: "Areia", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '3', title: "Camelo", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '4', title: "Pó", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '5', title: "Verão", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '6', title: "Calor", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '7', title: "Água", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '8', title: "Passeio", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '9', title: "Sede", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      ]
-    }
+  prop : {
+    items : Object
   },
   methods: {
     scrollTo(element, scrollPixels, duration) {

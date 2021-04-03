@@ -2,43 +2,45 @@
   <div class="horizontalList">
 
     <div class="left">
-      <button style="height: 200px;" id="left-button" @click="swipe(-1)">
+      <button style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
         <i class="fa fa-angle-left fa-5x" ></i>
       </button>
     </div>
+    
 
     <div class="center" id="content" ref="content">
       <div class="internal" v-for="item in items" :key="item.number">
-           div  {{ item.number }} 
+        <MemoryCard :src="item.src" :title="item.title" :number="item.number"/> 
       </div>
     </div>
     
     <div class="right">
-      <button style="height: 200px;" id="right-button" @click="swipe(1)">
+      <button style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
         <i class="fa fa-angle-right fa-5x"></i>
       </button>
     </div>
-        
+    
+    
+
   </div>
 </template>
 
+
+
+
+
+
 <script>
+
+import MemoryCard from '@/components/MemoryCard.vue'
+
 export default {
   name: "Horizontal-Vue",
-  data() {
-    return {
-      items: [
-      { number: '1' },
-      { number: '2' },
-      { number: '3' },
-      { number: '4' },
-      { number: '5' },
-      { number: '6' },
-      { number: '7' },
-      { number: '8' },
-      { number: '9' },
-      ]
-    }
+  components: {
+    MemoryCard
+  },
+  prop : {
+    items : Object
   },
   methods: {
     scrollTo(element, scrollPixels, duration) {
@@ -53,14 +55,17 @@ export default {
           if (timeElapsed < duration) window.requestAnimationFrame(fn); 
           else return;
         }
-
         window.requestAnimationFrame(fn);
       }
     },
-    swipe(direction) {
+    swipe(direction, id) {
+      document.getElementById(id).disabled = true;
+
       const content = this.$refs.content;
       var w = window.innerWidth / 2;
       this.scrollTo(content, w*direction, 500);
+      
+      document.getElementById(id).disabled = false ;
     }
   }
 }

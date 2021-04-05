@@ -9,7 +9,7 @@
     
 
     <div class="center" id="content" ref="content">
-      <div class="internal" v-for="item in items" :key="item.number">
+      <div class="internal" v-for="item in items" :key="item.id">
         <MemoryCard :item="item"/> 
       </div>
     </div>
@@ -97,8 +97,7 @@ html, body {
 
 .internal{
  width: 25%;
- height: 100%;
- border: 1px solid black;
+
  display: inline-block;
 }
 

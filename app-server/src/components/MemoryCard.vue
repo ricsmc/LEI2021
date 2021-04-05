@@ -1,15 +1,12 @@
  <template>
    <div id="MemoryCard">
-        
-    <v-container fluid grid-list-xl>         
-        <v-card class="card" dark >
-            <h5>{{ item.number }}</h5>   
-            <img v-if="item.src" :src="`http://localhost:1337`+item.src">
-            <img v-else :src="`https://lh3.googleusercontent.com/proxy/9b7tfuzRKz4ucWyl6XQOc9leh7j3nbwS3kNvxOvLjrsYp3WPeFhDjPd5xqQt_ENx4krbYEKaWS1cx3qcRxtoIv4jcJi9d1IHR6eXCbqYSXvMT1yrGg`">
-            <p>{{ item.title }}</p> 
-        </v-card>
-    </v-container>
-  
+          
+    <v-card class="card" dark >
+        <img v-if="item.images[0]" :src="`http://localhost:1337`+item.images[0].url">
+        <img v-else :src="`https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg`">
+        <h6>{{ item.title }}</h6> 
+    </v-card>
+
   </div>   
 </template>
 
@@ -28,16 +25,17 @@ export default {
 <style>
 
 .card {
-    width: 150px;
-    height: 180px;
+  width: 160px;
+  height: 170px;
 }
 
-.card h5 {
-    color: gray;
+.card h6 {
+  color: gray;
 }
 
 .card img {
-    height: 80px;
-    width: 150px;
+  padding: 10px 10px 10px 10px;
+  height: 100px;
+  width: 150px;
 }
 </style>

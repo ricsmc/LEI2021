@@ -36,7 +36,7 @@ router.post('/login',cors(), auth,  function(req,res,next){
             function(e,token){
               
               if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
-              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level})
+              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level, id: req.user.id})
   });
 })
 
@@ -46,7 +46,7 @@ router.post('/google/login',cors(), passport.authenticate('google-local'), funct
             "LEI2021",
             function(e,token){
               if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
-              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level})
+              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level,  id: req.user.id})
   });
 })
 

@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-      <v-dialog max-width="400px">
+      <v-dialog max-width="400px" v-model="dialog">
         <template v-slot:activator="{ on }">
             <v-btn
             color="primary"
@@ -67,7 +67,8 @@ import GoogleLogin from 'vue-google-login';
                         longtitle: true
                     },
                     alert:false,
-                    message:''
+                    message:'',
+                    dialog:false
             }
         },
         methods: {
@@ -79,10 +80,12 @@ import GoogleLogin from 'vue-google-login';
                     .then(data => {
                         localStorage.setItem('user',data.data.username)
                         localStorage.setItem('jwt',data.data.token)
-                        this.$emit('loggedIn')
-                        console.log(localStorage.getItem('user'))
+                        localStorage.setItem('level',data.data.level)
+                        localStorage.setItem('id',data.data.id)
+                        this.$emit('loged')
                         this.$router.go()
-                        })
+                        this.dialog = false
+                    })
                     .catch(err => {
                             this.alert = true
                             this.message = err.response.data.message
@@ -99,10 +102,12 @@ import GoogleLogin from 'vue-google-login';
                     .then(data => {
                         localStorage.setItem('user',data.data.username)
                         localStorage.setItem('jwt',data.data.token)
+                        localStorage.setItem('level',data.data.level)
+                        localStorage.setItem('id',data.data.id)
                         this.$emit('loggedIn')
-                        console.log(localStorage.getItem('user'))
                         this.$router.go()
-                        })
+                        this.dialog = false
+                    })
                     .catch(err => {
                             this.alert = true
                             this.message = err.response.data.message

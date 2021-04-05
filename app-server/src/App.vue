@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
 
-    <v-app-bar fixed app color="#ffffff" light elevate-on-scroll scroll-target=".v-main">
+    <v-app-bar fixed app color="#ffffff" light >
       
       <Burger></Burger>
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
@@ -9,7 +9,7 @@
       <div v-if="this.token" class="dropdown">
         <div class="dropbtn">
           <v-avatar size="50" class="avatar">
-            <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+            <v-img :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
           </v-avatar>
           <b class="username" style="position:relative;  top: 4px;">{{data}}</b>
           <i class="fa fa-sort-desc" style="margin-left:10px;"></i>
@@ -25,6 +25,7 @@
         </div>
       </div>
       <div v-else>
+          <div @click="stopApollo"/>
           <Login></Login>
       </div>
 
@@ -42,6 +43,7 @@ import Burger from '@/components/menu/Burger.vue';
 import Menu from '@/components/menu/Menu.vue';
 import Login from '@/components/Login.vue';
 import Footer from '@/components/Footer.vue';
+import gql from 'graphql-tag'
 
 
 
@@ -53,12 +55,32 @@ export default {
                     data:"",
                     show_login:false,
                     token:false,
-
             }
         },
   created() {
     this.token=localStorage.getItem('jwt'),
     this.data=localStorage.getItem('user')
+    if(!this.token){
+      this.$apollo.queries.utilizador.skip = true
+    }
+    else this.$apollo.queries.utilizador.skip = false
+  },
+
+  apollo: {
+    utilizador: {
+      query : gql`query Utilizador ($id: ID!){
+          utilizador (id: $id) {
+            id
+            profile_picture {url}
+        }
+      }
+    `,
+    variables(){
+      return {
+        id: localStorage.getItem('id')
+      }
+    }
+  }
   },
   components: {
     Burger,
@@ -70,6 +92,8 @@ export default {
     loged: function(da){
       this.data = da
       console.log("username: " + da)
+      this.$apollo.queries.users.skip = false
+
     },
     toggle_login: function(){
       if(this.show_login) this.show_login=false
@@ -79,8 +103,9 @@ export default {
     handleLogout() {
        localStorage.clear();
     },
-
-    
+    stopApollo(){
+      
+    }
 
   },
   

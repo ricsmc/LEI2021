@@ -6,9 +6,19 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="text-center">
                 <v-avatar size="100">
-                  <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                  <v-img @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
                 </v-avatar>
               </div>
+               <v-dialog
+                v-model="dialog"
+                  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
+                >
+                <v-card>
+                
+                  <v-img :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                  
+                </v-card>
+              </v-dialog>
               <div class="text-center">
                 <h3 class="text-center">
                     <p class="text-center">Pierre Gasly</p>
@@ -113,29 +123,61 @@ export default {
       { number: '7' },
       { number: '8' },
       { number: '9' },
-      ]
+      ],
+        dialog : false
 
         };
     },
     apollo: {
-    memories: gql`
-      query Memories {
-        memories(where:{utilizador: "605788c94f801e6697d497d0"}){
+    memories: { 
+      query : gql`
+      query Memories ($id: ID!){
+        memories(where:{utilizador:  $id}){
           id
           title
           local
         }   
       }
     `,
-    collections: gql`
-      query Collections {
-        collections(where:{utilizador: "605788c9fc49c376a90dccbc"}){
+    variables(){
+      return {
+        id: localStorage.getItem('id')
+      }
+    }
+    },
+    collections: {
+      query: gql`
+      query Collections ($id: ID!){
+        collections(where:{utilizador:  $id}){
           id
           name
           public
         }
       }
-    `
+    `,
+    variables(){
+      return {
+        id: localStorage.getItem('id')
+      }
+    }
+    },
+    utilizador: {
+      query : gql`query Utilizador ($id: ID!){
+          utilizador (id: $id) {
+            id
+            profile_picture {
+              url
+              width
+              }
+        }
+      }
+    `,
+    variables(){
+      return {
+        id: localStorage.getItem('id')
+      }
+    }
+    }
         
 },
     
@@ -162,6 +204,9 @@ export default {
       const content = this.$refs.content;
       var w = window.innerWidth / 2;
       this.scrollTo(content, w*direction, 500);
+    },
+    img_click(){
+      this.view_profile_pic = true
     }
   }
 }

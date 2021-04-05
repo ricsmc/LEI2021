@@ -9,13 +9,14 @@
       <div v-if="this.token" class="dropdown">
         <div class="dropbtn">
           <v-avatar size="50" class="avatar">
-            <v-img :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+            <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+            <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
           </v-avatar>
           <b class="username" style="position:relative;  top: 4px;">{{data}}</b>
           <i class="fa fa-sort-desc" style="margin-left:10px;"></i>
         </div>
         <div class="dropdown-content">
-          <router-link to="/">Link 1</router-link>
+          <router-link :to="'/users/' + id">Perfil</router-link>
           <router-link to="/new_memory">Nova Memória</router-link>
           <router-link to="/">Nova Coleção</router-link>
           <a v-on:click="handleLogout()" href="/">
@@ -55,6 +56,7 @@ export default {
                     data:"",
                     show_login:false,
                     token:false,
+                    id:''
             }
         },
   created() {
@@ -64,6 +66,7 @@ export default {
       this.$apollo.queries.utilizador.skip = true
     }
     else this.$apollo.queries.utilizador.skip = false
+    this.id = localStorage.getItem('id')
   },
 
   apollo: {

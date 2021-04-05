@@ -5,17 +5,18 @@
                 <div class="card card-widget widget-user">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="text-center">
-                <v-avatar size="100">
-                  <v-img @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                <v-avatar size="100" class="avatar">
+                  <v-img  v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                  <v-img  v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
                 </v-avatar>
               </div>
                <v-dialog
                 v-model="dialog"
-                  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
+                v-if="utilizador.profile_picture"  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
                 >
                 <v-card>
                 
-                  <v-img :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                  <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
                   
                 </v-card>
               </v-dialog>
@@ -141,7 +142,7 @@ export default {
     `,
     variables(){
       return {
-        id: localStorage.getItem('id')
+        id: this.$route.params.id
       }
     }
     },
@@ -157,7 +158,7 @@ export default {
     `,
     variables(){
       return {
-        id: localStorage.getItem('id')
+        id: this.$route.params.id
       }
     }
     },
@@ -174,7 +175,7 @@ export default {
     `,
     variables(){
       return {
-        id: localStorage.getItem('id')
+        id: this.$route.params.id
       }
     }
     }
@@ -212,4 +213,3 @@ export default {
 }
 
 </script>
-

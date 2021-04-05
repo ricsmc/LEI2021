@@ -31,16 +31,12 @@ const router = new VueRouter({
       components: require("./components/About.vue")
     },
     {
-      path: "/profile",
-      components: require("./components/Profile.vue")
-    },
-    {
       path: "/users",
       components: require("./components/Users.vue")
     },
     {
       path: "/users/:id",
-      components: require("./views/User.vue")
+      components: require("./components/Profile.vue")
     },
     {
       path: "/memories",

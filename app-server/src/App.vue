@@ -73,7 +73,6 @@ export default {
     utilizador: {
       query : gql`query Utilizador ($id: ID!){
           utilizador (id: $id) {
-            id
             profile_picture {url}
         }
       }

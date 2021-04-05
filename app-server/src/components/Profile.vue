@@ -22,7 +22,7 @@
               </v-dialog>
               <div class="text-center">
                 <h3 class="text-center">
-                    <p class="text-center">Pierre Gasly</p>
+                    <p class="text-center">{{utilizador.username}}</p>
                 </h3>
               </div>
 
@@ -31,7 +31,7 @@
                 <div class="row">
                   <div class="col-sm-6 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">3200</h5>
+                      <h5 class="description-header">{{memories.length}}</h5>
                       <span class="description-text">MEMORIES</span>
                     </div>
                     <!-- /.description-block -->
@@ -39,7 +39,7 @@
                   <!-- /.col -->
                   <div class="col-sm-6 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">10</h5>
+                      <h5 class="description-header">{{collections.length}}</h5>
                       <span class="description-text">COLLECTIONS</span>
                     </div>
                     <!-- /.description-block -->
@@ -166,6 +166,7 @@ export default {
       query : gql`query Utilizador ($id: ID!){
           utilizador (id: $id) {
             id
+            username
             profile_picture {
               url
               width

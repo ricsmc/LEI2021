@@ -10,7 +10,7 @@
 
     <div class="center" id="content" ref="content">
       <div class="internal" v-for="item in items" :key="item.number">
-        <MemoryCard :src="item.src" :title="item.title" :number="item.number"/> 
+        <MemoryCard :item="item"/> 
       </div>
     </div>
     

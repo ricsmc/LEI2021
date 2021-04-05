@@ -20,15 +20,15 @@ export default {
   data() {
     return {
       items: [
-      { number: '1', title: "Desert", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '2', title: "Areia", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '3', title: "Camelo", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '4', title: "Pó", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '5', title: "Verão", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '6', title: "Calor", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '7', title: "Água", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '8', title: "Passeio", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
-      { number: '9', title: "Sede", src: `https://super.abril.com.br/wp-content/uploads/2018/07/57b342c70e21637197029eaedeserto.jpeg`},
+      { number: '1', title: "Desert", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '2', title: "Areia", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '3', title: "Camelo"},
+      { number: '4', title: "Pó", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '5', title: "Verão", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '6', title: "Calor", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '7', title: "Água", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '8', title: "Passeio", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
+      { number: '9', title: "Sede", src: `/uploads/1024_720_5bcdcfe3f2.jpg`},
       ]
     }
   }

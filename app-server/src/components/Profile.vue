@@ -1,16 +1,15 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="text-center">
-                <v-avatar size="100" class="avatar">
-                  <v-img  v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-                  <v-img  v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
-                </v-avatar>
-              </div>
-               <v-dialog
+  <div id="profile">
+    <v-row no-gutter align="center">
+      <v-col cols=3 offset=2>
+        <v-row align="center" >
+          <v-col>
+            <div style="padding: 60px 0 0 0">
+              <v-avatar size="160" class="profile_pic">
+                <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
+              </v-avatar>
+              <v-dialog
                 v-model="dialog"
                 v-if="utilizador.profile_picture"  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
                 >
@@ -20,65 +19,38 @@
                   
                 </v-card>
               </v-dialog>
-              <div class="text-center">
-                <h3 class="text-center">
-                    <p class="text-center">{{utilizador.username}}</p>
-                </h3>
-              </div>
-
-            <div class="text-center">
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-6 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">{{memories.length}}</h5>
-                      <span class="description-text">MEMORIES</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-6 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">{{collections.length}}</h5>
-                      <span class="description-text">COLLECTIONS</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-              </div>
             </div>
-            </div>
-            </div>
-        </div>
-        
-
-  <div class='text-center'>My memories</div>
-
-  <div class="horizontalList">
-
-    <div class="left">
-      <button style="height: 200px;" id="left-button" @click="swipe(-1)">
-        <i class="fa fa-angle-left fa-5x" ></i>
-      </button>
-    </div>
-
-    <div class="center" id="content" ref="content">
-      <div class="internal" v-for="item in items" :key="item.number">
-           div  {{ item.number }} 
-      </div>
-    </div>
-    
-    <div class="right">
-      <button style="height: 200px;" id="right-button" @click="swipe(1)">
-        <i class="fa fa-angle-right fa-5x"></i>
-      </button>
-    </div>
-        
-  </div>
-
+          </v-col >
+          <v-col>
+            <div style="padding: 80px 0 0 0px">
+            <h2>{{utilizador.username}}</h2>
+            </div> 
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols=3 offset=2 style="padding: 70px 0 0 0">
+        <v-row>
+          <v-col cols=6 class="mem_col">
+            <v-row justify="center">
+              <h2 >Memórias</h2>
+            </v-row>
+            <v-row justify="center">
+              <p >{{memories.length}}</p>
+            </v-row>
+          </v-col>
+          <v-col cols=6 class="mem_col">
+            <v-row justify="center">
+              <h2>Coleções</h2>
+            </v-row>
+            <v-row justify="center">
+              <p>{{collections.length}}</p>
+            </v-row>
+            
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-divider style="margin-top: -50px"></v-divider>
   </div>
 </template>
 
@@ -89,43 +61,7 @@ import gql from 'graphql-tag'
 export default {
     data() {
         return{
-          headers1: [
-            {
-                text:'Title',
-                align: 'start',
-                sortable: false,
-                value: 'title',
-            },
-            {
-                text:'Local',
-                value:'local'
-            }
-        ],
-          headers2: [
-            {
-                text:'Name',
-                align: 'start',
-                sortable: false,
-                value: 'name',
-            },
-            {
-                text:'Public',
-                value:'public'
-            }
-        ],
-
-        items: [
-      { number: '1' },
-      { number: '2' },
-      { number: '3' },
-      { number: '4' },
-      { number: '5' },
-      { number: '6' },
-      { number: '7' },
-      { number: '8' },
-      { number: '9' },
-      ],
-        dialog : false
+          dialog : false
 
         };
     },
@@ -214,3 +150,24 @@ export default {
 }
 
 </script>
+<style>
+.mem_col {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+
+  }
+
+.mem_col:hover{
+  background-color: #ddd;
+}
+
+.profile_pic {
+  
+  box-shadow: 0px 0px 5px 0.1px rgba(0,0,0,0.2);
+  
+}
+</style>

@@ -106,7 +106,7 @@
 <script>
 import axios from 'axios'
 import GoogleLogin from 'vue-google-login'
-
+import cryptoJS from 'crypto-js'
 
     export default {
         name: 'Login',
@@ -187,8 +187,7 @@ import GoogleLogin from 'vue-google-login'
                     .catch(err => {
                             this.alert = true
                             this.message = err.response.data.message
-                            console.log(err.response)
-                  
+                            console.log(err.response)                  
                     })
             },
             onFailure(){   
@@ -197,9 +196,11 @@ import GoogleLogin from 'vue-google-login'
                 var json = {}
                 json['username'] = this.username
                 json['email']    = this.email
-                json['password'] = this.password
+                var pass = cryptoJS.AES.encrypt(this.password, 'passphrase').toString();
+                json['password'] = pass
                 axios.post("http://localhost:7000/users/register", json)
                     .then( () => {
+                        json['password'] = this.password
                         axios.post("http://localhost:7000/users/login", json)
                             .then(data => {
                                 localStorage.setItem('user',data.data.username)

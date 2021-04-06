@@ -17,7 +17,6 @@ module.exports.google = id => {
 
 // Inserir o user u
 module.exports.insert = u => {
-    console.log(JSON.stringify(u))
     var newUser = new User(u)
     return newUser.save()
 }

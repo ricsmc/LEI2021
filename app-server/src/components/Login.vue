@@ -7,37 +7,95 @@
             v-on="on"
             >Login</v-btn>
         </template>
-      <v-card>
-          <v-card-title>
-            <span class="headline">Login</span>
-          </v-card-title>
-          <v-card-text>
-              <v-container pa-0>
-                  <p v-if="alert" class="alert">{{this.message}}</p>
-          <v-col cols="12">
-            
-              <v-text-field type="text" v-model="username" label="Username"></v-text-field>
-            
-          </v-col>
-          <v-col cols="12">
-              <v-text-field 
-              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'" 
-              :type="value ? 'password' : 'text'" 
-              v-model="password" label="Password"
-              @click:append="() => (value = !value)"></v-text-field>
-          </v-col>
-          </v-container>
-            </v-card-text>
-        
-            
-            <v-card-actions class="justify-center">
-                <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="login()" color="#3c22cc">Login</v-btn>
-            </v-card-actions>
-            <v-card-actions class="justify-center">
-                <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
-            </v-card-actions>
-            
-        </v-card>
+            <v-tabs v-model="tab" show-arrows background-color="#3c22cc" icons-and-text dark grow>
+                <v-tabs-slider color="#000000"></v-tabs-slider>
+                <v-tab v-for="i in tabs" :key="i">
+                    <v-icon large>{{ i.icon }}</v-icon>
+                    <div class="caption py-1">{{ i.name }}</div>
+                </v-tab>
+                <v-tab-item>
+                    <v-card>
+                        <v-card-text>
+                            <v-container pa-0>
+                                <p v-if="alert" class="alert">{{this.message}}</p>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    type="text" 
+                                    v-model="username" 
+                                    :rules="[rules.required]"
+                                    label="Username">
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    :append-icon="valueLogin ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    :type="valueLogin ? 'password' : 'text'" 
+                                    v-model="password" label="Password"
+                                    :rules="[rules.required]"
+                                    @click:append="() => (valueLogin = !valueLogin)">
+                                    </v-text-field>
+                                </v-col>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions class="justify-center">
+                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="login()" color="#3c22cc">Login</v-btn>
+                        </v-card-actions>
+                        <v-card-actions class="justify-center">
+                            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+                        </v-card-actions>
+                    </v-card>
+                </v-tab-item>
+                
+                <v-tab-item>
+                    <v-card>
+                        <v-card-text>
+                            <v-container pa-0>
+                                <p v-if="alert" class="alert">{{this.message}}</p>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    type="text" 
+                                    v-model="username" 
+                                    :rules="[rules.required]"
+                                    label="Username" >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    type="text" 
+                                    v-model="email" 
+                                    :rules="[rules.required]"
+                                    label="Email">
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    :append-icon="valueRegistarPass ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    :type="valueRegistarPass ? 'password' : 'text'"
+                                    :rules="[rules.required]"  
+                                    v-model="password" label="Password"
+                                    @click:append="() => (valueRegistarPass = !valueRegistarPass)">
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field 
+                                    :append-icon="valueRegistarConfirPass ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    :type="valueRegistarConfirPass ? 'password' : 'text'"
+                                    :rules="[rules.required, passwordMatch]" 
+                                    block 
+                                    v-model="passverify"
+                                    label="Confirm Password"
+                                    @click:append="() => (valueRegistarConfirPass = !valueRegistarConfirPass)">
+                                    </v-text-field>
+                                </v-col>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions class="justify-center">
+                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="register()" color="#3c22cc">Register</v-btn>
+                        </v-card-actions>            
+                    </v-card>
+                </v-tab-item>
+
+            </v-tabs>   
       </v-dialog>
   </div>
 </template>
@@ -47,17 +105,30 @@
 
 <script>
 import axios from 'axios'
-import GoogleLogin from 'vue-google-login';
-    export default {
+import GoogleLogin from 'vue-google-login'
 
+
+    export default {
         name: 'Login',
         data() {
             return {
+                    tab: 0,
+                    tabs: [
+                        {name:"Login", icon:"mdi-account"},
+                        {name:"Register", icon:"mdi-account-outline"}
+                    ],
+                    rules: {
+                        required: value => !!value || "This camp is required.",
+                    },
                     username: "",
                     password: "",
+                    passverify: "",
+                    email: "",
                     btnText: "Show Password",
                     type: "password",
-                    value: String,
+                    valueLogin: String,
+                    valueRegistarPass: String,
+                    valueRegistarConfirPass: String,
                     params: {
                         client_id: "700992731861-u8shkr16p914ldvtbnsq4ketr09m62ul.apps.googleusercontent.com"
                     },
@@ -71,6 +142,11 @@ import GoogleLogin from 'vue-google-login';
                     dialog:false
             }
         },
+        computed: {
+            passwordMatch() {
+                return () => this.password === this.passverify || "Password must match";
+            }
+        },        
         methods: {
             login() {
                 var json = {}
@@ -115,10 +191,39 @@ import GoogleLogin from 'vue-google-login';
                   
                     })
             },
-            onFailure(){
-                
-            }
-             
+            onFailure(){   
+            },
+            register() {
+                var json = {}
+                json['username'] = this.username
+                json['email']    = this.email
+                json['password'] = this.password
+                axios.post("http://localhost:7000/users/register", json)
+                    .then( () => {
+                        axios.post("http://localhost:7000/users/login", json)
+                            .then(data => {
+                                localStorage.setItem('user',data.data.username)
+                                localStorage.setItem('jwt',data.data.token)
+                                localStorage.setItem('level',data.data.level)
+                                localStorage.setItem('id',data.data.id)
+                                this.$emit('loged')
+                                this.$router.go()
+                                this.dialog = false
+                            })
+                            .catch(err => {
+                                    this.alert = true
+                                    this.message = err.response.data.message
+                                    console.log(err.response.data.message)
+                            })
+                    .catch(err => {
+                        this.alert = true
+                        this.message = err.response.data.message
+                        console.log("este é erro")
+                        console.log(err.response.data.message)
+                    })        
+                })
+                console.log(this.username);
+            }           
         },
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -127,6 +232,7 @@ import GoogleLogin from 'vue-google-login';
             GoogleLogin
         }
     }
+  
 </script>
 
 <style scoped>

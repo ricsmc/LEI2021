@@ -29,12 +29,10 @@ function auth(req,res,next){
 }
 
 router.post('/login',cors(), auth,  function(req,res,next){
-  
   jwt.sign({username: req.user.username, level: req.user.level, 
             sub:'Trabalho de LEI2021'},
             "LEI2021",
             function(e,token){
-              
               if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
               else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level, id: req.user.id})
   });
@@ -50,27 +48,32 @@ router.post('/google/login',cors(), passport.authenticate('google-local'), funct
   });
 })
 
-
-router.options('/*',  cors())
-
-
-// Post user
-router.post('/', (req,res) => {
+router.post('/register',cors(),  function(req,res,next){
   UserControl.lookUp(req.body.username)
     .then(da => {
       if(da == null){
         UserControl.insert(req.body)
-          .then(data => {
-            res.status(201).jsonp({username:data.username})
+          .then(data => { 
+            res.status(201).jsonp({username: data.username})
           })
-          .catch(err => res.status(500).jsonp({error:err}))
+          .catch(err => {
+            res.status(500).jsonp({error:err})
+          })
       }
-      else{
+      else {
         res.status(400).jsonp({message:"O utilizador já existe"})
-        
       }
     })
     .catch(err => res.status(500).jsonp(err))
-  
 })
+
+
+
+
+
+
+
+router.options('/*',  cors())
+
+
 module.exports = router;

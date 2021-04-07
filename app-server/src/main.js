@@ -32,23 +32,23 @@ const router = new VueRouter({
     },
     {
       path: "/users",
-      components: require("./components/Users.vue")
+      components: require("./components/users/Users.vue")
     },
     {
       path: "/users/:id",
-      components: require("./components/Profile.vue")
+      components: require("./components/profile/Profile.vue")
     },
     {
       path: "/memories",
-      components: require("./components/Memories.vue")
+      components: require("./components/memories/Memories.vue")
     },
     {
       path: "/memories/:id",
-      components: require("./views/Memory.vue")
+      components: require("./components/memories/Memory.vue")
     },
     {
       path: "/profile/memories",
-      components: require("./components/Memories_List_user.vue")
+      components: require("./components/memories/Memories_List_user.vue")
     },
     {
       path: "/profile/collections",

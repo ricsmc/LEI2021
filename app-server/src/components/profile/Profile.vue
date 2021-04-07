@@ -1,9 +1,11 @@
 <template>
   <div id="profile">
     <v-row no-gutter align="center">
-      <v-col cols=3 offset=2>
+      <v-col cols=5>
+        <v-responsive min-width=500 max-width=500>
+        
         <v-row align="center" >
-          <v-col>
+          <v-col cols=3 offset=4>
             <div style="padding: 60px 0 0 0">
               <v-avatar size="160" class="profile_pic">
                 <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
@@ -21,13 +23,15 @@
               </v-dialog>
             </div>
           </v-col >
-          <v-col>
-            <div style="padding: 80px 0 0 0px">
-            <h2>{{utilizador.username}}</h2>
-            </div> 
-          </v-col>
+            <v-col cols=3 offset=2>
+              <div style="padding: 80px 0 0 0px">
+              <h2>{{utilizador.username}}</h2>
+              </div> 
+            </v-col>
         </v-row>
+        </v-responsive>
       </v-col>
+      
       <v-col cols=3 offset=2 style="padding: 70px 0 0 0">
         <v-row>
           <v-col cols=6 class="mem_col">
@@ -51,6 +55,13 @@
       </v-col>
     </v-row>
     <v-divider style="margin-top: -50px"></v-divider>
+    <v-row style="padding: 170px 0px 0px 0px"/>
+    <v-row>
+      <v-col cols=5></v-col>
+      <v-col cols=7>
+        <Horizontal_List :items="memories"/>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -58,12 +69,17 @@
 
 <script>
 import gql from 'graphql-tag'
+import Horizontal_List from '@/components/memories/Horizontal_List.vue'
+
 export default {
     data() {
         return{
           dialog : false
 
         };
+    },
+    components:{
+      Horizontal_List
     },
     apollo: {
     memories: { 
@@ -72,7 +88,9 @@ export default {
         memories(where:{utilizador:  $id}){
           id
           title
-          local
+          images {
+            url
+          }
         }   
       }
     `,

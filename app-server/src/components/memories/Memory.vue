@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import Memory_Info from '@/components/Memory_Info.vue'
+import Memory_Info from '@/components/memories/Memory_Info.vue'
 
 export default {
   name: 'Memory',

@@ -9,7 +9,7 @@
 
 <script>
 // @ is an alias to /src
-import Horizontal_List from '@/components/Horizontal_List.vue'
+import Horizontal_List from '@/components/memories/Horizontal_List.vue'
 import gql from 'graphql-tag'
 
 export default {

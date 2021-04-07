@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import User_Info from '@/components/User_Info.vue'
+import User_Info from '@/components/users/User_Info.vue'
 
 export default {
   name: 'User',

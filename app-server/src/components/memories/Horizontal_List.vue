@@ -32,7 +32,7 @@
 
 <script>
 
-import MemoryCard from '@/components/MemoryCard.vue'
+import MemoryCard from '@/components/memories/MemoryCard.vue'
 
 export default {
   name: "Horizontal-Vue",

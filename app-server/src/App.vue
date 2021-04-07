@@ -3,7 +3,7 @@
 
     <v-app-bar fixed app color="#ffffff" light >
       
-      <Burger></Burger>
+      <Burger v-if="this.token"></Burger>
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
       <v-spacer/>
       <div v-if="this.token" class="dropdown">

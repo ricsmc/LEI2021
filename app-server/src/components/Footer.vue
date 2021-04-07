@@ -29,7 +29,7 @@
         </v-btn>
       </v-row>
 
-      <v-row justify="center" class="b" no-gutters>
+      <v-row v-if="this.token" justify="center" class="b" no-gutters>
             <b >
                 Memories:
             </b> 
@@ -52,7 +52,6 @@ export default {
     memories: 0,
     utilizadors: 0,
     links: [
-      'Home',
       'About Us',
       'Team',
       'Contact Us',
@@ -63,7 +62,12 @@ export default {
       'mdi-linkedin',
       'mdi-instagram',
     ],
+    toke:''
   }),
+
+  created(){
+    this.token = localStorage.getItem('jwt')
+  },
     mounted () {
         var token = localStorage.getItem('jwt')
         axios.get('http://localhost:1337/utilizadors/count',{headers: {'Authorization': `${token}`}})

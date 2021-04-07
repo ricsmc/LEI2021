@@ -3,15 +3,19 @@
       <v-dialog max-width="400px" v-model="dialog">
         <template v-slot:activator="{ on }">
             <v-btn
-            color="primary"
+            color="#4F4E81"
+            flat
+            x-large
+            plain
+            elevation="0"
             v-on="on"
             >Login</v-btn>
         </template>
-            <v-tabs v-model="tab" show-arrows background-color="#3c22cc" icons-and-text dark grow>
-                <v-tabs-slider color="#000000"></v-tabs-slider>
-                <v-tab v-for="i in tabs" :key="i">
-                    <v-icon large>{{ i.icon }}</v-icon>
-                    <div class="caption py-1">{{ i.name }}</div>
+            <v-tabs v-model="tab" show-arrows color="#4F4E81" background-color="white" icons-and-text light grow>
+                <v-tabs-slider color="#4F4E81"></v-tabs-slider>
+                <v-tab v-for="i in tabs" :key="i" >
+                    <v-icon large class="tab">{{ i.icon }}</v-icon>
+                    <div class="caption py-1" >{{ i.name }}</div>
                 </v-tab>
                 <v-tab-item>
                     <v-card>
@@ -38,7 +42,7 @@
                             </v-container>
                         </v-card-text>
                         <v-card-actions class="justify-center">
-                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="login()" color="#3c22cc">Login</v-btn>
+                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="login()" color="#4F4E81">Login</v-btn>
                         </v-card-actions>
                         <v-card-actions class="justify-center">
                             <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
@@ -90,7 +94,7 @@
                             </v-container>
                         </v-card-text>
                         <v-card-actions class="justify-center">
-                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" v-on:click="register()" color="#3c22cc">Register</v-btn>
+                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="register()" color="#4F4E81">Register</v-btn>
                         </v-card-actions>            
                     </v-card>
                 </v-tab-item>
@@ -240,9 +244,14 @@ import cryptoJS from 'crypto-js'
     #login {
         margin: auto;
     }
+
     .alert {
         text-align: center;
         color: red;
+    }
+
+    .tab {
+        color: #CCCCCC;
     }
 
 </style>

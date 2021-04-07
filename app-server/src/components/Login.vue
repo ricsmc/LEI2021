@@ -169,10 +169,7 @@ import cryptoJS from 'crypto-js'
                     .catch(err => {
                             this.alert = true
                             this.message = err.response.data.message
-                            console.log(err.response.data.message)
-
                     })
-                console.log(this.username);
             },
             onSuccess(googleUser) {
                 var json = {}
@@ -190,8 +187,7 @@ import cryptoJS from 'crypto-js'
                     })
                     .catch(err => {
                             this.alert = true
-                            this.message = err.response.data.message
-                            console.log(err.response)                  
+                            this.message = err.response.data.message                
                     })
             },
             onFailure(){   
@@ -218,16 +214,12 @@ import cryptoJS from 'crypto-js'
                             .catch(err => {
                                     this.alert = true
                                     this.message = err.response.data.message
-                                    console.log(err.response.data.message)
                             })
+                        })
                     .catch(err => {
                         this.alert = true
                         this.message = err.response.data.message
-                        console.log("este é erro")
-                        console.log(err.response.data.message)
                     })        
-                })
-                console.log(this.username);
             }           
         },
         headers: {

@@ -57,11 +57,11 @@ router.post('/register',cors(),  function(req,res,next){
             res.status(201).jsonp({username: data.username})
           })
           .catch(err => {
-            res.status(500).jsonp({error:err})
+            res.status(409).jsonp({message: 'Email já registado!\n'})
           })
       }
       else {
-        res.status(400).jsonp({message:"O utilizador já existe"})
+        res.status(409).jsonp({message:"Username já registado!\n"})
       }
     })
     .catch(err => res.status(500).jsonp(err))

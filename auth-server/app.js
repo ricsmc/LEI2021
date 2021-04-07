@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var flash = require('connect-flash');
-var CryptoJS = require('crypto-js');
+var bcrypt = require('bcryptjs');
 
 
 var {v4: uuidv4} = require('uuid');
@@ -31,8 +31,8 @@ passport.use(new LocalStrategy(
       .then(dados => {
         const user = dados
         if(!user) { return done(null, false, {message: 'Utilizador inexistente!\n'})}
-        var pass = CryptoJS.AES.decrypt(user.password, 'passphrase').toString(CryptoJS.enc.Utf8);
-        if(pass != password) {return done(null, false, {message: 'Credênciais inválidas!\n'})}
+        var log = bcrypt.compareSync(password, user.password);
+        if(!log) {return done(null, false, {message: 'Credênciais inválidas!\n'})}
         return done(null, user)
       })
       .catch( erro => done(erro))

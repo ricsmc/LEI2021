@@ -110,7 +110,8 @@
 <script>
 import axios from 'axios'
 import GoogleLogin from 'vue-google-login'
-import cryptoJS from 'crypto-js'
+import bcrypt from 'bcryptjs'
+
 
     export default {
         name: 'Login',
@@ -196,7 +197,8 @@ import cryptoJS from 'crypto-js'
                 var json = {}
                 json['username'] = this.username
                 json['email']    = this.email
-                var pass = cryptoJS.AES.encrypt(this.password, 'passphrase').toString();
+                var pass = bcrypt.hashSync(this.password, 10);
+
                 json['password'] = pass
                 axios.post("http://localhost:7000/users/register", json)
                     .then( () => {

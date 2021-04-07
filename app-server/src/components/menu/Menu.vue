@@ -19,14 +19,6 @@
                 </v-list-item-content>
               </v-list-item>
             </router-link>
-            
-            <router-link to="/profile" class="rtr-link">
-              <v-list-item link color="#3c22cc" @click="sidebar_click()">
-                <v-list-item-content class="sidebar-content"> 
-                  Profile
-                </v-list-item-content>
-              </v-list-item>
-            </router-link>
 
             <router-link to="/users" class="rtr-link">
               <v-list-item link color="#3c22cc"  @click="sidebar_click()">

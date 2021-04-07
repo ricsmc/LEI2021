@@ -7,23 +7,7 @@
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
       <v-spacer/>
       <div v-if="this.token" class="dropdown">
-        <div class="dropbtn">
-          <v-avatar size="50" class="avatar">
-            <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-            <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
-          </v-avatar>
-          <b class="username" style="position:relative;  top: 4px;">{{data}}</b>
-          <i class="fa fa-sort-desc" style="margin-left:10px;"></i>
-        </div>
-        <div class="dropdown-content">
-          <router-link :to="'/users/' + id">Perfil</router-link>
-          <router-link to="/new_memory">Nova Memória</router-link>
-          <router-link to="/">Nova Coleção</router-link>
-          <a v-on:click="handleLogout()" href="/">
-            <i style="margin-right:2px" class="fa fa-sign-out" aria-hidden="true"></i>
-            Logout
-          </a>
-        </div>
+        <Dropdown :utilizador="utilizador"></Dropdown>
       </div>
       <div v-else>
           <div @click="stopApollo"/>
@@ -45,7 +29,7 @@ import Menu from '@/components/menu/Menu.vue';
 import Login from '@/components/Login.vue';
 import Footer from '@/components/Footer.vue';
 import gql from 'graphql-tag'
-
+import Dropdown from '@/components/menu/DropDown.vue';
 
 
 export default {
@@ -73,6 +57,8 @@ export default {
     utilizador: {
       query : gql`query Utilizador ($id: ID!){
           utilizador (id: $id) {
+            id
+            username
             profile_picture {url}
         }
       }
@@ -89,6 +75,7 @@ export default {
     Menu,
     Login,
     Footer,
+    Dropdown,
   },
   methods: {
     loged: function(da){
@@ -102,92 +89,33 @@ export default {
       else this.show_login=true
       console.log(this.show_login)
     },
-    handleLogout() {
-       localStorage.clear();
-    },
     stopApollo(){
       
     }
-
   },
   
 
 };
 </script>
+
+
 <style>
+
 body {
     overflow: hidden;
     height: 100vh;
 } 
+
 html { overflow-y: hidden }
 
-  .logo {
-    width: 260px;
-    padding: 6px 0px 0px 20px;
-  }
-
-
-  .dropdown {
-    overflow: hidden;
-  }
-
-  .dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: #4F4E81;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-
-  }
-  .dropbtn {
-    padding: 10px 10px 10px 10px;
-  }
-  
-     
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0px;
-    top: 64px;
-    background-color: #ffffff;
-    min-width: 200px;
-    box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
-    z-index: 1;
-
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-
-  }
-
-.dropdown-content a:hover {
-  background-color: #ddd;
+.logo {
+  width: 260px;
+  padding: 6px 0px 0px 20px;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-
+.dropdown {
+  overflow: hidden;
 }
-
-
-.username {
-  position: relative;
-  padding: 10px 10px 0px 15px;
-  font-size:150%
-}
-
-.avatar {
-  box-shadow: 0px 0px 5px 0.1px rgba(0,0,0,0.2);
-}
-
 
 </style>
 

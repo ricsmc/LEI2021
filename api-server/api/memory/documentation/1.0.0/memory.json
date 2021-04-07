@@ -743,6 +743,9 @@
                   "type": "string"
                 }
               },
+              "about": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

@@ -57,7 +57,14 @@
     <v-divider style="margin-top: -50px"></v-divider>
     <v-row style="padding: 170px 0px 0px 0px"/>
     <v-row>
-      <v-col cols=5></v-col>
+      <v-col cols=4 offset=1>
+        <v-card max-width="400" elevation="0" outlined style="background-color: inherit;">
+          <v-card-title>Sobre:</v-card-title>
+          <v-divider class="mx-4"></v-divider>
+          <v-card-text v-if="utilizador.about">{{utilizador.about}}</v-card-text>
+          <v-card-text v-else>Este utilizador não tem descrição</v-card-text>
+        </v-card>
+      </v-col>
       <v-col cols=7>
         <Horizontal_List :items="memories"/>
       </v-col>
@@ -121,6 +128,7 @@ export default {
           utilizador (id: $id) {
             id
             username
+            about
             profile_picture {
               url
               width
@@ -184,8 +192,17 @@ export default {
 }
 
 .profile_pic {
-  
+  cursor: pointer;
   box-shadow: 0px 0px 5px 0.1px rgba(0,0,0,0.2);
-  
+  filter: brightness(100%);
+  transition-duration: 0.2s;
+  transition-property: filter;
 }
+
+.profile_pic:hover {
+  filter: brightness(80%);
+  transition-duration: 0.2s;
+  transition-property: filter;
+}
+
 </style>

@@ -691,6 +691,9 @@
                 }
               }
             }
+          },
+          "about": {
+            "type": "string"
           }
         }
       },
@@ -716,6 +719,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "about": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

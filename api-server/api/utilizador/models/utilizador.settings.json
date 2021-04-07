@@ -37,6 +37,9 @@
     "memories": {
       "collection": "memory",
       "via": "utilizador"
+    },
+    "about": {
+      "type": "richtext"
     }
   }
 }

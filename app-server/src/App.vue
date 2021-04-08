@@ -2,7 +2,7 @@
   <v-app id="app">
 
     <v-app-bar fixed app color="#ffffff" light >
-      
+    
       <Burger v-if="this.token"></Burger>
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
       <v-spacer/>
@@ -19,7 +19,9 @@
       <Menu/>
         <router-view/>
     </v-main>
-    <Footer/>
+    <div v-if="this.token"> 
+      <Footer/>
+    </div>
   </v-app>
 </template>
 
@@ -102,7 +104,7 @@ export default {
 <style>
 
 body {
-    overflow: hidden;
+    overflow: auto;
     height: 100vh;
 } 
 

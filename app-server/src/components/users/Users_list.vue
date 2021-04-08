@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="list">
         <v-data-table :headers="headers" :items="utilizadors" :items-per-page="5" class="elevation-1" @click:row="handleClick">
         </v-data-table>
     </v-container>
@@ -44,3 +44,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>

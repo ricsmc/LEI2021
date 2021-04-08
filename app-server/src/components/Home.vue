@@ -86,8 +86,6 @@ import HelloWorld from '@/components/HelloWorld.vue'
                     this.array.pop();
                     this.array.unshift(val);
                 }
-                console.log(this.array)
-               
             }            
         }
     }
@@ -98,20 +96,17 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 .first {
     width: 100%;
-    height: 756px;
-    background: #ccc;
+    height: 100vh;
 }
 
 .second {
     width: 100%;
-    height: 756px;
-    background: #999;
+    height: 100vh;
 }
 
 .third {
     width: 100%;
-    height: 756px;
-    background: #000;
+    height: 100vh;
 }
 
 
@@ -121,7 +116,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 .home img {
    width: 100%;
-   height: 756px;
+   height: 100%;
 }
 
 

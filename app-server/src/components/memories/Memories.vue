@@ -1,6 +1,15 @@
 <template>
   <div class="memories">
     <h1 style="padding: 20px 0px 100px 75px; text-align: center; ">Memories</h1>
+    <p style="text-align: center"> Foram encontrados {{this.memories.length}} resultados! </p>
+    <v-col class="input" cols="12">
+        <v-text-field 
+        type="text" 
+        v-model="word" 
+        label="Word"
+        @change="procurar()">
+        </v-text-field>
+    </v-col>
     <div>
       <Horizontal_List :items="memories"/>
     </div>
@@ -12,13 +21,43 @@
 import Horizontal_List from '@/components/memories/Horizontal_List.vue'
 import gql from 'graphql-tag'
 
+
 export default {
   name: 'Memories',
   components: {
     Horizontal_List
   },
+  data() {
+    return {
+      word: "",
+      number: 0,
+    }
+  },
+  methods: {
+    async procurar() {
+      var result = await this.$apollo.query({
+        query: gql`
+          query Memories ($title: String!)  {
+            memories(where: { title_contains: $title }) {
+              id
+              title
+              images {
+                url
+              }
+            }
+          }
+        `,
+        variables: {
+          title: this.word,
+        },
+      })
+      this.number = result.data.memories.length
+      this.memories = result.data.memories
+    }
+  },
   apollo: {
-    memories: gql`
+    memories: {
+      query: gql`
       query Memories {
         memories {
           id
@@ -29,6 +68,7 @@ export default {
         }
       }
     `
+    }
   }
 }
 </script>
@@ -40,6 +80,11 @@ html, body {
   padding:0;
   width:100%;
   height:100%;
+}
+
+.input{
+  width: 200px;
+  margin-left: 200px;
 }
 
 

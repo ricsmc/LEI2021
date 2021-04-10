@@ -39,6 +39,10 @@ const router = new VueRouter({
       components: require("./components/profile/Profile.vue")
     },
     {
+      path: "/collections",
+      components: require("./components/collections/Collections_List.vue")
+    },
+    {
       path: "/memories",
       components: require("./components/memories/Memories.vue")
     },

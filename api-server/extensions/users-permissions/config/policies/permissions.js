@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 var jwt = require('jsonwebtoken');
+var fs = require('fs')
 
 module.exports = async (ctx, next) => {
   let role;
@@ -12,6 +13,7 @@ module.exports = async (ctx, next) => {
   }
 
   if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+
     try {
       const { id } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
 
@@ -25,7 +27,8 @@ module.exports = async (ctx, next) => {
       ].services.user.fetchAuthenticatedUser(id);
     } catch (err) {
       try{
-          jwt.verify(ctx.request.header.authorization, 'LEI2021') 
+          var pubKey = fs.readFileSync(__dirname + '/../keys/pubkey.pem')          
+          jwt.verify(ctx.request.header.authorization, pubKey,{algorithm:'RS256'}) 
           return await next()
         }  
       catch(error) {return handleErrors(ctx, error, 'unauthorized');}

@@ -5,6 +5,7 @@ var UserControl = require('../controllers/user')
 var jwt = require('jsonwebtoken');
 const user = require('../models/user');
 var cors = require('cors');
+var fs = require('fs')
 
 var corsOptions = {
   origin: 'http://localhost:8080',
@@ -29,9 +30,12 @@ function auth(req,res,next){
 }
 
 router.post('/login',cors(), auth,  function(req,res,next){
+  var privateKey = fs.readFileSync(__dirname + '/../keys/mykey.pem')
   jwt.sign({username: req.user.username, level: req.user.level, 
             sub:'Trabalho de LEI2021'},
-            "LEI2021",
+            privateKey,
+            {algorithm:'RS256'}
+            ,
             function(e,token){
               if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
               else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level, id: req.user.id})
@@ -39,12 +43,15 @@ router.post('/login',cors(), auth,  function(req,res,next){
 })
 
 router.post('/google/login',cors(), passport.authenticate('google-local'), function(req,res){
+  var privateKey = fs.readFileSync(__dirname + '/../keys/mykey.pem')
   jwt.sign({username: req.user.username, level: req.user.level, 
             sub:'Trabalho de LEI2021'},
-            "LEI2021",
+            privateKey,
+            {algorithm:'RS256'}
+            ,
             function(e,token){
               if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e})
-              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level,  id: req.user.id})
+              else res.status(201).jsonp({token: token,username: req.user.username, level: req.user.level, id: req.user.id})
   });
 })
 

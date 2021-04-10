@@ -1,7 +1,7 @@
 <template>
   <div class="memories">
     <h1 style="padding: 20px 0px 100px 75px; text-align: center; ">Memories</h1>
-    <p style="text-align: center"> Foram encontrados {{this.memories.length}} resultados! </p>
+    <p v-if="this.memories" style="text-align: center"> Foram encontrados {{this.memories.length}} resultados! </p>
     
     <v-col  class="input" cols="12">
 

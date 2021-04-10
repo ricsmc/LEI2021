@@ -1,5 +1,5 @@
 <template>
-    <div id="dropdown">
+    <div v-if="utilizador" id="dropdown">
         <div class="dropbtn">
             <v-avatar size="50" class="avatar">
                 <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>

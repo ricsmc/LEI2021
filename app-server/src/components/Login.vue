@@ -4,7 +4,7 @@
         <template v-slot:activator="{ on }">
             <v-btn
             color="#4F4E81"
-            flat
+            text
             x-large
             plain
             elevation="0"
@@ -13,7 +13,7 @@
         </template>
             <v-tabs v-model="tab" show-arrows color="#4F4E81" background-color="white" icons-and-text light grow>
                 <v-tabs-slider color="#4F4E81"></v-tabs-slider>
-                <v-tab v-for="i in tabs" :key="i" >
+                <v-tab v-for="i in tabs" :key="i.name" >
                     <v-icon large class="tab">{{ i.icon }}</v-icon>
                     <div class="caption py-1" >{{ i.name }}</div>
                 </v-tab>

@@ -59,6 +59,8 @@
             return {
                 date: null,
                 menu: false,
+                title: "",
+                content: "",
                 rules: [
                   value => !!value || 'Required',
                 ],

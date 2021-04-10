@@ -1,5 +1,5 @@
 <template>
-  <div id="profile">
+  <div v-if="utilizador" id="profile">
     <v-row no-gutter align="center">
       <v-col cols=5>
         <v-responsive min-width=500 max-width=500>

@@ -43,36 +43,16 @@ export default {
     return {
       word: "",
       filter: "",
-      values: ['Title','Content']
+      values: ['title','content']
     }
   },
   methods: {
     async procurar() {
-      var result
-      if (this.filter=="Title") {
-        result = await this.$apollo.query({
+      if (this.filter) {
+        var result = await this.$apollo.query({
           query: gql`
-            query Memories ($title: String!)  {
-              memories(where: { title_contains: $title }) {
-                id
-                title
-                images {
-                  url
-                }
-              }
-            }
-          `,
-          variables: {
-            title: this.word,
-          },
-        })
-        this.memories = result.data.memories
-      }
-      else if (this.filter=="Content") {
-        result = await this.$apollo.query({
-          query: gql`
-            query Memories ($content: String!)  {
-              memories(where: { content_contains: $content }) {
+            query Memories ($value: String!)  {
+              memories(where: { ${this.filter}_contains: $value }) {
                 id
                 title
                 content
@@ -83,7 +63,7 @@ export default {
             }
           `,
           variables: {
-            content: this.word,
+            value: this.word,
           },
         })
         this.memories = result.data.memories

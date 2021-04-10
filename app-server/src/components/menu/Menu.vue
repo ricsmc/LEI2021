@@ -36,6 +36,14 @@
               </v-list-item>
             </router-link>
 
+            <router-link to="/collections" class="rtr-link">
+              <v-list-item link color="#3c22cc"  @click="sidebar_click()">
+                <v-list-item-content class="sidebar-content"> 
+                  Collections
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
           </v-list-item-group>
         </v-list>
       </Sidebar>

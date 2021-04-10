@@ -2,17 +2,29 @@
   <div class="memories">
     <h1 style="padding: 20px 0px 100px 75px; text-align: center; ">Memories</h1>
     <p style="text-align: center"> Foram encontrados {{this.memories.length}} resultados! </p>
-    <v-col class="input" cols="12">
+    
+    <v-col  class="input" cols="12">
+
+        <v-select
+        :items="values"
+        v-model="filter"
+        light
+        label="Field">
+        </v-select>
+
         <v-text-field 
         type="text" 
         v-model="word" 
         label="Word"
         @change="procurar()">
         </v-text-field>
+        
     </v-col>
+    
     <div>
       <Horizontal_List :items="memories"/>
     </div>
+
   </div>
 </template>
 
@@ -30,29 +42,52 @@ export default {
   data() {
     return {
       word: "",
-      number: 0,
+      filter: "",
+      values: ['Title','Content']
     }
   },
   methods: {
     async procurar() {
-      var result = await this.$apollo.query({
-        query: gql`
-          query Memories ($title: String!)  {
-            memories(where: { title_contains: $title }) {
-              id
-              title
-              images {
-                url
+      var result
+      if (this.filter=="Title") {
+        result = await this.$apollo.query({
+          query: gql`
+            query Memories ($title: String!)  {
+              memories(where: { title_contains: $title }) {
+                id
+                title
+                images {
+                  url
+                }
               }
             }
-          }
-        `,
-        variables: {
-          title: this.word,
-        },
-      })
-      this.number = result.data.memories.length
-      this.memories = result.data.memories
+          `,
+          variables: {
+            title: this.word,
+          },
+        })
+        this.memories = result.data.memories
+      }
+      else if (this.filter=="Content") {
+        result = await this.$apollo.query({
+          query: gql`
+            query Memories ($content: String!)  {
+              memories(where: { content_contains: $content }) {
+                id
+                title
+                content
+                images {
+                  url
+                }
+              }
+            }
+          `,
+          variables: {
+            content: this.word,
+          },
+        })
+        this.memories = result.data.memories
+      }
     }
   },
   apollo: {
@@ -86,6 +121,8 @@ html, body {
   width: 200px;
   margin-left: 200px;
 }
+
+
 
 
 </style>

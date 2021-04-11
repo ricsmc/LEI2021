@@ -45,7 +45,12 @@
                             <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="login()" color="#4F4E81">Login</v-btn>
                         </v-card-actions>
                         <v-card-actions class="justify-center">
-                            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+                            <GoogleLogin  :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
+                                <v-btn v-ripple="{ class: 'primary--text' }" width="145" style="height:40px;" outlined elevation="1" color="#4F4E81">
+                                    <img width="20px" style=" margin-right:10px" alt="Google sign-in" 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Google
+                                </v-btn>
+                            </GoogleLogin>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>

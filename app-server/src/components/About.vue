@@ -1,67 +1,68 @@
 <template>
-  <div id="app">
-    <div style="margin-top:0px" @wheel.prevent="wheel">
-      <v-app id="inspire">
-        <v-parallax  
-        class="background"
-        src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-pastel-purple-solid-color-background.jpg"
-        height="600"
-        jumbotron>
-          <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.
-          </h1>
-          <h1 class="overline">Partilhe connosco as suas experiências e conheça a de tantos outros!
-          </h1>
-          <h1 class="overline">Conte-nos a sua história!
-          </h1>
-        </v-parallax>
-        <h1 class="display-4">ABOUT US</h1>
-      </v-app>
-    </div>
-    <div style="margin-top:-56px" @wheel.prevent="wheel">
-      <v-app id="inspire">
-        <v-parallax  
-        class="background"
-        src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-pastel-purple-solid-color-background.jpg"
-        height="600"
-        jumbotron>
-          <ProfileCard class="pc1"/>
-          <ProfileCard class="pc2"/> 
-          <ProfileCard class="pc3"/> 
-        </v-parallax>
-        <h1 class="display-4">MEET THE TEAM</h1>
-      </v-app>
-    </div>
-    <div style="margin-top:-56px" @wheel.prevent="wheel">
-      <v-app id="inspire">
-        <v-parallax  
-        class="background"
-        src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-pastel-purple-solid-color-background.jpg"
-        height="600"
-        jumbotron>
-          <h1 class="subtitle-1">Somos 3 amiguinhos :)</h1>
-        </v-parallax>
-        <h1 class="display-4">CONTACT US</h1>
-      </v-app>
+  <div id="home" class="home" >
+    <div @wheel.prevent="wheel">
+        <section class="scroll_page first" style="padding:50px 0 0 0" id="first">
+          <v-container>
+            <h1 class="display-4">ABOUT US</h1>
+          </v-container> 
+          <v-container style="margin-top:10%">
+            <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.
+            </h1>
+            <h1 class="overline">Partilhe connosco as suas experiências e conheça a de tantos outros!
+            </h1>
+            <h1 class="overline">Conte-nos a sua história!
+            </h1>
+          </v-container>
+        </section>
+        <section class="scroll_page second" id="second"  style="padding:50px 0 0 0">
+          <v-container>
+            <h1 class="display-4">MEET THE TEAM</h1>
+          </v-container>
+          <v-container>
+             <v-row align="center"
+                justify="center">
+                <TeamCard v-bind:name="'Riczão'" style="display:inline-block"></TeamCard>
+
+            <TeamCard v-bind:name="'Ramz'" style="display:inline-block; margin-left:1%"></TeamCard>
+
+            <TeamCard v-bind:name="'Villenz'" style="display:inline-block; margin-left:1%"></TeamCard>
+            </v-row>
+            
+          </v-container>
+        </section>
+        <section  class="scroll_page third" id="third">
+          
+        </section>
+        <v-btn style="left:50%" icon class="arrow" @click="smoothScroll('scrolldown','default')"><v-icon large>mdi-chevron-down</v-icon></v-btn>
     </div>
   </div>
 </template>
 
-
-
 <script>
+import TeamCard from '@/components/profile/Profile_card.vue'
 
-import ProfileCard from './profile/Profile_card.vue'
 
     export default {
-        name: 'about',
+        name: 'home',
         data() {
             return { 
                 array: ['first','second','third'],
                 token: localStorage.getItem('user'),
+                window: {
+                    width: 0,
+                    height: 0
+                }
             }
         },
-        components: {
-          ProfileCard
+        created() {
+            window.addEventListener('resize', this.handleResize);
+            this.handleResize();
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.handleResize);
+        },
+        components : {
+          TeamCard
         },
         methods: {
             wheel : function(ev){
@@ -114,17 +115,50 @@ import ProfileCard from './profile/Profile_card.vue'
                     this.array.pop();
                     this.array.unshift(val);
                 }
-            }            
+            },
+            handleResize() {
+            this.window.width = window.innerWidth;
+            this.window.height = window.innerHeight;
+        }            
         }
     }
-
 </script>
 
-
 <style>
+
+
+.first {
+    width: 100%;
+    height: 100vh;
+}
+
+.second {
+    width: 100%;
+    height: 100vh;
+}
+
+.home {
+  background-color: rgb(164, 144, 184);
+}
+
+.third {
+    width: 100%;
+    height: 100vh;
+}
+
+
+.home section {
+    display: block;
+}
+
+.home img {
+   width: 100%;
+   height: 100%;
+}
+
+
 .display-4{
   color: black;
-  position: absolute;
   margin-top: 2%;
   margin-left: 3%;
 }
@@ -151,4 +185,6 @@ import ProfileCard from './profile/Profile_card.vue'
   color: white;
   text-align: center;
 }
+
+
 </style>

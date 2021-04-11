@@ -7,7 +7,12 @@
         src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-pastel-purple-solid-color-background.jpg"
         height="600"
         jumbotron>
-          <h1 class="subtitle-1">Somos 3 amiguinhos :)</h1>
+          <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.
+          </h1>
+          <h1 class="overline">Partilhe connosco as suas experiências e conheça a de tantos outros!
+          </h1>
+          <h1 class="overline">Conte-nos a sua história!
+          </h1>
         </v-parallax>
         <h1 class="display-4">ABOUT US</h1>
       </v-app>
@@ -19,9 +24,11 @@
         src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-pastel-purple-solid-color-background.jpg"
         height="600"
         jumbotron>
-          <h1 class="subtitle-1">Somos 3 amiguinhos :)</h1>
+          <ProfileCard class="pc1"/>
+          <ProfileCard class="pc2"/> 
+          <ProfileCard class="pc3"/> 
         </v-parallax>
-        <h1 class="display-4">TEAM</h1>
+        <h1 class="display-4">MEET THE TEAM</h1>
       </v-app>
     </div>
     <div style="margin-top:-56px" @wheel.prevent="wheel">
@@ -43,7 +50,7 @@
 
 <script>
 
-
+import ProfileCard from './profile/Profile_card.vue'
 
     export default {
         name: 'about',
@@ -54,6 +61,7 @@
             }
         },
         components: {
+          ProfileCard
         },
         methods: {
             wheel : function(ev){
@@ -117,9 +125,29 @@
 .display-4{
   color: black;
   position: absolute;
+  margin-top: 2%;
+  margin-left: 3%;
 }
 
-.subtitle-1{
+.pc1{
+  position: absolute;
+  margin-left: 2%;
+  margin-top: 22%;
+}
+
+.pc2{
+  position: absolute;
+  margin-left: 34%;
+  margin-top: 22%;
+}
+
+.pc3{
+  position: absolute;
+  margin-left: 66%;
+  margin-top: 22%;
+}
+
+.overline{
   color: white;
   text-align: center;
 }

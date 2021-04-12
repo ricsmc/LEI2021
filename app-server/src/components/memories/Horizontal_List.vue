@@ -1,7 +1,7 @@
 <template>
   <div v-if="this.items" class="horizontalList">
       <div class="left">
-        <button v-if="this.items.length>4" style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
+        <button style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
           <i class="fa fa-angle-left fa-5x" ></i>
         </button>
       </div>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="right">
-        <button v-if="this.items.length>4" style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
+        <button style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
           <i class="fa fa-angle-right fa-5x"></i>
         </button>
       </div>
@@ -29,6 +29,7 @@
 <script>
 
 import MemoryCard from '@/components/memories/MemoryCard.vue'
+
 
 export default {
   name: "Horizontal-Vue",
@@ -57,14 +58,20 @@ export default {
         window.requestAnimationFrame(fn);
       }
     },
-    swipe(direction, id) {
-      document.getElementById(id).disabled = true;
+    async swipe(direction, id) {
+      //desativa butao
+      document.getElementById(id).disabled = true;  
 
       const content = this.$refs.content;
       var w = window.innerWidth / 2;
       this.scrollTo(content, w*direction, 500);
-      
+      await this.sleep(500);
+
+      //ativa butao
       document.getElementById(id).disabled = false ;
+    },
+    sleep(ms) {
+       return new Promise((resolve) => {setTimeout(resolve, ms);});
     }
   }
 }

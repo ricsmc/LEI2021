@@ -1,7 +1,7 @@
 <template>
   <div class="memories">
     <h1 style="padding: 20px 0px 100px 75px; text-align: center; ">Memories</h1>
-    <p v-if="this.memories" style="text-align: center"> Foram encontrados {{this.memories.length}} resultados! </p>
+    <p style="text-align: center"> Foram encontrados {{this.number}} resultados! </p>
     
     <v-col  class="input" cols="12">
 
@@ -22,17 +22,18 @@
     </v-col>
     
     <div>
-      <Horizontal_List :items="memories"/>
+      <Horizontal_List :items="memories" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update"/>
     </div>
 
   </div>
 </template>
 
+
 <script>
 // @ is an alias to /src
-import Horizontal_List from '@/components/memories/Horizontal_List.vue'
+import Horizontal_List from '@/components/memories/Horizontal_List_Pag.vue'
 import gql from 'graphql-tag'
-
+import axios from 'axios'
 
 export default {
   name: 'Memories',
@@ -41,14 +42,27 @@ export default {
   },
   data() {
     return {
+      number: 0,
+      totalPags: 0,
       word: "",
       filter: "",
       values: ['title','content']
     }
   },
   methods: {
+    update(value){
+      this.memories=value;
+    },
     async procurar() {
       if (this.filter) {
+        var token = localStorage.getItem('jwt')
+        await axios.get('http://localhost:1337/memories/count?'+this.filter+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
+          .then(response => {
+            this.number = response.data
+            this.totalPags = Math.floor(this.number/4) + 1
+          })
+          .catch(error => console.log(error))
+        
         var result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!)  {
@@ -84,9 +98,21 @@ export default {
       }
     `
     }
+  },
+  mounted () {
+    var token = localStorage.getItem('jwt')
+    axios.get('http://localhost:1337/memories/count',{headers: {'Authorization': `${token}`}})
+       .then(response => {
+         this.number = response.data
+         this.totalPags = Math.floor(this.number/4) + 1
+         })
+       .catch(error => console.log(error))
   }
 }
 </script>
+
+
+
 
 <style>
 
@@ -101,8 +127,5 @@ html, body {
   width: 200px;
   margin-left: 200px;
 }
-
-
-
 
 </style>

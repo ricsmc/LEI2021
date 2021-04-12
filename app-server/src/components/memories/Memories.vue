@@ -1,29 +1,38 @@
 <template>
   <div class="memories">
-    <h1 style="padding: 20px 0px 100px 75px; text-align: center; ">Memories</h1>
+    <h1 style="padding: 20px 0px 40px 0px; text-align: center; ">Memories</h1>
     <p style="text-align: center"> Foram encontrados {{this.number}} resultados! </p>
     
-    <v-col  class="input" cols="12">
-
-        <v-select
-        :items="values"
-        v-model="filter"
-        light
-        label="Field">
-        </v-select>
-
-        <v-text-field 
-        type="text" 
-        v-model="word" 
-        label="Word"
-        @change="procurar()">
-        </v-text-field>
-        
-    </v-col>
+    <v-container>
+      <v-row>
+        <v-col cols="2">
+            <v-select
+            :items="values"
+            v-model="filter"
+            light
+            label="Field">
+            </v-select>
+        </v-col>
+        <v-col  cols="2">
+            <v-text-field 
+            type="text" 
+            v-model="word" 
+            label="Word">
+            </v-text-field>        
+        </v-col>
+        <v-col  cols="2">
+            <v-btn style="margin-top:10px" dark @click="procurar()"> 
+              Search
+            </v-btn>        
+        </v-col>
+      </v-row>
+    </v-container>
     
-    <div>
-      <Horizontal_List :items="memories" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update"/>
-    </div>
+    
+    <v-container>
+      <Horizontal_List :items="memories" :page="pag" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update" @updatePag:page="updatePag"/>
+    </v-container>
+    
 
   </div>
 </template>
@@ -38,10 +47,11 @@ import axios from 'axios'
 export default {
   name: 'Memories',
   components: {
-    Horizontal_List
+   Horizontal_List
   },
   data() {
     return {
+      pag:0,
       number: 0,
       totalPags: 0,
       word: "",
@@ -53,20 +63,25 @@ export default {
     update(value){
       this.memories=value;
     },
+    updatePag(value){
+      this.pag=value;
+    },
     async procurar() {
       if (this.filter) {
         var token = localStorage.getItem('jwt')
         await axios.get('http://localhost:1337/memories/count?'+this.filter+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
+            this.pag=0
             this.number = response.data
-            this.totalPags = Math.floor(this.number/4) + 1
+            this.totalPags = Math.floor(this.number/4)
+            if ((this.number%4)!=0) this.totalPags = this.totalPags + 1  
           })
           .catch(error => console.log(error))
         
         var result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!)  {
-              memories(where: { ${this.filter}_contains: $value }) {
+              memories(where: { ${this.filter}_contains: $value },limit:4) {
                 id
                 title
                 content
@@ -88,7 +103,7 @@ export default {
     memories: {
       query: gql`
       query Memories {
-        memories {
+        memories(limit:4) {
           id
           title
           images {
@@ -103,8 +118,9 @@ export default {
     var token = localStorage.getItem('jwt')
     axios.get('http://localhost:1337/memories/count',{headers: {'Authorization': `${token}`}})
        .then(response => {
-         this.number = response.data
-         this.totalPags = Math.floor(this.number/4) + 1
+          this.number = response.data
+          this.totalPags = Math.floor(this.number/4)
+          if ((this.number%4)!=0) this.totalPags = this.totalPags + 1  
          })
        .catch(error => console.log(error))
   }
@@ -116,16 +132,5 @@ export default {
 
 <style>
 
-html, body { 
-  margin:0;
-  padding:0;
-  width:100%;
-  height:100%;
-}
-
-.input{
-  width: 200px;
-  margin-left: 200px;
-}
 
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div v-if="this.items" class="horizontalList">
-      <div class="left">
+      <div class="esq">
         <button style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
           <i class="fa fa-angle-left fa-5x" ></i>
         </button>
       </div>
 
-      <div class="center" id="content" ref="content">
-        <div class="internal" v-for="item in items" :key="item.id">
+      <div class="centro" id="contente" ref="contente">
+        <div class="cartao" v-for="item in items" :key="item.id">
           <span @click="handleClick(item.id)"><MemoryCard :item="item" /></span> 
         </div>
       </div>
 
-      <div class="right">
+      <div class="dir">
         <button style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
           <i class="fa fa-angle-right fa-5x"></i>
         </button>
@@ -62,9 +62,9 @@ export default {
       //desativa butao
       document.getElementById(id).disabled = true;  
 
-      const content = this.$refs.content;
+      const contente = this.$refs.contente;
       var w = window.innerWidth / 2;
-      this.scrollTo(content, w*direction, 500);
+      this.scrollTo(contente, w*direction, 500);
       await this.sleep(500);
 
       //ativa butao
@@ -82,41 +82,33 @@ export default {
     
 <style>
 
-html, body { 
-  margin:0;
-  padding:0;
-  width:100%;
-  height:100%;
-}
 
 .horizontalList {
   text-align: center;
   font-size: 20px;
 }
 
-.left{
+.esq{
  float: left; 
  width: 24.5%;
  height: 200px;
 }
 
-.internal{
+.cartao{
  width: 25%;
-
  display: inline-block;
 }
 
 
-.center{
+.centro{
  float: left; 
  width: 50%;
  height: 200px;
- margin: 1px;
  overflow: hidden;
  white-space: nowrap;
 }
 
-.right{
+.dir{
   float: right; 
   width: 24.5%;
   height: 200px;

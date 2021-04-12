@@ -1,38 +1,28 @@
 <template>
-  <div v-if="this.items" id="horizontal_pagination">
-    <v-row >
-        <v-col cols=12>
-            <div class="horizontalList">
-                
-              <div class="left" >
-                <button style="height: 200px;" id="left_button" @click="buscarInfo(-1)">
-                  <i class="fa fa-angle-left fa-5x" ></i>
-                </button>
-              </div>
+  <div v-if="this.items" id="horizontal_pagination" >
 
-              <div class="center" id="content" ref="content">
-                <div class="internal" v-for="item in items" :key="item.id">
-                  <span @click="handleClick(item.id)"><MemoryCard :item="item" /></span> 
+    <v-container>
+        <v-row justify="center" >
+            <v-col cols=8>
+                <div class="center" id="content" ref="content">
+                    <div class="internal" v-for="item in items" :key="item.id">
+                        <span @click="handleClick(item.id)"><MemoryCard :item="item" /></span> 
+                    </div>
                 </div>
-              </div>
+            </v-col>
+        </v-row>
+    </v-container>
 
-              <div class="right">
-                <button style="height: 200px;" id="right_button" @click="buscarInfo(1)">
-                  <i class="fa fa-angle-right fa-5x"></i>
-                </button>
-              </div>
-
-            </div>
-        </v-col>
-    </v-row>
-
-    <v-row justify="center">
-        <div class="pagination">
-            <b> ola </b>
-        </div>
-    </v-row>
-
-
+    <v-container>
+        <v-row justify="center">
+            <v-pagination
+            v-model="paginaEscolhida"
+            :length="this.totalPags"
+            :total-visible="8"
+            @input="buscarPagina"
+            ></v-pagination>
+        </v-row>
+    </v-container>
 
   </div>
 </template>
@@ -51,7 +41,7 @@ export default {
   name: "Horizontal-Vue",
   data() {
     return {
-      page:0,
+      paginaEscolhida:1,
       start:0,
       limit:4,
     }
@@ -64,18 +54,25 @@ export default {
     value : String,
     filter: String,
     totalPags: Number,
+    page: Number,
+  },
+  watch: {
+    'page': function(val) {
+        if (val==0) this.paginaEscolhida=1
+    }
   },
   methods: {
     handleClick(id){
       this.$router.push('/memories/' + id)
     },
-    async buscarInfo(direction) {
-
-      if (this.page==0 && direction=="-1") {return false}
-      if (this.page==this.totalPags-1 && direction=="1") {return false}
-      if (direction=="-1") {this.start = this.start - 4; this.page = this.page - 1}
-      if (direction=="1")  {this.start = this.start + 4; this.page = this.page + 1}
-
+    async buscarPagina(value) {
+      var pag = value - 1 
+      this.start = pag * 4
+      var result = await this.getInfo()
+      this.$emit('updatePag:page', pag)
+      this.$emit('update:items', result.data.memories)
+    },
+    async getInfo() {
       var result  
       if (this.filter) {
         result = await this.$apollo.query({
@@ -117,7 +114,7 @@ export default {
           },
         })
       }
-      this.$emit('update:items', result.data.memories)
+      return result
     }
   }
 }
@@ -128,42 +125,23 @@ export default {
     
 <style>
 
-.horizontalList {
-  text-align: center;
-  font-size: 20px;
-}
 
 .pagination{
    text-align: center;
-  font-size: 20px;
-}
-
-.left{
- float: left; 
- width: 25%;
- height: 200px;
+   font-size: 20px;
 }
 
 .internal{
  width: 25%;
-
  display: inline-block;
 }
 
 
 .center{
- float: left; 
- width: 50%;
+ text-align: center;
  height: 200px;
- margin: 1px;
  overflow: hidden;
  white-space: nowrap;
-}
-
-.right{
-  float: right; 
-  width: 24.5%;
-  height: 200px;
 }
 
 </style>

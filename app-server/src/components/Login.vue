@@ -100,6 +100,14 @@
                         </v-card-text>
                         <v-card-actions class="justify-center">
                             <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="register()" color="#4F4E81">Register</v-btn>
+                        </v-card-actions>
+                        <v-card-actions v-if="!google_id" class="justify-center">
+                            <GoogleLogin  :params="params" :onSuccess="onSuccessRegister" :onFailure="onFailure">
+                                <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" outlined elevation="1" color="#4F4E81">
+                                    <img width="20px" style=" margin-right:10px" alt="Google sign-up" 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Google
+                                </v-btn>
+                            </GoogleLogin>
                         </v-card-actions>            
                     </v-card>
                 </v-tab-item>
@@ -149,7 +157,9 @@ import bcrypt from 'bcryptjs'
                     },
                     alert:false,
                     message:'',
-                    dialog:false
+                    dialog:false,
+                    google_profile_pic:'',
+                    google_id : false
             }
         },
         computed: {
@@ -179,7 +189,7 @@ import bcrypt from 'bcryptjs'
             },
             onSuccess(googleUser) {
                 var json = {}
-                json['username'] = googleUser.getBasicProfile().zt
+                json['username'] = googleUser.getBasicProfile().getId()
                 json['password'] = "empty"
                 axios.post("http://localhost:7000/users/google/login", json)
                     .then(data => {
@@ -204,6 +214,9 @@ import bcrypt from 'bcryptjs'
                 json['email']    = this.email
                 var pass = bcrypt.hashSync(this.password, 10);
 
+                if(this.google_id)
+                    json['googleId'] = this.google_id
+
                 json['password'] = pass
                 axios.post("http://localhost:7000/users/register", json)
                     .then( () => {
@@ -227,7 +240,14 @@ import bcrypt from 'bcryptjs'
                         this.alert = true
                         this.message = err.response.data.message
                     })        
-            }           
+            },
+            onSuccessRegister(googleUser) {
+                console.log(googleUser.getBasicProfile().getId())
+                this.email = googleUser.getBasicProfile().getEmail()
+                this.google_profile_pic = googleUser.getBasicProfile().getImageUrl()
+                this.google_id = googleUser.getBasicProfile().getId()
+            },
+                       
         },
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

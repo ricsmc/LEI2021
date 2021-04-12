@@ -59,13 +59,34 @@ router.post('/register',cors(),  function(req,res,next){
   UserControl.lookUp(req.body.username)
     .then(da => {
       if(da == null){
-        UserControl.insert(req.body)
+        if(req.body.googleId){
+          console.log(req.body.googleId)
+          UserControl.google(req.body.googleId)
+            .then(data => { 
+              if(data == null) {
+                UserControl.insert(req.body)
+                  .then(d => { 
+                    res.status(201).jsonp({username: d.username})
+                  })
+                  .catch(err => {
+                    res.status(409).jsonp({message: 'Email já registado!\n'})
+                  })
+              }
+              else 
+                res.status(409).jsonp({message:"Conta Google já registada!\n"})
+            })
+            .catch(err => err => res.status(500).jsonp(err))
+        }
+        else{
+          UserControl.insert(req.body)
           .then(data => { 
             res.status(201).jsonp({username: data.username})
           })
           .catch(err => {
             res.status(409).jsonp({message: 'Email já registado!\n'})
           })
+        }
+        
       }
       else {
         res.status(409).jsonp({message:"Username já registado!\n"})

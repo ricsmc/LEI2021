@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="home" >
+  <div id="about" class="about" >
     <div @wheel.prevent="wheel">
         <section class="scroll_page first" style="padding:50px 0 0 0" id="first">
           <v-container>
@@ -43,7 +43,7 @@ import TeamCard from '@/components/profile/Profile_card.vue'
 
 
     export default {
-        name: 'home',
+        name: 'about',
         data() {
             return { 
                 array: ['first','second','third'],
@@ -137,7 +137,7 @@ import TeamCard from '@/components/profile/Profile_card.vue'
     height: 100vh;
 }
 
-.home {
+.about {
   background-color: rgb(164, 144, 184);
 }
 
@@ -147,11 +147,11 @@ import TeamCard from '@/components/profile/Profile_card.vue'
 }
 
 
-.home section {
+.about section {
     display: block;
 }
 
-.home img {
+.about img {
    width: 100%;
    height: 100%;
 }

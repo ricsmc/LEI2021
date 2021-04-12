@@ -14,7 +14,7 @@
         </v-col>
         <v-row no-gutters>
             <v-col cols="12" sm="6">
-                <v-text-field type="text" prepend-icon="mdi-map-marker" v-model="title" label="Local"></v-text-field>
+                <v-text-field type="text" prepend-icon="mdi-map-marker" v-model="local" label="Local"></v-text-field>
             </v-col>
             <v-menu
               ref="menu"
@@ -44,6 +44,11 @@
                 ></v-date-picker>
             </v-menu>
         </v-row>
+        <v-row>
+          <v-container>
+            <v-btn fixed center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+          </v-container>
+        </v-row>
     </v-container>
   </div>
 </template>
@@ -52,6 +57,7 @@
 
 
 <script>
+import axios from 'axios'
     export default {
 
         name: 'New_Memory',
@@ -61,6 +67,7 @@
                 menu: false,
                 title: "",
                 content: "",
+                local: '',
                 rules: [
                   value => !!value || 'Required',
                 ],
@@ -75,10 +82,29 @@
     save (date) {
       this.$refs.menu.save(date)
     },
+    post(){
+      console.log(this.date)
+      console.log(this.title)
+      console.log(this.content)
+      console.log(this.local)
+      var json = {}
+      json['utilizador'] = localStorage.getItem('id')
+      json['title']    = this.title
+      json['content'] = this.content
+      json['local']    = this.local
+      json['date_of_memory'] = this.date
+      var token = localStorage.getItem('jwt')
+      console.log(json)
+      axios.post("http://localhost:1337/memories",  json,{headers: {'Authorization': `${token}`}})
+        .then(data => {
+          this.$router.push('/memories/' + data.data.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
         },
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
+
 
     }
 </script>

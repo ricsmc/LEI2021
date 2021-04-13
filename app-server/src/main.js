@@ -28,6 +28,7 @@ const router = new VueRouter({
     },
     {
       path: "/about",
+      name: "about",
       components: require("./components/About.vue")
     },
     {

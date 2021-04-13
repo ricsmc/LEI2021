@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
 
-    <v-app-bar fixed app color="#ffffff" light >
+    <v-app-bar fixed app light color="white">
     
       <Burger v-if="this.token"></Burger>
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
@@ -15,11 +15,11 @@
       </div>
 
     </v-app-bar>
-    <v-main>
+    <v-main style="padding: 64px 0 0 0">
       <Menu/>
-        <router-view/>
+        <router-view />
     </v-main>
-    <div v-if="this.token"> 
+    <div v-if="this.token && this.about"> 
       <Footer/>
     </div>
   </v-app>
@@ -42,7 +42,8 @@ export default {
                     data:"",
                     show_login:false,
                     token:false,
-                    id:''
+                    id:'',
+                    about:true
             }
         },
   created() {
@@ -53,6 +54,14 @@ export default {
     }
     else this.$apollo.queries.utilizador.skip = false
     this.id = localStorage.getItem('id')
+    this.about = true
+  },
+
+  updated(){
+    if(this.$route.name == "about")
+      this.about = false
+    else
+      this.about = true
   },
 
   apollo: {
@@ -93,7 +102,7 @@ export default {
     },
     stopApollo(){
       
-    }
+    },
   },
   
 
@@ -102,6 +111,16 @@ export default {
 
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+html, body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+#app {
+  font-family: 'Noto Sans JP', sans-serif;
+}
 
 body {
     overflow: auto;

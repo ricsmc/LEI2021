@@ -1,19 +1,61 @@
 <template>
   <div id="home" class="home" >
     <div v-if="this.token">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>   
+        <div style="padding: 40px 0 0 0 ">
+            <div style="text-align:center; padding:20px 0 20px 0">
+                <h1>Memórias mais recentes</h1>
+            </div>
+            
+            <div style="text-align:center; padding:0 0 30px 0">
+                <v-btn
+                to="/memories"
+                rounded
+                color="#fdfdfd"
+                >
+                    Ver Todas
+                </v-btn>
+            </div>
+            <div justify="center">
+                <div cols=12>
+                    <Horizontal_List :items="memories"/>
+                </div>
+            </div>
+        </div>
     </div>
-    <div v-else style="margin-top:-56px" @wheel.prevent="wheel">
-        <section class="scroll_page first" id="first">
-          <img src="https://www.visitgrandola.com/cmgrandola/uploads/page/image1/1186/praias_capa.JPG">
-        </section>
-        <section class="scroll_page second" id="second">
-          <img src="https://s2.glbimg.com/VIQjTjAo7GKrMrrr8MvAFfgYdc4=/smart/e.glbimg.com/og/ed/f/original/2020/10/23/10-praias-desertas-para-fugir-da-aglomeracao-8.jpg">
-        </section>
-        <section  class="scroll_page third" id="third">
-          <img src="https://i.pinimg.com/originals/c7/9f/4a/c79f4a61778f285ce3c0e2cd19a964f5.jpg">
-        </section>
-        <button type="button" @click="smoothScroll('scrolldown','default')">Click Me!</button>
+    <div v-else>
+        <vue-scroll-snap :fullscreen="true">
+            <div class="item" id="first">
+                <v-container style="margin-top:8%">
+                    <v-row justify="center">
+                        <h1 class="home_title">Conte-nos a sua história!</h1>
+                    </v-row>
+                    <v-row justify="center">
+                        <v-col cols=5 >
+                        <h3 class="font-weight-regular text-center">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.
+
+                        </h3>
+                        <h3 class="font-weight-regular text-center">Partilhe connosco as suas experiências e conheça a de tantos outros!
+
+                        </h3>
+                        <h3 class="font-weight-regular text-center">Conte-nos a sua história!
+
+                        </h3>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center">
+                        <v-img max-width="450" src="../../public/humaans.png"/>
+                    </v-row>
+                </v-container>
+            </div>
+            <div class="item" id="second" style="background-color:#8785C4">
+                
+            </div>
+            <div class="item" id="third">
+                <img src="https://i.pinimg.com/originals/c7/9f/4a/c79f4a61778f285ce3c0e2cd19a964f5.jpg">
+            </div>
+        </vue-scroll-snap>
+        <v-row justify="center">
+        </v-row>
     </div>
   </div>
 </template>
@@ -22,7 +64,10 @@
 
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import VueScrollSnap from "vue-scroll-snap";
+import gql from 'graphql-tag'
+import Horizontal_List from '@/components/memories/Horizontal_List.vue'
+
 
     export default {
         name: 'home',
@@ -32,61 +77,28 @@ import HelloWorld from '@/components/HelloWorld.vue'
                 token: localStorage.getItem('user'),
             }
         },
+
         components: {
-            HelloWorld
+            VueScrollSnap,
+            Horizontal_List
+        },
+        apollo: {
+            memories: {
+            query : gql`query Memories {
+                memories (sort:"createdAt:DESC" , limit:12) {
+                    id
+                    title
+                    images {
+                        url
+                    }
+                }
+            }
+            `,
+        }
         },
         methods: {
-            wheel : function(ev){
-                var target
-                if (ev.deltaY < 0) {
-                    if (this.array[0]!="first") {
-                        target = document.getElementById(this.array[this.array.length-1]);
-                        this.smoothScroll("scrollup",target)
-                        }
-                    else return;
-                }
-                else {
-                    if (this.array[0]!="third") {
-                        target = document.getElementById(this.array[1]);
-                        this.smoothScroll("scrolldown",target)
-                    }
-                    else return;
-                    }
-            },
-            smoothScroll(value, target) {
-                if (target=="default") target = document.getElementById(this.array[1]);
-                var scrollContainer = target;
-                do { 
-                    scrollContainer = scrollContainer.parentNode;
-                    if (!scrollContainer) return;
-                    scrollContainer.scrollTop += 1;
-                } while (scrollContainer.scrollTop == 0);
-
-                var targetY = 0;
-                do { 
-                    if (target == scrollContainer) break;
-                    targetY += target.offsetTop;
-                } while ((target = target.offsetParent));
-
-                var scroll = function(c, a, b, i) {
-                    i++; if (i > 30) return;
-                    c.scrollTop = a + (b - a) / 30 * i;
-                    setTimeout(function(){ scroll(c, a, b, i); }, 20);
-                }
-
-                scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
-                var val
-                if (value=="scrolldown") {
-                    val = this.array[0];
-                    this.array.shift();
-                    this.array.push(val);
-                }
-                else {
-                    val = this.array[this.array.length-1];
-                    this.array.pop();
-                    this.array.unshift(val);
-                }
-            }            
+            
+                 
         }
     }
 </script>
@@ -120,17 +132,24 @@ import HelloWorld from '@/components/HelloWorld.vue'
 }
 
 
-.home button{
-  position: fixed;
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  font-size: 3vw;
-  bottom: 10px;
-  left: 40%;
-  color: #FFD215;
-  z-index: 100;
-  cursor: pointer;
+
+.home_title {
+    font-size: 400%;
+    color: blue;
+}
+
+.router_link {
+    text-decoration: none;
+}
+
+.see_all {
+    justify-content:center;
+    color: #4F4E81;
+}
+
+.see_all:hover {
+    text-decoration: underline;
+    color: #015AEE; 
 }
 
 

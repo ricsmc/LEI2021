@@ -1,6 +1,6 @@
  <template>
    <div id="MemoryCard">
-    <v-container>
+    <v-container style="padding:6px">
       <v-flex xs12>     
         <v-card dark class="mx-auto" max-width="400">
           <v-img 

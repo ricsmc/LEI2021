@@ -60,7 +60,7 @@
               ></v-autocomplete>
             </v-col>
             <v-col sm="1">
-              <v-btn dark elevation="1" v-on:click="newPerson()" style="margin-left:15px"> Criar nova </v-btn>
+              <NewPerson  @updateValues:value="updateValues" style="margin-left:10px"></NewPerson>
             </v-col>
         </v-row>
         <v-row>
@@ -76,9 +76,13 @@
 <script>
 import axios from 'axios'
 import gql from 'graphql-tag'
+import NewPerson from '@/components/forms/New_Person.vue'
 
     export default {
         name: 'New_Memory',
+        components: {
+          NewPerson
+        },
         data() {
             return {
                 values: [],
@@ -98,8 +102,26 @@ import gql from 'graphql-tag'
           },
         },
         methods: {
+          updateValues(valor) {
+            this.values.push(valor)
+            this.people.push(valor)
+          },
           save (date) {
             this.$refs.menu.save(date)
+          },
+          ligaMemoriaAPessoa(idMemory) {
+            console.log("cheguei cá")
+            var token = localStorage.getItem('jwt')
+            this.values.forEach(element => {
+              console.log(element)
+              axios.put("http://localhost:1337/people/"+element.id+"/addMemory",  {idMemory}, {headers: {'Authorization': `${token}`}})
+                .then(data => {
+                  console.log(data)
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            });
           },
           post(){
             var json = {}
@@ -111,6 +133,8 @@ import gql from 'graphql-tag'
             var token = localStorage.getItem('jwt')
             axios.post("http://localhost:1337/memories",  json,{headers: {'Authorization': `${token}`}})
               .then(data => {
+                this.ligaMemoriaAPessoa(data.data.id)
+                console.log("boas")
                 this.$router.push('/memories/' + data.data.id)
                 this.$router.go()
               })

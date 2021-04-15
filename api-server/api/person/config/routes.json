@@ -41,6 +41,14 @@
       }
     },
     {
+      "method": "PUT",
+      "path": "/people/:id/addMemory",
+      "handler": "person.updateSpecial",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/people/:id",
       "handler": "person.delete",

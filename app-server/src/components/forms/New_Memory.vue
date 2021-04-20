@@ -63,9 +63,39 @@
               <NewPerson  @updateValues:value="updateValues" style="margin-left:10px"></NewPerson>
             </v-col>
         </v-row>
+        
+        <v-row>
+          <v-col cols="3">
+              <v-file-input
+                v-model="videos"
+                counter
+                label="Videos"
+                accept="video/*"
+                show-size
+                multiple
+              ></v-file-input>
+          </v-col>
+          <v-col cols="3"  offset=1>
+              <v-file-input
+                v-model="images"
+                counter
+                label="Fotos"
+                accept="image/*"
+                prepend-icon="mdi-camera"
+                @change="Preview_image"
+                show-size
+                multiple
+              ></v-file-input>
+          </v-col>
+          <v-col cols="1" v-for="url in urls" :key="url">
+            <v-img class="preview" :src="url"></v-img>
+          </v-col>
+          
+        </v-row>
+
         <v-row>
           <v-container>
-            <v-btn fixed center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+            <v-btn fixed center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;margin-top:30px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
           </v-container>
         </v-row>
     </v-container>
@@ -86,6 +116,9 @@ import NewPerson from '@/components/forms/New_Person.vue'
         data() {
             return {
                 values: [],
+                images: [],
+                videos: [],
+                urls: [],
                 date: null,
                 menu: false,
                 title: "",
@@ -100,8 +133,17 @@ import NewPerson from '@/components/forms/New_Person.vue'
           menu (val) {
             val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
           },
+          'images': function(val) {
+            if (val.length==0) this.urls=[]
+          }
         },
         methods: {
+          Preview_image() {
+            this.images.forEach(f => {
+              console.log(f)
+              this.urls.push(URL.createObjectURL(f))
+            })
+          },
           updateValues(valor) {
             this.values.push(valor)
             this.people.push(valor)
@@ -110,10 +152,8 @@ import NewPerson from '@/components/forms/New_Person.vue'
             this.$refs.menu.save(date)
           },
           ligaMemoriaAPessoa(idMemory) {
-            console.log("cheguei cá")
             var token = localStorage.getItem('jwt')
             this.values.forEach(element => {
-              console.log(element)
               axios.put("http://localhost:1337/people/"+element.id+"/addMemory",  {idMemory}, {headers: {'Authorization': `${token}`}})
                 .then(data => {
                   console.log(data)
@@ -124,6 +164,18 @@ import NewPerson from '@/components/forms/New_Person.vue'
             });
           },
           post(){
+            let formData = new FormData();
+
+            for (let i = 0; i < this.images.length; i++) {
+              const file = this.images[i];
+              formData.append(`files.images`, file, file.name);
+            }
+
+            for (let i = 0; i < this.videos.length; i++) {
+              const file = this.videos[i];
+              formData.append(`files.videos`, file, file.name);
+            }
+
             var json = {}
             json['utilizador'] = localStorage.getItem('id')
             json['title'] = this.title
@@ -131,10 +183,12 @@ import NewPerson from '@/components/forms/New_Person.vue'
             json['local'] = this.local
             json['date_of_memory'] = this.date
             var token = localStorage.getItem('jwt')
-            axios.post("http://localhost:1337/memories",  json,{headers: {'Authorization': `${token}`}})
+
+            formData.append("data", JSON.stringify(json));
+
+            axios.post("http://localhost:1337/memories", formData , {headers: {'Authorization': `${token}`}})
               .then(data => {
                 this.ligaMemoriaAPessoa(data.data.id)
-                console.log("boas")
                 this.$router.push('/memories/' + data.data.id)
                 this.$router.go()
               })
@@ -183,6 +237,10 @@ import NewPerson from '@/components/forms/New_Person.vue'
     font-size: 20em;
 }
 
+.preview {
+  height: 80px;
+  width: 80px;
+}
 
 
 </style>

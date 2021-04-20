@@ -34,7 +34,7 @@
       
       <v-col cols=3 offset=2 style="padding: 70px 0 0 0">
         <v-row>
-          <v-col cols=6 class="mem_col">
+          <v-col cols=6 class="mem_col" @click="updateSelected('memories')">   
             <v-row justify="center">
               <h2 >Memórias</h2>
             </v-row>
@@ -42,7 +42,7 @@
               <p >{{memories.length}}</p>
             </v-row>
           </v-col>
-          <v-col cols=6 class="mem_col">
+          <v-col cols=6 class="mem_col" @click="updateSelected('collections')">
             <v-row justify="center">
               <h2>Coleções</h2>
             </v-row>
@@ -66,7 +66,8 @@
         </v-card>
       </v-col>
       <v-col cols=7>
-        <Horizontal_List :items="memories"/>
+        <Horizontal_List v-if="this.selected=='memories'" :items="memories"/>
+        <Horizontal_List v-else :items="collections"/>
       </v-col>
     </v-row>
   </div>
@@ -81,8 +82,8 @@ import Horizontal_List from '@/components/memories/Horizontal_List.vue'
 export default {
     data() {
         return{
-          dialog : false
-
+          dialog : false,
+          selected: "memories"
         };
     },
     components:{
@@ -146,6 +147,9 @@ export default {
 },
     
   methods : {
+      updateSelected(value) {
+        this.selected = value
+      },
       handleClick: function(value){
           this.$router.push('/profile/' + value.id)
       },
@@ -190,6 +194,7 @@ export default {
 .mem_col:hover{
   background-color: #ddd;
 }
+
 
 .profile_pic {
   cursor: pointer;

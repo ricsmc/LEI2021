@@ -27,9 +27,6 @@ export default {
           memory: ''
         }  
     },
-    created() {
-
-    },
     apollo: {
       memory:{
         query: gql`query Memory ($id: ID!){
@@ -63,7 +60,7 @@ export default {
 <style> 
 
 h1 {
-   padding: 15px;
+   padding: 15px 0 15px 0;
 }
 
 .show {

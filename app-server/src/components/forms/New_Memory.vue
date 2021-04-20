@@ -95,7 +95,7 @@
 
         <v-row>
           <v-container>
-            <v-btn fixed center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;margin-top:30px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+            <v-btn center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;margin-top:30px;" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
           </v-container>
         </v-row>
     </v-container>

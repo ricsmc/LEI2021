@@ -140,7 +140,6 @@ import NewPerson from '@/components/forms/New_Person.vue'
         methods: {
           Preview_image() {
             this.images.forEach(f => {
-              console.log(f)
               this.urls.push(URL.createObjectURL(f))
             })
           },

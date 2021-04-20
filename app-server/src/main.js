@@ -48,10 +48,6 @@ const router = new VueRouter({
       components: require("./components/memories/Memories.vue")
     },
     {
-      path: "/memories2",
-      components: require("./components/memories/Memories2.vue")
-    },
-    {
       path: "/memories/:id",
       components: require("./components/memories/Memory.vue")
     },

@@ -11,7 +11,7 @@
         <div class="dropdown-content">
             <router-link :to="'/users/' + utilizador.id">Perfil</router-link>
             <router-link to="/new_memory">Nova Memória</router-link>
-            <router-link to="/">Nova Coleção</router-link>
+            <NewCollection/> 
             <a v-on:click="handleLogout()" href="/">
                 <i style="margin-right:2px" class="fa fa-sign-out" aria-hidden="true"></i>
                 Logout
@@ -21,9 +21,12 @@
 </template>
 
 <script>
-    
+import NewCollection from '@/components/forms/New_Collection.vue'
     export default {
         name: "dropdwon",
+        components: {
+          NewCollection
+        },
         methods: {
             handleLogout() {
                 localStorage.clear();

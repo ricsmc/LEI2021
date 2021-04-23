@@ -44,6 +44,10 @@ const router = new VueRouter({
       components: require("./components/collections/Collections_List.vue")
     },
     {
+      path: "/collections/:id",
+      components: require("./components/collections/Collection_Info.vue")
+    },
+    {
       path: "/memories",
       components: require("./components/memories/Memories.vue")
     },
@@ -62,8 +66,7 @@ const router = new VueRouter({
     {
       path: "/new_memory",
       components: require("./components/forms/New_Memory.vue")
-    },
-
+    }
   ]
 });
 

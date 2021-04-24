@@ -22,6 +22,8 @@
                         <v-col cols="12">
                             <v-textarea 
                             outlined 
+                            :counter="200"
+                            :rules="[v => (v || '' ).length <= 200 || 'Descrição deverá conter 200 caracteres ou menos']"
                             type="text" 
                             prepend-icon="mdi-pencil" 
                             v-model="descricao"  

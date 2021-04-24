@@ -68,7 +68,6 @@ export default {
         axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
           .then(data => {
             this.$router.push('/collections/' + data.data.id)
-            this.$router.go()
           })
           .catch(err => {
             console.log(err)

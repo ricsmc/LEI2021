@@ -41,7 +41,7 @@
       </v-row>
 
       <v-row v-if="collection.memories.length>0" class="listMemories">
-        <v-col cols="12"> 
+        <v-col cols="12" class="ma-0 pa-0"> 
           <v-data-table
             dark
             :headers="headers"
@@ -60,18 +60,48 @@
         </v-col>
       </v-row>
 
-      <v-row class="searchBar">
-        <v-col cols="12"> 
+      <v-row class="searchBar" >
+        <v-col cols="12" align="center" justify="center"> 
           <p> Vamos encontrar memórias para adicionares à tua coleção!</p>
-          <v-toolbar dense floating>
+          <v-toolbar dense floating width="27.5rem">
              <v-text-field
+               flat solo
+               autocomplete="off"
+               type="text"
                hide-details
-               prepend-icon="mdi-magnify"
-               single-line
+               v-model="search"
+               placeholder="Procurar memórias"
+               prepend-icon="mdi-magnify"        
              ></v-text-field>
           </v-toolbar>
         </v-col>
       </v-row>
+
+      <v-row class="searchList" v-if="searchList.length>0">
+        <v-col cols="8" offset="2" class="pa-4"> 
+          <v-data-table
+            :headers="headerSearchList"
+            :items="searchList"
+            :hide-default-header="true"
+            :hide-default-footer="true"
+            class="elevation-1">
+            <template v-slot:[`item.images`]="{ value }">
+              <img v-if="value.length==0" src="https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg" height="40px" width="70">
+              <img v-else :src="`http://localhost:1337`+value[0].url" height="40px" width="70">    
+            </template>
+            <template v-slot:[`item.createdAt`]="{ value }">
+              {{value.split("T")[0]}}
+            </template>
+            <template v-slot:[`item.id`]="{ value }">
+              <v-btn small color="#5f9ea0" @click="addMemory(value)">
+                Adicionar
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-col>
+      </v-row>
+
+
 
 
     </v-container>
@@ -79,22 +109,64 @@
 
 
 <script>
+import axios from 'axios'
 import gql from 'graphql-tag'
+
 export default {
     data() {
         return{
           collection: '',
+          searchList: [],
+          search:"",
           urls: [],
           headers: [
             { text: 'Memória', align: 'center', sortable: false, value: 'images'},
             { text: 'Titulo', align: 'center',value: 'title' },
             { text: 'Data de criação',align: 'center', value: 'createdAt' },
+          ],
+          headerSearchList: [
+            { text: 'Memória', align: 'center', sortable: false, value: 'images'},
+            { text: 'Titulo', align: 'center', value: 'title' },
+            { text: 'Data de criação',align: 'center', value: 'createdAt' },
+            { text: 'Adicionar',align: 'center', value: 'id' },
           ]
         }  
     },
     methods: {
       handleClick: function(value){
           this.$router.push('/memories/' + value.id)
+      },
+      addMemory(id) {
+        var idCollection = this.$route.params.id      
+        var token = localStorage.getItem('jwt')
+        axios.put("http://localhost:1337/memories/"+id+"/addToCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.go();
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      async getInfo(valor) {
+        var result = await this.$apollo.query({
+          query: gql`
+            query Memories ($value: String!, $limit: Int!)  {
+              memories(where: { title_contains: $value }, limit:$limit) {
+                id
+                title
+                createdAt
+                images {
+                  url
+                }
+              }
+            }
+          `,
+          variables: {
+            value: valor,
+            limit: 10,
+          },
+        });
+        this.searchList = result.data.memories
       }
     },
     watch: {
@@ -105,6 +177,9 @@ export default {
             this.urls.push(memory.images[0].url)
           }
         });
+      },
+      'search': function() {
+        this.getInfo(this.search);
       }
     },
     apollo: {
@@ -155,7 +230,6 @@ h1 {
   color: black;
 }
 
-
 .header a:hover {
   color: black;
   text-decoration: underline;
@@ -171,24 +245,32 @@ h1 {
 
 .header {
   margin-top:40px;
-  background-color: cadetblue;
-}
-
-.listMemories{
-  background-color: coral;
+  background-color: #5f9ea0;
 }
 
 .searchBar {
-  background-color: cyan;
+  background-color: cadetblue;
 }
+
+.listMemories {
+  background-color: cadetblue;
+}
+
+
+
+.searchList {
+  background-color: cadetblue;
+}
+
 
 .cardd {
   margin-left:30px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .carddAlone {
-  margin-left:10px;
+  margin-left:15px;
 }
 
 

@@ -15,10 +15,14 @@
                   </v-row>
             </div> 
 
-            <div class="carddAlone" v-else>
+            <div class="carddAlone" v-else-if="urls.length>0">
               <img :src="`http://localhost:1337`+this.urls[0]"/>
             </div>
 
+            <div class="carddAlone" v-else>
+              <img src="https://atasouthport.com/wp-content/uploads/2017/04/default-image-620x600.jpg"/>
+            </div>
+            
           </v-col>
           
           <v-col cols="8" style="margin-left:-100px">

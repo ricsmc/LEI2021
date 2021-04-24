@@ -58,6 +58,11 @@ export default {
         }
     },
     methods: {
+      clearVariables() {  
+        this.name="",
+        this.descricao="",
+        this.dialog=false
+      },
       newCollection() {
         var json = {}
         json['name'] = this.name
@@ -67,6 +72,7 @@ export default {
         var token = localStorage.getItem('jwt')
         axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
           .then(data => {
+            this.clearVariables()
             this.$router.push('/collections/' + data.data.id)
           })
           .catch(err => {

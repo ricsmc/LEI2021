@@ -60,6 +60,11 @@
             <template v-slot:[`item.createdAt`]="{ value }">
               {{value.split("T")[0]}}
             </template>
+            <template v-slot:[`item.id`]="{ value}" >
+              <v-icon small color="red" @click.stop="remove(value)">
+                X
+              </v-icon>
+            </template>
           </v-data-table>
         </v-col>
       </v-row>
@@ -97,7 +102,10 @@
               {{value.split("T")[0]}}
             </template>
             <template v-slot:[`item.id`]="{ value }">
-              <v-btn small color="#5f9ea0" @click="addMemory(value)">
+              <p text v-if="pertenceList(value)" small style="color:#5f9ea0; margin-top:10px">
+                Já adicionado!
+              </p>
+              <v-btn v-else small color="#5f9ea0" @click="addMemory(value)">
                 Adicionar
               </v-btn>
             </template>
@@ -127,12 +135,13 @@ export default {
             { text: 'Memória', align: 'center', sortable: false, value: 'images'},
             { text: 'Titulo', align: 'center',value: 'title' },
             { text: 'Data de criação',align: 'center', value: 'createdAt' },
+            { text: 'Remover', align:'center', sortable: false, value: 'id'}
           ],
           headerSearchList: [
             { text: 'Memória', align: 'center', sortable: false, value: 'images'},
             { text: 'Titulo', align: 'center', value: 'title' },
             { text: 'Data de criação',align: 'center', value: 'createdAt' },
-            { text: 'Adicionar',align: 'center', value: 'id' },
+            { text: 'Adicionar',align: 'center', sortable: false, value: 'id' },
           ]
         }  
     },
@@ -140,12 +149,31 @@ export default {
       handleClick: function(value){
           this.$router.push('/memories/' + value.id)
       },
+      pertenceList(id) {
+        var index = this.collection.memories.map(function(item) { return item.id; }).indexOf(id);
+        if (index==-1) return false;
+        else return true;
+      },
+      remove(id) {
+        var idCollection = this.$route.params.id
+        var token = localStorage.getItem('jwt')
+        axios.put("http://localhost:1337/memories/"+id+"/removeFromCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            var index = this.collection.memories.map(function(item) { return item.id; }).indexOf(id);
+            this.collection.memories.splice(index, 1);
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
       addMemory(id) {
         var idCollection = this.$route.params.id      
         var token = localStorage.getItem('jwt')
         axios.put("http://localhost:1337/memories/"+id+"/addToCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
           .then(() => {
-            this.$router.go();
+            var index = this.searchList.map(function(item) { return item.id; }).indexOf(id);
+            var memory = this.searchList[index]
+            this.collection.memories.push(memory)
           })
           .catch(err => {
             console.log(err)
@@ -174,7 +202,7 @@ export default {
       }
     },
     watch: {
-      'collection': function() {
+      'collection.memories': function() {
         this.urls=[]
         this.collection.memories.forEach(memory => {
           if (memory.images.length>0) {

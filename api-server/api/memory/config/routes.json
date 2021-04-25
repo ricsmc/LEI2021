@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "PUT",
+      "path": "/memories/:id/removeFromCollections",
+      "handler": "memory.removeSpecial",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/memories/:id",
       "handler": "memory.delete",

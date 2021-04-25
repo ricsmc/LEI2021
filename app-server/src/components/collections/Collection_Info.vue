@@ -41,91 +41,29 @@
             <template v-slot:[`item.createdAt`]="{ value }">
               {{value.split("T")[0]}}
             </template>
-            <template v-slot:[`item.id`]="{ value}" >
-              <v-icon small color="red" @click.stop="remove(value)">
-                X
-              </v-icon>
-            </template>
           </v-data-table>
         </v-col>
       </v-row>
-
-      <v-row class="searchBar" >
-        <v-col cols="12" align="center" justify="center"> 
-          <p> Vamos encontrar memórias para adicionares à tua coleção!</p>
-          <v-toolbar dense floating width="27.5rem">
-             <v-text-field
-               flat solo
-               autocomplete="off"
-               type="text"
-               hide-details
-               v-model="search"
-               placeholder="Procurar memórias"
-               prepend-icon="mdi-magnify"        
-             ></v-text-field>
-          </v-toolbar>
-        </v-col>
-      </v-row>
-
-      <v-row class="searchList" v-if="searchList.length>0">
-        <v-col cols="8" offset="2" class="pa-4"> 
-          <v-data-table
-            :headers="headerSearchList"
-            :items="searchList"
-            :hide-default-header="true"
-            :hide-default-footer="true"
-            class="elevation-1">
-            <template v-slot:[`item.images`]="{ value }">
-              <img v-if="value.length==0" src="https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg" height="40px" width="70">
-              <img v-else :src="`http://localhost:1337`+value[0].url" height="40px" width="70">    
-            </template>
-            <template v-slot:[`item.createdAt`]="{ value }">
-              {{value.split("T")[0]}}
-            </template>
-            <template v-slot:[`item.id`]="{ value }">
-              <p text v-if="pertenceList(value)" small style="color:#5f9ea0; margin-top:10px">
-                Já adicionado!
-              </p>
-              <v-btn v-else small color="#5f9ea0" @click="addMemory(value)">
-                Adicionar
-              </v-btn>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
-
-
-
-
+ 
     </v-container>
 </template>
 
 
 <script>
 import Foto from '@/components/collections/Collection_Foto.vue'
-import axios from 'axios'
 import gql from 'graphql-tag'
 
 export default {
     data() {
         return{
           collection: '',
-          searchList: [],
-          search:"",
           urls: [],
           headers: [
             { text: 'Memória', align: 'center', sortable: false, value: 'images'},
             { text: 'Titulo', align: 'center',value: 'title' },
             { text: 'Data de criação',align: 'center', value: 'createdAt' },
-            { text: 'Remover', align:'center', sortable: false, value: 'id'}
-          ],
-          headerSearchList: [
-            { text: 'Memória', align: 'center', sortable: false, value: 'images'},
-            { text: 'Titulo', align: 'center', value: 'title' },
-            { text: 'Data de criação',align: 'center', value: 'createdAt' },
-            { text: 'Adicionar',align: 'center', sortable: false, value: 'id' },
           ]
-        }  
+        }
     },
     components: {
       Foto
@@ -133,71 +71,14 @@ export default {
     methods: {
       handleClick: function(value){
           this.$router.push('/memories/' + value.id)
-      },
-      pertenceList(id) {
-        var index = this.collection.memories.map(function(item) { return item.id; }).indexOf(id);
-        if (index==-1) return false;
-        else return true;
-      },
-      remove(id) {
-        var idCollection = this.$route.params.id
-        var token = localStorage.getItem('jwt')
-        axios.put("http://localhost:1337/memories/"+id+"/removeFromCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
-          .then(() => {
-            var index = this.collection.memories.map(function(item) { return item.id; }).indexOf(id);
-            this.collection.memories.splice(index, 1);
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      },
-      addMemory(id) {
-        var idCollection = this.$route.params.id      
-        var token = localStorage.getItem('jwt')
-        axios.put("http://localhost:1337/memories/"+id+"/addToCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
-          .then(() => {
-            var index = this.searchList.map(function(item) { return item.id; }).indexOf(id);
-            var memory = this.searchList[index]
-            this.collection.memories.push(memory)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      },
-      async getInfo(valor) {
-        var result = await this.$apollo.query({
-          query: gql`
-            query Memories ($value: String!, $limit: Int!)  {
-              memories(where: { title_contains: $value }, limit:$limit) {
-                id
-                title
-                createdAt
-                images {
-                  url
-                }
-              }
-            }
-          `,
-          variables: {
-            value: valor,
-            limit: 10,
-          },
-        });
-        this.searchList = result.data.memories
       }
     },
-    watch: {
-      'collection.memories': function() {
-        this.urls=[]
+    created() {
         this.collection.memories.forEach(memory => {
           if (memory.images.length>0) {
             this.urls.push(memory.images[0].url)
           }
         });
-      },
-      'search': function() {
-        this.getInfo(this.search);
-      }
     },
     apollo: {
       collection:{

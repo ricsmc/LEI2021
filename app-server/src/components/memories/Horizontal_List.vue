@@ -6,7 +6,14 @@
         </button>
       </div>
 
-      <div class="centro" id="contente" ref="contente">
+      <div v-if="card=='2'" class="centro" id="contente" ref="contente">
+        <div class="cartaoMetade" v-for="item in items" :key="item.id">
+          <span v-if="flag=='memories'" @click="handleClickM(item.id)"><MemoryCard :item="item" /></span> 
+          <span v-else-if="flag=='collections'" @click="handleClickC(item.id)"><CollectionCard :item="item" /></span> 
+        </div>
+      </div>
+
+      <div v-else class="centro" id="contente" ref="contente">
         <div class="cartao" v-for="item in items" :key="item.id">
           <span v-if="flag=='memories'" @click="handleClickM(item.id)"><MemoryCard :item="item" /></span> 
           <span v-else-if="flag=='collections'" @click="handleClickC(item.id)"><CollectionCard :item="item" /></span> 
@@ -40,6 +47,7 @@ export default {
   },
   props : {
     flag: String,
+    card: String,
     items : Array
   },
   methods: {
@@ -102,6 +110,11 @@ export default {
 
 .cartao{
  width: 25%;
+ display: inline-block;
+}
+
+.cartaoMetade{
+ width: 50%;
  display: inline-block;
 }
 

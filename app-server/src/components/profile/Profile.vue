@@ -54,8 +54,10 @@
         </v-row>
       </v-col>
     </v-row>
+
     <v-divider style="margin-top: -50px"></v-divider>
     <v-row style="padding: 170px 0px 0px 0px"/>
+    
     <v-row>
       <v-col cols=4 offset=1>
         <v-card max-width="400" elevation="0" outlined style="background-color: inherit;">
@@ -65,9 +67,10 @@
           <v-card-text v-else>Este utilizador não tem descrição</v-card-text>
         </v-card>
       </v-col>
-      <v-col cols=7>
-        <Horizontal_List v-if="this.selected=='memories'" :flag="'memories'" :items="memories"/>
-        <Horizontal_List v-else :flag="'collections'" :items="collections"/>
+      
+      <v-col cols=7 class="pa-0">
+        <Horizontal_List v-if="this.selected=='memories'" :card="'2'" :flag="'memories'" :items="memories"/>
+        <Horizontal_List v-else :card="'2'" :flag="'collections'" :items="collections"/>
       </v-col>
     </v-row>
   </div>

@@ -8,7 +8,8 @@
 
       <div class="centro" id="contente" ref="contente">
         <div class="cartao" v-for="item in items" :key="item.id">
-          <span @click="handleClick(item.id)"><MemoryCard :item="item" /></span> 
+          <span v-if="flag=='memories'" @click="handleClickM(item.id)"><MemoryCard :item="item" /></span> 
+          <span v-else-if="flag=='collections'" @click="handleClickC(item.id)"><CollectionCard :item="item" /></span> 
         </div>
       </div>
 
@@ -27,21 +28,26 @@
 
 
 <script>
-
+import CollectionCard from '@/components/collections/CollectionCard.vue'
 import MemoryCard from '@/components/memories/MemoryCard.vue'
 
 
 export default {
   name: "Horizontal-Vue",
   components: {
-    MemoryCard
+    MemoryCard,
+    CollectionCard
   },
   props : {
+    flag: String,
     items : Array
   },
   methods: {
-    handleClick(id){
+    handleClickM(id){
       this.$router.push('/memories/' + id)
+    },
+    handleClickC(id){
+      this.$router.push('/collections/' + id)
     },
     scrollTo(element, scrollPixels, duration) {
       const scrollPos = element.scrollLeft;

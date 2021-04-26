@@ -73,12 +73,15 @@ export default {
           this.$router.push('/memories/' + value.id)
       }
     },
-    created() {
+    watch: {
+      'collection.memories': function() {
+        this.urls=[]
         this.collection.memories.forEach(memory => {
           if (memory.images.length>0) {
             this.urls.push(memory.images[0].url)
           }
         });
+      }
     },
     apollo: {
       collection:{

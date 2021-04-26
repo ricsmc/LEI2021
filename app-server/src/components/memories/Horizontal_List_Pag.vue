@@ -6,7 +6,8 @@
             <v-col cols=8>
                 <div class="center" id="content" ref="content">
                     <div class="internal" v-for="item in items" :key="item.id">
-                        <span @click="handleClick(item.id)"><MemoryCard :item="item" /></span> 
+                        <span v-if="flag=='memories'" @click="handleClickM(item.id)"><MemoryCard :item="item" /></span> 
+                        <span v-else-if="flag=='collections'" @click="handleClickC(item.id)"><CollectionCard :item="item" /></span> 
                     </div>
                 </div>
             </v-col>
@@ -33,7 +34,7 @@
 
 
 <script>
-
+import CollectionCard from '@/components/collections/CollectionCard.vue'
 import MemoryCard from '@/components/memories/MemoryCard.vue'
 import gql from 'graphql-tag'
 
@@ -47,9 +48,11 @@ export default {
     }
   },
   components: {
-    MemoryCard
+    MemoryCard,
+    CollectionCard
   },
   props : {
+    flag: String,
     items : Array,
     value : String,
     filter: String,
@@ -62,17 +65,67 @@ export default {
     }
   },
   methods: {
-    handleClick(id){
+    handleClickM(id){
       this.$router.push('/memories/' + id)
+    },
+    handleClickC(id){
+      this.$router.push('/collections/' + id)
     },
     async buscarPagina(value) {
       var pag = value - 1 
       this.start = pag * 4
-      var result = await this.getInfo()
+      var result
+      if (this.flag=='memories') {
+        console.log(this.flag)
+        result = await this.getInfoMemories()
+        this.$emit('update:items', result.data.memories)
+      }
+      else {
+        console.log(this.flag)
+        result = await this.getInfoCollections()
+        this.$emit('update:items', result.data.collections)
+      }
       this.$emit('updatePag:page', pag)
-      this.$emit('update:items', result.data.memories)
+      
     },
-    async getInfo() {
+    async getInfoCollections() {
+      var result  
+      if (this.filter) {
+        result = await this.$apollo.query({
+          query: gql`
+            query Collections ($value: String!, $start: Int!, $limit: Int!)  {
+              collections(where: { ${this.filter}_contains: $value }, start:$start, limit:$limit) {
+                id
+                name
+              }
+            }
+          `,
+          variables: {
+            value: this.value,
+            start: this.start,
+            limit: this.limit,
+          },
+        })
+      }
+      else {
+        result = await this.$apollo.query({
+          query: gql`
+            query Collections($start: Int!, $limit: Int!)  {
+              collections( start:$start, limit:$limit) {
+                id
+                name
+              }
+            }
+          `,
+          variables: {
+            start: this.start,
+            limit: this.limit,
+          },
+        })
+      }
+      return result
+    },
+    async getInfoMemories() {
       var result  
       if (this.filter) {
         result = await this.$apollo.query({

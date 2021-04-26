@@ -66,8 +66,8 @@
         </v-card>
       </v-col>
       <v-col cols=7>
-        <Horizontal_List v-if="this.selected=='memories'" :items="memories"/>
-        <Horizontal_List v-else :items="collections"/>
+        <Horizontal_List v-if="this.selected=='memories'" :flag="'memories'" :items="memories"/>
+        <Horizontal_List v-else :flag="'collections'" :items="collections"/>
       </v-col>
     </v-row>
   </div>

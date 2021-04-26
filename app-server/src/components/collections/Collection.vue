@@ -1,5 +1,5 @@
 <template>
-    <div id="collection">
+    <div id="collection" v-if="collection">
         <div v-if="idUser==collection.utilizador.id">
             <CollectionInfoEdit/>
         </div>

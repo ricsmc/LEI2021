@@ -17,7 +17,7 @@
             </div>
             <div justify="center">
                 <div cols=12>
-                    <Horizontal_List :items="memories"/>
+                    <Horizontal_List :flag="'memories'" :items="memories"/>
                 </div>
             </div>
         </div>

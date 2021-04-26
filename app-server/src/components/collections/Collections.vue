@@ -1,6 +1,6 @@
 <template>
-  <div class="memories">
-    <h1 style="padding: 20px 0px 40px 0px; text-align: center; ">Memories</h1>
+  <div id="collections">
+    <h1 style="padding: 20px 0px 40px 0px; text-align: center; ">Coleções</h1>
     <p style="text-align: center"> Foram encontrados {{this.number}} resultados! </p>
     
     <v-container>
@@ -30,7 +30,7 @@
     
     
     <v-container>
-      <Horizontal_List :flag="'memories'" :items="memories" :page="pag" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update" @updatePag:page="updatePag"/>
+      <Horizontal_List :flag="'collections'" :items="collections" :page="pag" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update" @updatePag:page="updatePag"/>
     </v-container>
     
 
@@ -45,7 +45,7 @@ import gql from 'graphql-tag'
 import axios from 'axios'
 
 export default {
-  name: 'Memories',
+  name: 'Collections',
   components: {
    Horizontal_List
   },
@@ -56,12 +56,12 @@ export default {
       totalPags: 0,
       word: "",
       filter: "",
-      values: ['title','content']
+      values: ['name']
     }
   },
   methods: {
     update(value){
-      this.memories=value;
+      this.collections=value;
     },
     updatePag(value){
       this.pag=value;
@@ -69,7 +69,7 @@ export default {
     async procurar() {
       if (this.filter) {
         var token = localStorage.getItem('jwt')
-        await axios.get('http://localhost:1337/memories/count?'+this.filter+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
+        await axios.get('http://localhost:1337/collections/count?'+this.filter+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
             this.pag=0
             this.number = response.data
@@ -80,14 +80,10 @@ export default {
         
         var result = await this.$apollo.query({
           query: gql`
-            query Memories ($value: String!)  {
-              memories(where: { ${this.filter}_contains: $value },limit:4) {
+            query Collections ($value: String!)  {
+              collections(where: { ${this.filter}_contains: $value },limit:4) {
                 id
-                title
-                content
-                images {
-                  url
-                }
+                name
               }
             }
           `,
@@ -95,20 +91,17 @@ export default {
             value: this.word,
           },
         })
-        this.memories = result.data.memories
+        this.collections = result.data.collections
       }
     }
   },
   apollo: {
-    memories: {
+    collections: {
       query: gql`
-      query Memories {
-        memories(limit:4) {
+      query Collections {
+        collections(limit:4) {
           id
-          title
-          images {
-            url
-          }
+          name
         }
       }
     `
@@ -116,7 +109,7 @@ export default {
   },
   mounted () {
     var token = localStorage.getItem('jwt')
-    axios.get('http://localhost:1337/memories/count',{headers: {'Authorization': `${token}`}})
+    axios.get('http://localhost:1337/collections/count',{headers: {'Authorization': `${token}`}})
        .then(response => {
           this.number = response.data
           this.totalPags = Math.floor(this.number/4)

@@ -31,8 +31,8 @@
       "required": false
     },
     "collections": {
-      "collection": "collection",
-      "via": "utilizador"
+      "via": "utilizador",
+      "collection": "collection"
     },
     "memories": {
       "collection": "memory",

@@ -84,6 +84,9 @@ export default {
               collections(where: { ${this.filter}_contains: $value },limit:4) {
                 id
                 name
+                collection_picture {
+                  url
+                }
               }
             }
           `,
@@ -102,6 +105,9 @@ export default {
         collections(limit:4) {
           id
           name
+          collection_picture {
+            url
+          }
         }
       }
     `

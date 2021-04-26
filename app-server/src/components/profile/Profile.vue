@@ -118,6 +118,9 @@ export default {
           id
           name
           public
+          collection_picture {
+            url
+          }
         }
       }
     `,

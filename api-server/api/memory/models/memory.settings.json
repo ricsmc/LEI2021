@@ -44,8 +44,8 @@
       "required": false
     },
     "collections": {
-      "collection": "collection",
       "via": "memories",
+      "collection": "collection",
       "dominant": true
     },
     "utilizador": {

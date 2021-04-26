@@ -870,6 +870,12 @@
                     "type": "string"
                   }
                 },
+                "collection_picture": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },

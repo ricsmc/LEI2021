@@ -21,12 +21,26 @@
       "required": true
     },
     "utilizador": {
-      "via": "collections",
-      "model": "utilizador"
+      "model": "utilizador",
+      "via": "collections"
     },
     "memories": {
-      "via": "collections",
-      "collection": "memory"
+      "collection": "memory",
+      "via": "collections"
+    },
+    "collection_picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }

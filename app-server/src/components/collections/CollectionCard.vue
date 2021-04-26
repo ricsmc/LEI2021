@@ -3,17 +3,12 @@
     <v-container style="padding:6px">
       <v-flex xs12>     
         <v-card dark class="mx-auto" max-width="400">
-          <v-img 
-            v-if="item.image" :src="`http://localhost:1337`+item.image.url"
-            height="100px"
-          >
-          </v-img>
-          <v-img 
-            v-else :src="`https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg`"
-            height="100px"
-          >
-          </v-img>
-  
+
+          <div class="foto">
+            <img v-if="item.collection_picture" :src="`http://localhost:1337`+item.collection_picture.url">
+            <img v-else :src="`https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg`">
+          </div>
+
           <v-card-title>
               <h6>{{ item.name }}</h6>
           </v-card-title>
@@ -38,5 +33,12 @@ export default {
 
 
 <style>
+
+.foto img{
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  height: 100px;
+  width: 100%;
+}
 
 </style>

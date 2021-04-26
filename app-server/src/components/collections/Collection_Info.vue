@@ -3,15 +3,19 @@
      
       <v-row class="header">
           <v-col cols="4">   
-            <Foto :urls="urls"/>
+            <Foto :urls="urls" :image="collection.collection_picture"/>
           </v-col>
           
           <v-col cols="8" style="margin-left:-100px">
 
             <h1>{{collection.name}}</h1>
-           
-            <div class="descricao">
-              <p><b>Descrição</b> : ainda nao tem mas agora imagina que tem so para o texto ficar grande e conseguir testar como irá ficar no futuro</p>
+
+            <div class="descricao" v-if="collection.description">
+              <p><b>Descrição</b> :  {{collection.description}} </p>
+            </div>
+
+            <div class="descricao" v-else>
+              <p><b>Descrição</b> : Sem descrição!</p>
             </div>
             
             <div class="nameCreater">
@@ -91,6 +95,10 @@ export default {
                 name
                 public
                 createdAt
+                description
+                collection_picture {
+                  url
+                }
                 utilizador {
                   username
                   id

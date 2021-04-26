@@ -68,7 +68,7 @@ export default {
         json['name'] = this.name
         json['public'] = false
         json['utilizador'] = localStorage.getItem('id')
-        //json['descricao'] = this.descricao
+        json['description'] = this.descricao
         var token = localStorage.getItem('jwt')
         axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
           .then(data => {

@@ -1,7 +1,11 @@
 <template> 
     <div id="collection_foto">
+
+        <div class="carddAlone" v-if="image">
+          <img :src="`http://localhost:1337`+this.image.url"/>
+        </div>
          
-        <div class="cardd" v-if="urls.length>=4">
+        <div class="cardd" v-else-if="urls.length>=4">
               <v-row>
                   <img :src="`http://localhost:1337`+this.urls[0]"/>
                   <img :src="`http://localhost:1337`+this.urls[1]"/>
@@ -30,7 +34,8 @@
 export default {
     name: 'collection_foto',
     props: {
-        urls : Array
+        urls : Array,
+        image : Object
     }
 }    
 

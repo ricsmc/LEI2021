@@ -14,7 +14,7 @@ const FileStore = require('session-file-store')(session);
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+// 127.0.0.1 -> mongodb:27017
 var mongoDB = 'mongodb://127.0.0.1/LEI'
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:false})
 var db = mongoose.connection

@@ -6,7 +6,7 @@
 
           <div class="foto">
             <img v-if="item.collection_picture" :src="`http://localhost:1337`+item.collection_picture.url">
-            <img v-else :src="`https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg`">
+            <img v-else :src="`https://atasouthport.com/wp-content/uploads/2017/04/default-image-620x600.jpg`">
           </div>
 
           <v-card-title>

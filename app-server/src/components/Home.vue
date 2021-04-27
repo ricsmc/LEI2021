@@ -128,7 +128,6 @@ import Horizontal_List from '@/components/memories/Horizontal_List.vue'
 
 .home img {
    width: 100%;
-   height: 100%;
 }
 
 

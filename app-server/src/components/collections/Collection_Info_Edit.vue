@@ -2,14 +2,28 @@
     <v-container v-if="collection">
      
       <v-row class="header">
-          <v-col cols="4">   
-            <Foto :urls="urls" :image="collection.collection_picture"/>
+          <v-col cols="4">
+            <div @click="chooseImg()" class="image" >
+              <Foto :urls="urls" :image="collection.collection_picture"/>
+              <input
+                ref="uploader"
+                class="d-none"
+                type="file"
+                accept="image/*"
+                @change="onFileChanged"
+              >
+            </div>
           </v-col>
           
-          <v-col cols="8" style="margin-left:-100px">
+          <v-col cols="8" style="margin-left:-50px">
+            <v-row>
+              <h1>{{collection.name}}</h1>
 
-            <h1>{{collection.name}}</h1>
-           
+              <v-col offset="8">
+                <EditHeader :collection="collection"/>
+              </v-col>
+            </v-row>
+
             <div class="descricao" v-if="collection.description">
               <p><b>Descrição</b> :  {{collection.description}} </p>
             </div>
@@ -17,7 +31,7 @@
             <div class="descricao" v-else>
               <p><b>Descrição</b> : Sem descrição!</p>
             </div>
-            
+
             <div class="nameCreater">
               <a :href="'/users/'+collection.utilizador.id">
                 <b> {{collection.utilizador.username}} </b>
@@ -25,7 +39,7 @@
               <span v-if="collection.memories.length==1">- {{collection.memories.length}} memória </span>
               <span v-else>- {{collection.memories.length}} memórias </span>
             </div>
-
+           
           </v-col>
       </v-row>
 
@@ -106,6 +120,7 @@
 
 
 <script>
+import EditHeader from '@/components/collections/Collection_Header_Edit.vue'
 import Foto from '@/components/collections/Collection_Foto.vue'
 import axios from 'axios'
 import gql from 'graphql-tag'
@@ -116,10 +131,11 @@ export default {
           collection: '',
           searchList: [],
           search:"",
+          selectedFile: null,
           urls: [],
           headers: [
             { text: 'Memória', align: 'center', sortable: false, value: 'images'},
-            { text: 'Titulo', align: 'center',value: 'title' },
+            { text: 'Título', align: 'center',value: 'title' },
             { text: 'Data de criação',align: 'center', value: 'createdAt' },
             { text: 'Remover', align:'center', sortable: false, value: 'id'}
           ],
@@ -132,11 +148,33 @@ export default {
         }  
     },
     components: {
-      Foto
+      Foto,
+      EditHeader
     },
     methods: {
       handleClick: function(value){
           this.$router.push('/memories/' + value.id)
+      },
+      chooseImg() {
+        this.$refs.uploader.click()
+      },
+      onFileChanged(e) {
+        var idCollection = this.$route.params.id
+        this.selectedFile = e.target.files[0]
+        let formData = new FormData();
+        const file = this.selectedFile;
+        formData.append(`files.collection_picture`, file, file.name);
+        var json = {}
+        json['utilizador'] = localStorage.getItem('id')
+        var token = localStorage.getItem('jwt')
+        formData.append("data", JSON.stringify(json))
+        axios.put("http://localhost:1337/collections/"+idCollection, formData , {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.go()
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       pertenceList(id) {
         var index = this.collection.memories.map(function(item) { return item.id; }).indexOf(id);
@@ -244,8 +282,8 @@ export default {
 
 <style> 
 
-h1 {
-   padding: 15px 0 15px 0;
+.header h1 {
+   padding: 15px 0 15px 10px;
 }
 
 
@@ -308,4 +346,12 @@ h1 {
   width: 240px;
   height: 240px;
 }
+
+
+.image {
+  cursor: pointer;
+}
+
+
+
 </style>

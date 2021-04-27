@@ -1,0 +1,45 @@
+version: "3.8"
+networks:
+    isolation-network:
+        driver: bridge
+services:
+    mongodb:
+        image : mongo
+        container_name: mongodb
+        environment:
+            MONGO_INITDB_DATABASE: strapi
+            MONGO_INITDB_ROOT_USERNAME: strapi
+            MONGO_INITDB_ROOT_PASSWORD: strapi
+        volumes:
+            - ./mongodb/database:/data/db
+        ports:
+            - 27017:27017
+        restart: unless-stopped
+        networks:
+            - isolation-network
+
+    auth_server:
+        build : ./auth-server
+        container_name: auth-server
+        ports: 
+            - 7000:7000
+        depends_on: 
+            - mongodb
+        networks:
+            - isolation-network
+    strapi:
+        image: strapi/strapi
+        container_name: api-server
+        environment:
+            DATABASE_CLIENT: mongo
+            DATABASE_NAME: strapi
+            DATABASE_HOST: mongo
+            DATABASE_PORT: 27017
+            DATABASE_USERNAME: strapi
+            DATABASE_PASSWORD: strapi
+        volumes:
+            - ./app:/srv/app
+        ports:
+            - '1337:1337'
+        depends_on:
+            - mongodb

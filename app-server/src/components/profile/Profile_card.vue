@@ -15,7 +15,7 @@
             
                 <v-img
                   height="250"
-                  src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                  :src="this.img"
                 ></v-img>
             
                 <v-card-title>{{name}}</v-card-title>
@@ -39,7 +39,7 @@ export default {
     return {
       }
   },
-  props:['name', 'description']
+  props:['name', 'description', 'img']
 }
 
 </script>

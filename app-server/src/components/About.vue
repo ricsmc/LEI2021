@@ -3,7 +3,7 @@
     <div @wheel.prevent="wheel">
         <section class="scroll_page first" style="padding:50px 0 0 0" id="first">
           <v-container>
-            <h1 class="display-4">ABOUT US</h1>
+            <h1 class="display-4">SOBRE NÓS</h1>
           </v-container> 
           <v-container style="margin-top:10%">
             <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.
@@ -16,16 +16,16 @@
         </section>
         <section class="scroll_page second" id="second"  style="padding:50px 0 0 0">
           <v-container>
-            <h1 class="display-4">MEET THE TEAM</h1>
+            <h1 class="display-4">CONHEÇA A EQUIPA</h1>
           </v-container>
           <v-container>
              <v-row align="center"
                 justify="center">
-                <TeamCard v-bind:name="'Riczão'" style="display:inline-block"></TeamCard>
+                <TeamCard v-bind:name="'Riczão'" v-bind:description="'Developer'" style="display:inline-block"></TeamCard>
 
-            <TeamCard v-bind:name="'Ramz'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Ramz'" v-bind:description="'Developer'" style="display:inline-block; margin-left:1%"></TeamCard>
 
-            <TeamCard v-bind:name="'Villenz'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Villenz'" v-bind:description="'Developer'" style="display:inline-block; margin-left:1%"></TeamCard>
             </v-row>
             
           </v-container>

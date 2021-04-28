@@ -25,11 +25,11 @@
           <v-container>
              <v-row align="center"
                 justify="center">
-                <TeamCard v-bind:name="'Riczão'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block"></TeamCard>
+                <TeamCard v-bind:name="'Ricardo Cunha'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block"></TeamCard>
 
-            <TeamCard v-bind:name="'Ramz'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Luis Ramos'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
 
-            <TeamCard v-bind:name="'Villenz'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Luís Vila'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
             </v-row>
             
           </v-container>

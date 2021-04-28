@@ -4,7 +4,7 @@
 
             <div class="item" id="first">
                 
-                <v-container style="margin-top:8%">
+                <v-container style="margin-top:2%">
                    
                     <v-row justify="center">
                         <h1 class="home_title">Conte-nos a sua história!</h1>

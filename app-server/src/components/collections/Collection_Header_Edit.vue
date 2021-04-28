@@ -2,9 +2,7 @@
     <div id="collection_header_edit">
        <v-dialog max-width="400px" v-model="dialog">
             <template v-slot:activator="{ on }">
-                <v-btn v-on="on"> 
-                  Editar 
-                </v-btn>
+                <i v-on="on" class="fa fa-pencil fa-2x" aria-hidden="true"></i>
             </template>
             <v-card >
                 <v-card-text >

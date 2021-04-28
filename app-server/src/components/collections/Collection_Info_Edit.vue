@@ -15,11 +15,13 @@
             </div>
           </v-col>
           
-          <v-col cols="8" style="margin-left:-50px">
+          <v-col cols="8">
             <v-row>
-              <h1>{{collection.name}}</h1>
+              <v-col cols="10">
+                <h1>{{collection.name}}</h1>
+              </v-col>
 
-              <v-col offset="8">
+              <v-col cols="2" >
                 <EditHeader :collection="collection"/>
               </v-col>
             </v-row>
@@ -283,7 +285,7 @@ export default {
 <style> 
 
 .header h1 {
-   padding: 15px 0 15px 10px;
+   padding: 15px 0 15px 0px;
 }
 
 

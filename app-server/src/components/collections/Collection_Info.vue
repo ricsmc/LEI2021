@@ -6,7 +6,7 @@
             <Foto :urls="urls" :image="collection.collection_picture"/>
           </v-col>
           
-          <v-col cols="8" style="margin-left:-50px">
+          <v-col cols="8">
 
             <h1>{{collection.name}}</h1>
 

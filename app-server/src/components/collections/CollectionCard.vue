@@ -4,7 +4,7 @@
       <v-flex xs12>     
         <v-card dark class="mx-auto" max-width="400">
 
-          <div class="foto">
+          <div class="fotoCol">
             <img v-if="item.collection_picture" :src="`http://localhost:1337`+item.collection_picture.url">
             <img v-else :src="`https://atasouthport.com/wp-content/uploads/2017/04/default-image-620x600.jpg`">
           </div>
@@ -34,9 +34,10 @@ export default {
 
 <style>
 
-.foto img{
+.fotoCol img{
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  border: 0.8px solid rgb(0, 0, 0);
   height: 100px;
   width: 100%;
 }

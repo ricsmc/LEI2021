@@ -1,10 +1,11 @@
 <template>
-  <div id="collections">
-    <h1 style="padding: 20px 0px 40px 0px; text-align: center; ">Coleções</h1>
-    <p style="text-align: center"> Foram encontrados {{this.number}} resultados! </p>
+  <div id="collections" class="collections">
+    <h1>Coleções</h1>
+    <p>Foram encontrados {{this.number}} resultados!</p>
     
     <v-container>
       <v-row>
+
         <v-col cols="2">
             <v-select
             :items="values"
@@ -13,41 +14,51 @@
             label="Filtro">
             </v-select>
         </v-col>
-        <v-col  cols="2">
+
+        <v-col cols="2">
             <v-text-field 
             type="text" 
             v-model="word" 
             label="Palavra">
             </v-text-field>        
         </v-col>
-        <v-col  cols="2">
+
+        <v-col cols="2">
             <v-btn style="margin-top:10px" dark @click="procurar()"> 
               Procurar
             </v-btn>        
         </v-col>
+
       </v-row>
     </v-container>
     
     
     <v-container>
-      <Horizontal_List :flag="'collections'" :items="collections" :page="pag" :filter="filter" :totalPags="totalPags" :value="word" @update:items="update" @updatePag:page="updatePag"/>
+      <HorizontalList 
+      :flag="'collections'" 
+      :items="collections" 
+      :page="pag" 
+      :filter="filter" 
+      :totalPags="totalPags" 
+      :value="word" 
+      @update:items="update" 
+      @updatePag:page="updatePag"/>
     </v-container>
-    
 
   </div>
 </template>
 
 
 <script>
-// @ is an alias to /src
-import Horizontal_List from '@/components/memories/Horizontal_List_Pag.vue'
+
+import HorizontalList from '@/components/lists/Horizontal_List_Pag.vue'
 import gql from 'graphql-tag'
 import axios from 'axios'
 
 export default {
   name: 'Collections',
   components: {
-   Horizontal_List
+   HorizontalList
   },
   data() {
     return {
@@ -127,9 +138,15 @@ export default {
 </script>
 
 
-
-
 <style>
 
+.collections h1{
+  padding: 20px 0px 40px 0px; 
+  text-align: center;
+}
+
+.collections p{
+  text-align: center
+}
 
 </style>

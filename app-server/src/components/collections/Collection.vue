@@ -1,6 +1,6 @@
 <template>
     <div id="collection" v-if="collection">
-        <div v-if="idUser==collection.utilizador.id">
+        <div v-if="idUser==collection.utilizador.id || level=='admin'">
             <CollectionInfoEdit/>
         </div>
         <div v-else>
@@ -19,7 +19,8 @@ export default {
     name: "collection",
     data() {
         return{
-            idUser: localStorage.getItem('id')
+            idUser: localStorage.getItem('id'),
+            level: localStorage.getItem('level')
         }  
     },
     components: {

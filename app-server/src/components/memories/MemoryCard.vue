@@ -39,6 +39,7 @@ export default {
   border-top-right-radius: 4px;
   height: 100px;
   width: 100%;
+  border: 0.8px solid rgb(0, 0, 0);
 }
 
 </style>

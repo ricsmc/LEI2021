@@ -56,14 +56,6 @@ const router = new VueRouter({
       components: require("./components/memories/Memory.vue")
     },
     {
-      path: "/profile/memories",
-      components: require("./components/memories/Memories_List_user.vue")
-    },
-    {
-      path: "/profile/collections",
-      components: require("./components/Collections_List_user.vue")
-    },
-    {
       path: "/new_memory",
       components: require("./components/forms/New_Memory.vue")
     }

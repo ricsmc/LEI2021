@@ -58,7 +58,7 @@
     <v-divider style="margin-top: -50px"></v-divider>
     <v-row style="padding: 170px 0px 0px 0px"/>
     
-    <v-row>
+    <v-row no-gutters>
       <v-col cols=4 offset=1>
         <v-card max-width="400" elevation="0" outlined style="background-color: inherit;">
           <v-card-title>Sobre:</v-card-title>
@@ -68,7 +68,7 @@
         </v-card>
       </v-col>
       
-      <v-col cols=7 class="pa-0">
+      <v-col cols=7>
         <Horizontal_List v-if="this.selected=='memories'" :card="'2'" :flag="'memories'" :items="memories"/>
         <Horizontal_List v-else :card="'2'" :flag="'collections'" :items="collections"/>
       </v-col>
@@ -80,7 +80,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import Horizontal_List from '@/components/memories/Horizontal_List.vue'
+import Horizontal_List from '@/components/lists/Horizontal_List.vue'
 
 export default {
     data() {

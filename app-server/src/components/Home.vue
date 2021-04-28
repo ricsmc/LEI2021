@@ -1,28 +1,22 @@
 <template>
   <div id="home" class="home" >
-    <div v-if="this.token">
-        <div style="padding: 40px 0 0 0 ">
-            <div style="text-align:center; padding:20px 0 20px 0">
-                <h1>Memórias mais recentes</h1>
-            </div>
-            
-            <div style="text-align:center; padding:0 0 30px 0">
-                <v-btn
-                to="/memories"
-                rounded
-                color="#fdfdfd"
-                >
-                    Ver Todas
-                </v-btn>
-            </div>
-            <div justify="center">
-                <div cols=12>
-                    <Horizontal_List :flag="'memories'" :items="memories"/>
-                </div>
-            </div>
+    <div v-if="this.token" justify="center" class="homeIn">
+       
+        <h1>Memórias mais recentes</h1>
+        
+        <div class="botaoVerTodas">
+            <v-btn to="/memories" rounded color="#fdfdfd">
+                Ver Todas
+            </v-btn>
         </div>
+        
+        <div cols=12>
+            <Horizontal_List :flag="'memories'" :items="memories"/>
+        </div>
+
     </div>
     <div v-else>
+<<<<<<< Updated upstream
         <vue-scroll-snap :fullscreen="true">
             <div class="item" id="first">
                 <v-container style="margin-top:2%">
@@ -56,6 +50,9 @@
         </vue-scroll-snap>
         <v-row justify="center">
         </v-row>
+=======
+        <HomeOut/>
+>>>>>>> Stashed changes
     </div>
   </div>
 </template>
@@ -64,22 +61,20 @@
 
 
 <script>
-import VueScrollSnap from "vue-scroll-snap";
+import HomeOut from '@/components/HomeOut.vue'
 import gql from 'graphql-tag'
-import Horizontal_List from '@/components/memories/Horizontal_List.vue'
+import Horizontal_List from '@/components/lists/Horizontal_List.vue'
 
 
     export default {
         name: 'home',
         data() {
             return { 
-                array: ['first','second','third'],
                 token: localStorage.getItem('user'),
             }
         },
-
         components: {
-            VueScrollSnap,
+            HomeOut,
             Horizontal_List
         },
         apollo: {
@@ -93,44 +88,30 @@ import Horizontal_List from '@/components/memories/Horizontal_List.vue'
                     }
                 }
             }
-            `,
-        }
-        },
-        methods: {
-            
-                 
+            `
+            }
         }
     }
 </script>
 
 <style>
 
-
-.first {
-    width: 100%;
-    height: 100vh;
+.homeIn {
+   text-align:center;
+   padding: 40px 0 0 0 
 }
 
-.second {
-    width: 100%;
-    height: 100vh;
+.botaoVerTodas{
+   padding:0 0 30px 0
 }
 
-.third {
-    width: 100%;
-    height: 100vh;
-}
-
-
-.home section {
-    display: block;
+.home h1 {
+   padding:30px 0 20px 0
 }
 
 .home img {
    width: 100%;
 }
-
-
 
 .home_title {
     font-size: 400%;
@@ -141,15 +122,7 @@ import Horizontal_List from '@/components/memories/Horizontal_List.vue'
     text-decoration: none;
 }
 
-.see_all {
-    justify-content:center;
-    color: #4F4E81;
-}
 
-.see_all:hover {
-    text-decoration: underline;
-    color: #015AEE; 
-}
 
 
 </style>

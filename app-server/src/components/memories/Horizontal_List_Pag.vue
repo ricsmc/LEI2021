@@ -76,12 +76,10 @@ export default {
       this.start = pag * 4
       var result
       if (this.flag=='memories') {
-        console.log(this.flag)
         result = await this.getInfoMemories()
         this.$emit('update:items', result.data.memories)
       }
       else {
-        console.log(this.flag)
         result = await this.getInfoCollections()
         this.$emit('update:items', result.data.collections)
       }

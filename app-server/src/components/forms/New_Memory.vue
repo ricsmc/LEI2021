@@ -5,47 +5,89 @@
         Nova Memória
         </h2>
     </span>
+
     <v-container pa-0>
-        <v-col cols="12">
-            <v-text-field flat type="text" class="titulo" style="border-style: none !important;" :rules="rules" v-model="title" label="Título *"></v-text-field>
+
+      <v-row style="margin-top:20px">
+        <v-col cols="8">
+            <v-text-field 
+            outlined
+            flat 
+            type="text" 
+            class="titulo" 
+            style="border-style: none !important;" 
+            :rules="rules" 
+            v-model="title" 
+            label="Título *"
+            ></v-text-field>
         </v-col>
-        <v-col cols="12">
-            <v-textarea outlined auto-grow type="text" :rules="rules" v-model="content" label="Corpo *"></v-textarea>
+
+        <v-col cols="2" offset="1">
+          <v-text-field type="text" prepend-icon="mdi-map-marker" v-model="local" label="Local"></v-text-field>
         </v-col>
-        <v-row no-gutters>
-            <v-col sm="2" >
-                <v-text-field type="text" prepend-icon="mdi-map-marker" v-model="local" label="Local"></v-text-field>
-            </v-col>
-            <v-col sm="2" offset=1>
-              <v-menu
-                ref="menu"
-                v-model="menu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="date"
-                      label="Data"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    ref="picker"
-                    v-model="date"
-                    color="#4F4E81"
-                    :max="new Date().toISOString().substr(0, 10)"
-                    min="1900-01-01"
-                    @change="save"
-                  ></v-date-picker>
-              </v-menu>
-            </v-col>
-            <v-col sm="4" offset=1>
+
+      </v-row>
+
+      <v-row>
+
+        <v-col cols="8">
+            <v-textarea 
+            outlined 
+            auto-grow 
+            type="text" 
+            :rules="rules" 
+            v-model="content" 
+            label="Corpo *"
+            ></v-textarea>
+        </v-col>
+        
+        <v-col cols="2" offset=1>
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  label="Data"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                ref="picker"
+                v-model="date"
+                color="#4F4E81"
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1900-01-01"
+                @change="save"
+              ></v-date-picker>
+          </v-menu>
+        </v-col>
+
+      </v-row>
+
+      <v-row>
+
+
+          <v-col cols="3">
+              <v-file-input
+                v-model="videos"
+                counter
+                label="Videos"
+                accept="video/*"
+                show-size
+                multiple
+              ></v-file-input>
+          </v-col>
+
+          <v-col cols="3" offset="4">
               <v-autocomplete
                 v-model="values"
                 :items="people"
@@ -62,20 +104,12 @@
             <v-col sm="1">
               <NewPerson  @updateValues:value="updateValues" style="margin-left:10px"></NewPerson>
             </v-col>
+          
         </v-row>
-        
+
         <v-row>
-          <v-col cols="3">
-              <v-file-input
-                v-model="videos"
-                counter
-                label="Videos"
-                accept="video/*"
-                show-size
-                multiple
-              ></v-file-input>
-          </v-col>
-          <v-col cols="3"  offset=1>
+          
+          <v-col cols="3" >
               <v-file-input
                 v-model="images"
                 counter
@@ -87,10 +121,11 @@
                 multiple
               ></v-file-input>
           </v-col>
+
           <v-col cols="1" v-for="url in urls" :key="url">
             <v-img class="preview" :src="url"></v-img>
           </v-col>
-          
+
         </v-row>
 
         <v-row>

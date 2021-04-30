@@ -3,7 +3,7 @@
      
       <v-row class="header">
           <v-col cols="4">
-            <div @click="chooseImg()" class="image" >
+            <div @click="chooseImg()" class="click" >
               <Foto :urls="urls" :image="collection.collection_picture"/>
               <input
                 ref="uploader"
@@ -21,8 +21,11 @@
                 <h1>{{collection.name}}</h1>
               </v-col>
 
-              <v-col cols="2" >
+              <v-col cols="1" >
                 <EditHeader :collection="collection"/>
+              </v-col>
+              <v-col cols="1">
+                <i style="color:red;cursor: pointer;" @click="removeMemory()" class="fa fa-times fa-2x" aria-hidden="true"></i>
               </v-col>
             </v-row>
 
@@ -195,6 +198,18 @@ export default {
             console.log(err)
           })
       },
+      removeMemory() {
+        var idCollection = this.$route.params.id
+        var token = localStorage.getItem('jwt')
+        axios.delete("http://localhost:1337/collections/"+idCollection, {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.push('/')
+            this.$router.go()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
       addMemory(id) {
         var idCollection = this.$route.params.id      
         var token = localStorage.getItem('jwt')
@@ -325,7 +340,7 @@ export default {
   background-color: cadetblue;
 }
 
-.image {
+.click {
   cursor: pointer;
 }
 

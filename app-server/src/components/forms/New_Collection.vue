@@ -74,6 +74,7 @@ export default {
           .then(data => {
             this.clearVariables()
             this.$router.push('/collections/' + data.data.id)
+            this.$router.go()
           })
           .catch(err => {
             console.log(err)

@@ -224,6 +224,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
               .then(data => {
                 this.ligaMemoriaAPessoa(data.data.id)
                 this.$router.push('/memories/' + data.data.id)
+                this.$router.go()
               })
               .catch(err => {
                 console.log(err)

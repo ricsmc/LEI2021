@@ -171,25 +171,4 @@ h1 {
   background-color: cadetblue;
 }
 
-
-.cardd {
-  margin-left:30px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-}
-
-.carddAlone {
-  margin-left:15px;
-}
-
-
-.cardd img {
-  width: 120px;
-  height: 120px;
-}
-
-.carddAlone img {
-  width: 240px;
-  height: 240px;
-}
 </style>

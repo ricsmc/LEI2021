@@ -98,6 +98,11 @@ export default {
                 collection_picture {
                   url
                 }
+                memories {
+                  images {
+                    url
+                  }
+                }
               }
             }
           `,
@@ -117,6 +122,11 @@ export default {
                 name
                 collection_picture {
                   url
+                }
+                memories {
+                  images {
+                    url
+                  }
                 }
               }
             }

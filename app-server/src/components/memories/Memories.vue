@@ -66,7 +66,7 @@ export default {
       totalPags: 0,
       word: "",
       filter: "",
-      values: ['title','content']
+      values: ['Título','Descrição']
     }
   },
   methods: {
@@ -78,8 +78,11 @@ export default {
     },
     async procurar() {
       if (this.filter) {
+        var valor
+        if (this.filter=='Título')  valor="title";
+        if (this.filter=='Descrição')  valor="content";
         var token = localStorage.getItem('jwt')
-        await axios.get('http://localhost:1337/memories/count?'+this.filter+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
+        await axios.get('http://localhost:1337/memories/count?'+valor+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
             this.pag=0
             this.number = response.data
@@ -91,7 +94,7 @@ export default {
         var result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!)  {
-              memories(where: { ${this.filter}_contains: $value },limit:4) {
+              memories(where: { ${valor}_contains: $value },limit:4) {
                 id
                 title
                 content

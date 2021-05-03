@@ -78,9 +78,11 @@ export default {
       this.pag=value;
     },
     async procurar() {
-      if (this.filter=='Nome') {
+      if (this.filter) {
+        var valor
+        if (this.filter=='Nome')  valor="name";
         var token = localStorage.getItem('jwt')
-        await axios.get('http://localhost:1337/collections/count?name_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
+        await axios.get('http://localhost:1337/collections/count?'+valor+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
             this.pag=0
             this.number = response.data
@@ -92,7 +94,7 @@ export default {
         var result = await this.$apollo.query({
           query: gql`
             query Collections ($value: String!)  {
-              collections(where: { name_contains: $value },limit:4) {
+              collections(where: { ${valor}_contains: $value },limit:4) {
                 id
                 name
                 collection_picture {

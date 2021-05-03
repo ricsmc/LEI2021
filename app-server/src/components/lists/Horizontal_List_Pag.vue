@@ -88,11 +88,13 @@ export default {
     },
     async getInfoCollections() {
       var result  
-      if (this.filter=='Nome') {
+      if (this.filter) {
+        var valor
+        if (this.filter=='Nome')  valor="name";
         result = await this.$apollo.query({
           query: gql`
             query Collections ($value: String!, $start: Int!, $limit: Int!)  {
-              collections(where: { name_contains: $value }, start:$start, limit:$limit) {
+              collections(where: { ${valor}_contains: $value }, start:$start, limit:$limit) {
                 id
                 name
                 collection_picture {
@@ -142,10 +144,13 @@ export default {
     async getInfoMemories() {
       var result  
       if (this.filter) {
+        var valor
+        if (this.filter=='Título')  valor="title";
+        if (this.filter=='Descrição')  valor="content";
         result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!, $start: Int!, $limit: Int!)  {
-              memories(where: { ${this.filter}_contains: $value }, start:$start, limit:$limit) {
+              memories(where: { ${valor}_contains: $value }, start:$start, limit:$limit) {
                 id
                 title
                 content

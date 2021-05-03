@@ -700,6 +700,10 @@
           },
           "about": {
             "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "default": "consumer"
           }
         }
       },
@@ -728,6 +732,10 @@
           },
           "about": {
             "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "default": "consumer"
           },
           "created_by": {
             "type": "string"

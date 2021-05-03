@@ -698,7 +698,7 @@
           },
           "date_of_memory": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "content": {
             "type": "string"
@@ -918,6 +918,9 @@
               "about": {
                 "type": "string"
               },
+              "level": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -980,7 +983,7 @@
           },
           "date_of_memory": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "content": {
             "type": "string"

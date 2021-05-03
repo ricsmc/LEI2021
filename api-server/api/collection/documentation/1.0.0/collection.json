@@ -564,6 +564,9 @@
               "about": {
                 "type": "string"
               },
+              "level": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

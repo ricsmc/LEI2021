@@ -7,10 +7,8 @@ var userSchema = new mongoose.Schema({
     password: { type:  String, required: true },
     googleId:{type:String},
     createdAt: {type: Date, default: Date.now},
-    published_at: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now},
-    date_of_registry: {type: Date, default: Date.now}
-    
+    level:{type:String, default:"consumer"}    
 })
 
 

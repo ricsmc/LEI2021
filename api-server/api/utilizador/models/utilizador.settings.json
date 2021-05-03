@@ -31,15 +31,19 @@
       "required": false
     },
     "collections": {
-      "via": "utilizador",
-      "collection": "collection"
+      "collection": "collection",
+      "via": "utilizador"
     },
     "memories": {
-      "collection": "memory",
-      "via": "utilizador"
+      "via": "utilizador",
+      "collection": "memory"
     },
     "about": {
       "type": "richtext"
+    },
+    "level": {
+      "type": "string",
+      "default": "consumer"
     }
   }
 }

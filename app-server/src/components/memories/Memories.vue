@@ -11,7 +11,7 @@
             :items="values"
             v-model="filter"
             light
-            label="Field">
+            label="Filtro">
             </v-select>
         </v-col>
 
@@ -19,13 +19,13 @@
             <v-text-field 
             type="text" 
             v-model="word" 
-            label="Word">
+            label="Palavra">
             </v-text-field>        
         </v-col>
 
         <v-col cols="2">
             <v-btn style="margin-top:10px" dark @click="procurar()"> 
-              Search
+              Procurar
             </v-btn>        
         </v-col>
 

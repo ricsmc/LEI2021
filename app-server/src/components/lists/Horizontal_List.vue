@@ -1,7 +1,7 @@
 <template>
   <div v-if="this.items" class="horizontalList">
       <div class="esq">
-        <button style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
+        <button v-if="this.items.length>0" style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
           <i class="fa fa-angle-left fa-5x" ></i>
         </button>
       </div>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="dir">
-        <button style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
+        <button v-if="this.items.length>0" style="height: 200px;" id="right_button" @click="swipe(1,'right_button')">
           <i class="fa fa-angle-right fa-5x"></i>
         </button>
       </div>

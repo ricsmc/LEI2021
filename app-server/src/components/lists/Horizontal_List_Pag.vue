@@ -88,11 +88,11 @@ export default {
     },
     async getInfoCollections() {
       var result  
-      if (this.filter) {
+      if (this.filter=='Nome') {
         result = await this.$apollo.query({
           query: gql`
             query Collections ($value: String!, $start: Int!, $limit: Int!)  {
-              collections(where: { ${this.filter}_contains: $value }, start:$start, limit:$limit) {
+              collections(where: { name_contains: $value }, start:$start, limit:$limit) {
                 id
                 name
                 collection_picture {

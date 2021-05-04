@@ -32,10 +32,6 @@ const router = new VueRouter({
       components: require("./components/About.vue")
     },
     {
-      path: "/users",
-      components: require("./components/users/Users.vue")
-    },
-    {
       path: "/users/:id",
       components: require("./components/profile/Profile.vue")
     },

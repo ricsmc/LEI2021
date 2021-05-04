@@ -75,7 +75,7 @@ import VueScrollSnap from "vue-scroll-snap";
 }
 
 .about {
-  background-color: rgb(164, 144, 184);
+  background-color: #8785C4;
 }
 
 .about section {

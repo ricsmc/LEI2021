@@ -48,14 +48,14 @@ import {mutations} from '@/store.js'
 
 
 export default {
-    components : {
-        Sidebar,
-    },
-    methods : {
-        sidebar_click() {
-            mutations.toggleNav()
+  components : {
+    Sidebar,
+  },
+  methods : {
+    sidebar_click() {
+      mutations.toggleNav()
     }
-    }
+  }
 }
 </script>
 

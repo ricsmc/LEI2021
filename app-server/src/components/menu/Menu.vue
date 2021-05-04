@@ -7,7 +7,7 @@
             <router-link to="/" class="rtr-link">
               <v-list-item class="sidebar-list" link color="#3c22cc"  @click="sidebar_click()">
                 <v-list-item-content class="sidebar-content"> 
-                  Home
+                  Página Inicial
                 </v-list-item-content>
               </v-list-item>
             </router-link>
@@ -15,7 +15,7 @@
             <router-link to="/about" class="rtr-link">
               <v-list-item link color="#3c22cc"  @click="sidebar_click()">  
                 <v-list-item-content class="sidebar-content"> 
-                  About
+                  Sobre
                 </v-list-item-content>
               </v-list-item>
             </router-link>
@@ -23,7 +23,7 @@
             <router-link to="/users" class="rtr-link">
               <v-list-item link color="#3c22cc"  @click="sidebar_click()">
                 <v-list-item-content class="sidebar-content"> 
-                  Users
+                  Utilizadores
                 </v-list-item-content>
               </v-list-item>
             </router-link>
@@ -31,7 +31,7 @@
             <router-link to="/memories" class="rtr-link">
               <v-list-item link color="#3c22cc"  @click="sidebar_click()">
                 <v-list-item-content class="sidebar-content"> 
-                  Memories
+                  Memórias
                 </v-list-item-content>
               </v-list-item>
             </router-link>
@@ -39,7 +39,7 @@
             <router-link to="/collections" class="rtr-link">
               <v-list-item link color="#3c22cc"  @click="sidebar_click()">
                 <v-list-item-content class="sidebar-content"> 
-                  Collections
+                  Coleções
                 </v-list-item-content>
               </v-list-item>
             </router-link>

@@ -47,7 +47,7 @@
         </v-row>
 
         <v-row >
-          <v-col cols="5" v-for="video in memory.videos" :key="video.url">
+          <v-col cols="12" v-for="video in memory.videos" :key="video.url">
             <my-video :sources="[{src:`http://localhost:1337`+video.url, type:'video/mp4'}]" :options="videos.options" :errorMsg="videos.errorMsg"></my-video>
           </v-col>
         </v-row>

@@ -53,8 +53,8 @@
       "via": "memories"
     },
     "people": {
-      "collection": "person",
-      "via": "memories"
+      "via": "memories",
+      "collection": "person"
     }
   }
 }

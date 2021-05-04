@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "people",
   "info": {
-    "name": "Person"
+    "name": "Person",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -18,14 +19,14 @@
       "type": "string"
     },
     "date_of_birth": {
-      "type": "date"
+      "type": "datetime"
     },
     "date_of_death": {
-      "type": "date"
+      "type": "datetime"
     },
     "memories": {
-      "via": "people",
       "collection": "memory",
+      "via": "people",
       "dominant": true
     }
   }

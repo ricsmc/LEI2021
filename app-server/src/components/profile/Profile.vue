@@ -121,6 +121,11 @@ export default {
           collection_picture {
             url
           }
+          memories {
+            images {
+              url
+            }
+          }
         }
       }
     `,

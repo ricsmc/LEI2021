@@ -130,7 +130,7 @@
 
         <v-row>
           <v-container>
-            <v-btn center v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;margin-top:30px;" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+            <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
           </v-container>
         </v-row>
     </v-container>
@@ -256,7 +256,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
     text-align: center;
 }
 .titulo {
-    font-size: 200%;
+    font-size: 150%;
     
 }
 

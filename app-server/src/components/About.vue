@@ -1,8 +1,8 @@
 <template>
-  <div id="about" class="about" >
-    <vue-scroll-snap :fullscreen="true">
-      
-      <div class="item">
+  <vue-scroll-snap :fullscreen="true">
+    <div id="about" class="about" >
+
+      <section class="item">
         <v-container>
           <h1 class="display-4">SOBRE NÓS</h1>
         </v-container> 
@@ -10,11 +10,14 @@
           <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.</h1>
           <h1 class="overline">Partilhe connosco as suas experiências e conheça a de tantos outros!</h1>
           <h1 class="overline">Conte-nos a sua história!</h1>
+          <div class="iconSeta">
+            <i class="fa fa-chevron-down fa-2x" aria-hidden="true"></i>
+          </div>
         </v-container>
-      </div>
+      </section>
 
 
-      <div class="item">
+      <section class="item">
         <v-container>
           <h1 class="display-4">CONHEÇA A EQUIPA</h1>
         </v-container>
@@ -25,10 +28,10 @@
             <TeamCard v-bind:name="'Luís Vila'"     v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>  
         </v-container>
-      </div>
+      </section>
 
         
-      <div class="item">
+      <section class="item">
         <v-container>
           <h1 class="display-4">CONTACTOS</h1>
         </v-container> 
@@ -39,10 +42,10 @@
             <TeamCard v-bind:name="'E-mail'"       v-bind:description="'memory@book.com'" v-bind:img="'https://icons-for-free.com/iconfiles/png/512/inbox+letter+mail+message+text+icon-1320086048829188486.png'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>
         </v-container>
-      </div>
-    
-    </vue-scroll-snap>     
-  </div>
+      </section>
+   
+    </div>
+  </vue-scroll-snap>     
 </template>
 
 <script>
@@ -53,35 +56,23 @@ import VueScrollSnap from "vue-scroll-snap";
         name: 'about',
         data() {
           return { 
-            token: localStorage.getItem('user'),
-            window: {
-              width: 0,
-              height: 0
-            }
           }
-        },
-        created() {
-          window.addEventListener('resize', this.handleResize);
-          this.handleResize();
-        },
-        destroyed() {
-          window.removeEventListener('resize', this.handleResize);
         },
         components : {
           TeamCard,
           VueScrollSnap
-        },
-        methods: {
-          handleResize() {
-          this.window.width = window.innerWidth;
-          this.window.height = window.innerHeight;
-        }            
-      }
+        }         
     }
 </script>
 
 <style>
 
+.item {
+  max-height: 100%;
+  height: 100vh;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
 .about {
   background-color: rgb(164, 144, 184);
@@ -105,6 +96,13 @@ import VueScrollSnap from "vue-scroll-snap";
 .overline{
   color: black;
   text-align: center;
+}
+
+
+.iconSeta {
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
 }
 
 

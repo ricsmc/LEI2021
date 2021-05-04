@@ -1,11 +1,10 @@
 <template>
   <div v-if="utilizador" id="profile">
     <v-row no-gutter align="center">
-      <v-col cols=5>
+      <v-col cols=6>
         <v-responsive min-width=500 max-width=500>
-        
         <v-row align="center" >
-          <v-col cols=3 offset=4>
+          <v-col cols=2 offset=2>
             <div style="padding: 60px 0 0 0">
               <v-avatar size="160" class="profile_pic">
                 <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
@@ -23,7 +22,7 @@
               </v-dialog>
             </div>
           </v-col >
-            <v-col cols=3 offset=2>
+            <v-col cols=6 offset=2>
               <div style="padding: 80px 0 0 0px">
               <h2>{{utilizador.username}}</h2>
               </div> 
@@ -32,7 +31,7 @@
         </v-responsive>
       </v-col>
       
-      <v-col cols=3 offset=2 style="padding: 70px 0 0 0">
+      <v-col cols=3 offset=1 style="padding: 70px 0 0 0">
         <v-row>
           <v-col cols=6 class="mem_col" @click="updateSelected('memories')">   
             <v-row justify="center">

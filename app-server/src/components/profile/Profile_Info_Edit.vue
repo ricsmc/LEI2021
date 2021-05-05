@@ -5,9 +5,9 @@
         <v-responsive min-width=500 max-width=500>
           <v-row align="center" >
             
-            <v-col cols="2" style="padding: 110px 0 0 40px">
+            <v-col cols="2" style="padding: 110px 0 0 50px">
               <div @click="chooseImg()" class="click" >
-                <i style="cursor: pointer;color:gray" class="fa fa-camera fa-2x" aria-hidden="true"></i>
+                <i style="cursor: pointer;color:gray" class="fa fa-camera fa-lg" aria-hidden="true"></i>
                 <input
                   ref="uploader"
                   class="d-none"
@@ -75,10 +75,37 @@
     <v-row no-gutters>
       <v-col cols=4 offset=1>
         <v-card max-width="400" elevation="0" outlined style="background-color: inherit;">
-          <v-card-title>Sobre:</v-card-title>
+          <v-row>
+            <v-col cols=4>
+              <v-card-title>Sobre:</v-card-title>
+            </v-col>
+            <v-col cols=1 offset=6>
+              <i v-if="editing" style="cursor: pointer;color:red; margin-top:20px" class="fa fa-times fa-lg" aria-hidden="true" @click="editing=!editing"></i>
+              <i v-else style="cursor: pointer;color:gray; margin-top:20px" class="fa fa-pencil fa-lg" aria-hidden="true" @click="editing=!editing"></i>
+            </v-col>
+          </v-row>
           <v-divider class="mx-4"></v-divider>
-          <v-card-text v-if="utilizador.about">{{utilizador.about}}</v-card-text>
-          <v-card-text v-else>Este utilizador não tem descrição</v-card-text>
+          <div v-if="!editing">
+            <v-card-text v-if="utilizador.about">{{utilizador.about}}</v-card-text>
+            <v-card-text v-else>Este utilizador não tem descrição</v-card-text>
+          </div>
+          <div v-else>
+            <v-card-text>
+              <v-textarea
+                type="text"
+                v-model="newAbout"
+                no-resize
+                rows="4"
+              ></v-textarea>
+              <v-btn 
+                :loading="isLoading" 
+                :style="{left: '50%', transform:'translateX(-50%)'}"
+                elevation="1" 
+                dark
+                v-on:click="updateAbout()"
+              >Guardar</v-btn>
+            </v-card-text>
+          </div>
         </v-card>
       </v-col>
       
@@ -99,6 +126,9 @@ import Horizontal_List from '@/components/lists/Horizontal_List.vue'
 export default {
   data() {
       return{
+        newAbout: this.utilizador.about,
+        editing: false,
+        isLoading: false,
         dialog : false,
         selected: "memories"
       };
@@ -112,6 +142,21 @@ export default {
     memories: Array
   },
   methods : {
+    updateAbout() {
+      this.isLoading=true
+      var json = {}
+      json['about'] = this.newAbout
+      var token = localStorage.getItem('jwt')
+      axios.put("http://localhost:1337/utilizadors/"+this.$route.params.id, json , {headers: {'Authorization': `${token}`}})
+        .then(() => {
+          this.editing=false
+          this.isLoading=false
+          this.$router.go()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     chooseImg() {
       this.$refs.uploader.click()
     },

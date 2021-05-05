@@ -77,7 +77,9 @@ export default {
       document.getElementById(id).disabled = true;  
 
       const contente = this.$refs.contente;
-      var w = window.innerWidth / 2;
+      var w
+      if (this.card=='2') w = window.innerWidth / 4;
+      else w = window.innerWidth / 2;
       this.scrollTo(contente, w*direction, 500);
       await this.sleep(500);
 

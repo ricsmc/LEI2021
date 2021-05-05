@@ -109,7 +109,7 @@
         </v-card>
       </v-col>
       
-      <v-col cols=7>
+      <v-col cols=6 offset=1>
         <Horizontal_List v-if="this.selected=='memories'" :card="'2'" :flag="'memories'" :items="memories"/>
         <Horizontal_List v-else :card="'2'" :flag="'collections'" :items="collections"/>
       </v-col>

@@ -38,14 +38,14 @@ export default {
 
   name: 'App',
    data() {
-            return {
-                    data:"",
-                    show_login:false,
-                    token:false,
-                    id:'',
-                    about:true
-            }
-        },
+    return {
+      data:"",
+      show_login:false,
+      token:false,
+      id:'',
+      about:true
+    }
+  },
   created() {
     this.token=localStorage.getItem('jwt'),
     this.data=localStorage.getItem('user')

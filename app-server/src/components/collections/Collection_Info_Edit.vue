@@ -203,8 +203,9 @@ export default {
         var token = localStorage.getItem('jwt')
         axios.delete("http://localhost:1337/collections/"+idCollection, {headers: {'Authorization': `${token}`}})
           .then(() => {
-            this.$router.push('/')
-            this.$router.go()
+            //this.$router.push('/')
+            //this.$router.go()
+            this.$router.go(-1);
           })
           .catch(err => {
             console.log(err)

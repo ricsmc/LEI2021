@@ -1,27 +1,31 @@
 <template>
     <v-container v-if="this.memory">
-        <h1>{{memory.title}}</h1>
-        <p><b>Local</b> : {{memory.local}}</p>
-        <p><b>Data</b> : {{memory.date_of_memory.split("T")[0]}}</p>
-        <p><b>Texto</b> : {{memory.content}}</p>
+      <v-row style="padding: 10px 0 0 0">
+        <v-col>
+        <v-card
+          class="mx-auto"
+          max-width="900"
+          min-width="100%"
+          min-height="300"
+          outlined
+        >
 
-        <v-row>
-          <v-col cols="4" v-for="person in memory.people" :key="person.name">
-              <p><b>Personagem</b> : {{person.name}} </p>
-              <p v-if="person.local_of_birth">
-                <b>Local</b> : {{person.local_of_birth}} 
-              </p>
-              <p v-if="person.date_of_birth && person.date_of_death">
-                <b>Data</b> : {{person.date_of_birth.split("T")[0]}} ~ {{person.date_of_death.split("T")[0]}}
-              </p>
-              <p v-else-if="person.date_of_birth">
-                <b>Data</b> : {{person.date_of_birth.split("T")[0]}}
-              </p>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="3">
+      
+          <v-card-title>
+            {{memory.title}}
+          </v-card-title>
+      
+          <v-card-subtitle>
+            <v-icon small>mdi-map-marker</v-icon>
+            <span v-if="memory.local">{{memory.local}}</span>   •   <span v-if="memory.date_of_memory">{{memory.date_of_memory.split("T")[0]}}</span>
+          </v-card-subtitle>
+              <v-card-text  v-for="person in memory.people" :key="person.name"><b>Personagem</b> : {{person.name}} </v-card-text>
+          <v-card-text>
+            {{memory.content}}
+          </v-card-text>
+          <v-card-actions>
+            <v-row>
+              <v-col cols="6">
               <v-autocomplete
                 v-model="values"
                 :items="collections"
@@ -33,33 +37,107 @@
                 label="Adiciona às tuas coleções"
                 return-object
                 multiple
+                style="padding:0 0 0 10px"
               ></v-autocomplete>
             </v-col>
             <v-col cols="1">
               <v-btn dark @click="adicionar()"> Adicionar </v-btn>
             </v-col>
-        </v-row>
+            </v-row>
+            
+          </v-card-actions>
+          
+         
+        </v-card>
+        </v-col>
+        <v-col>
+          <v-row>
+            <v-col>
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="headline mb-1 text-left">
+                    Autor:
+                  </v-list-item-title>
+                  <div class="subtitle-1 mb-4">
+                    {{memory.utilizador.username}}
+                  </div>
+                  
+                </v-list-item-content>
+          
+                <v-avatar
+      
+                  size="80"
 
-        <v-row>
-          <v-col cols="5" v-for="image in memory.images" :key="image.url">
-            <v-img :src="`http://localhost:1337`+image.url"></v-img>
-          </v-col>
-        </v-row>
+                >
+                  <v-img v-if="memory.utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + memory.utilizador.profile_picture.url"></v-img>
+                  <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
+                </v-avatar>
+              </v-list-item>
+          
+            
+            </v-card>
+            </v-col>
+            
+          </v-row>
+          <v-row justify="center">
+            <v-col cols=3 >
+              <v-btn href="#" v-scroll-to="'#galeria'">Galeria</v-btn>
+            </v-col>
+            <v-col cols=3>
+              <v-btn href="#" v-scroll-to="'#videos'">Videos</v-btn>
+            </v-col>
+          </v-row>
+          
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
 
-        <v-row >
-          <v-col cols="6" v-for="video in memory.videos" :key="video.url">
-            <my-video :sources="[{src:`http://localhost:1337`+video.url, type:'video/mp4'}]" :options="videos.options" :errorMsg="videos.errorMsg"></my-video>
-          </v-col>
-        </v-row>
+          <v-card outlined id="galeria">
+        <v-card-title>Galeria</v-card-title>
+        <v-card-subtitle>{{memory.images.length}} {{memory.images.length == 1 ? 'Foto' : 'Fotos'}}</v-card-subtitle>
+        <v-carousel style="width:100%;height:auto;" v-model="model" show-arrows-on-hover key="" hide-delimiter-background>
+          <v-carousel-item v-for="image in memory.images" :key="image.url">
+              <v-img max-height="500px" contain :src="`http://localhost:1337`+image.url"></v-img>
+          </v-carousel-item>
+          
+        </v-carousel>
+      </v-card>
+        </v-col>
         
+      
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card outlined id="videos">
+            <v-card-title>
+              Videos
+            </v-card-title>
+            <v-card-subtitle>{{memory.videos.length}} {{memory.videos.length == 1 ? 'Video' : 'Videos'}}</v-card-subtitle>
+            <v-container v-for="video in memory.videos" :key="video.url">
+              <v-col align="center">
+                <video style="height:500px;"  class="my_video" :src="`http://localhost:1337`+video.url" controls></video>
+              </v-col>
+          </v-container>
+          </v-card>
+        </v-col>
         
+      </v-row>
+      
+     
+      
+      
 
     </v-container>
 </template>
 
 
 <script>
-import myVideo from 'vue-media-player'
 import gql from 'graphql-tag'
 import axios from 'axios'
 
@@ -74,11 +152,19 @@ export default {
                 volume: 0.5
             },
             errorMsg: 'Vídeo não disponível!'
-          }
-        }  
+          },
+          play_p: "mdi-play",
+          video: '',
+          juice: ''
+          
+          } 
     },
     components: {
-      myVideo
+    
+    },
+    created(){
+      this.video= document.querySelector('.video')
+      this.juice= document.querySelector('.orange-juice')
     },
     methods: {
       adicionar() {
@@ -94,6 +180,17 @@ export default {
                 console.log(err)
               })
           });
+        }
+      },
+      play_pause() {
+        console.log(this.video.paused)
+        if(this.video.paused){
+          this.play_p="mdi-pause";
+          this.video.play();
+        }
+        else{
+          this.play_p="mdi-play";
+          this.video.pause();
         }
       }
     },
@@ -117,6 +214,12 @@ export default {
               local_of_birth
               date_of_birth
               date_of_death
+            }
+            utilizador {
+              username
+              profile_picture {
+                url
+              }
             }
           }
         }
@@ -152,6 +255,7 @@ export default {
 h1 {
    padding: 15px 0 15px 0;
 }
+
 
 
 

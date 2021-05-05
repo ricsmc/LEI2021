@@ -10,6 +10,10 @@ import vuetify from './plugins/vuetify';
 Vue.use(VueApollo);
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
+ 
+var VueScrollTo = require('vue-scrollto');
+ 
+Vue.use(VueScrollTo)
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="utilizador && memories && collections" id="profile">
+  <div v-if="utilizador && memories && collections">
     <v-row no-gutter align="center">
       <v-col cols=6>
         <v-responsive min-width=500 max-width=500>

@@ -1,11 +1,13 @@
 <template>
     <div id="profile" v-if="utilizador">
+      <v-container style="max-width: 100%">
         <div v-if="idUser==utilizador.id || level=='admin'">
             <ProfileInfoEdit :utilizador="utilizador" :collections="collections" :memories="memories"/>
         </div>
         <div v-else>
             <ProfileInfo :utilizador="utilizador" :collections="collections" :memories="memories"/>
         </div>
+      </v-container>
     </div>
 </template>
 

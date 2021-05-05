@@ -61,11 +61,11 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <v-list-item-title class="headline mb-1 text-left">
-                    Autor:
+                    Autor
                   </v-list-item-title>
-                  <div class="subtitle-1 mb-4">
-                    {{memory.utilizador.username}}
-                  </div>
+                  <router-link :to="'/users/' + memory.utilizador.id" style="color:#8785C4" class="subtitle-1 mb-4 profile-link">
+                    <v-btn left plain color="indigo" class="username">{{memory.utilizador.username}}</v-btn>
+                  </router-link>
                   
                 </v-list-item-content>
           
@@ -86,10 +86,10 @@
           </v-row>
           <v-row justify="center">
             <v-col cols=3 >
-              <v-btn href="#" v-scroll-to="'#galeria'">Galeria</v-btn>
+              <v-btn href="#" v-scroll-to="'#galeria'" plain color="indigo">Galeria</v-btn>
             </v-col>
             <v-col cols=3>
-              <v-btn href="#" v-scroll-to="'#videos'">Videos</v-btn>
+              <v-btn href="#" v-scroll-to="'#videos'" plain color="indigo">Videos</v-btn>
             </v-col>
           </v-row>
           
@@ -216,6 +216,7 @@ export default {
               date_of_death
             }
             utilizador {
+              id
               username
               profile_picture {
                 url
@@ -256,7 +257,18 @@ h1 {
    padding: 15px 0 15px 0;
 }
 
+.profile-link {
+  text-decoration: none;
+  
+}
+.profile-link:hover {
+  color:#38387c;
+  
+}
 
-
+.username {
+    text-transform: none;
+    align-content: left;
+}
 
 </style>

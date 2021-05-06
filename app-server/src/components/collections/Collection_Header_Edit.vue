@@ -1,9 +1,6 @@
 <template>
     <div id="collection_header_edit">
-       <v-dialog max-width="400px" v-model="dialog">
-            <template v-slot:activator="{ on }">
-                <i v-on="on" style="cursor: pointer;" class="fa fa-pencil fa-2x" aria-hidden="true"></i>
-            </template>
+       <v-dialog max-width="400px" v-model="show">
             <v-card >
                 <v-card-text >
                     <v-container>
@@ -52,7 +49,6 @@ export default {
     data() {
         return{
           isLoading:false,
-          dialog:false,
           newDescription:this.collection.description,
           newName:this.collection.name
         }
@@ -61,7 +57,7 @@ export default {
       clearVariables() {  
         this.newName="",
         this.newDescription="",
-        this.dialog=false,
+        this.show=false,
         this.isLoading=false
       },
       updateCollection() {
@@ -83,8 +79,19 @@ export default {
       }
     },
     props: {
+        value: Boolean,
         collection: Object
-    }
+    },
+    computed: {
+      show: {
+        get () {
+          return this.value
+        },
+        set (value) {
+           this.$emit('input', value)
+        }
+      }
+  }
 }
 
 </script>

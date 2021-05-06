@@ -1,6 +1,8 @@
 <template>
     <v-container v-if="collection">
-     
+      
+      <EditHeader v-model="dialog" :collection="collection" />
+
       <v-row class="header">
           <v-col cols="4">
             <div @click="chooseImg()" class="click" >
@@ -17,16 +19,37 @@
           
           <v-col cols="8">
             <v-row>
-              <v-col cols="10">
+              <v-col cols="11">
                 <h1>{{collection.name}}</h1>
               </v-col>
 
               <v-col cols="1" >
-                <EditHeader :collection="collection"/>
+                <v-menu
+                  left
+                  offset-x
+                  transition="slide-x-reverse-transition"
+                  open-delay
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                      <v-icon 
+                      large
+                      v-bind="attrs"
+                      color="black"
+                      v-on="on">mdi-dots-vertical</v-icon>
+                  </template>
+
+                  <v-list class="py-0" dark>
+                    <v-list-item
+                      v-for="(item,i) in items"
+                      :key="i"
+                      v-on:click="handleMyClick(item.do)"
+                    >
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </v-col>
-              <v-col cols="1">
-                <i style="color:red;cursor: pointer;" @click="removeMemory()" class="fa fa-times fa-2x" aria-hidden="true"></i>
-              </v-col>
+
             </v-row>
 
             <div class="descricao" v-if="collection.description">
@@ -65,7 +88,7 @@
               {{value.split("T")[0]}}
             </template>
             <template v-slot:[`item.id`]="{ value}" >
-              <v-icon small color="red" @click.stop="remove(value)">
+              <v-icon small color="red" @click.stop="removeMemory(value)">
                 X
               </v-icon>
             </template>
@@ -132,31 +155,41 @@ import gql from 'graphql-tag'
 
 export default {
     data() {
-        return{
-          collection: '',
-          searchList: [],
-          search:"",
-          selectedFile: null,
-          urls: [],
-          headers: [
-            { text: 'Memória', align: 'center', sortable: false, value: 'images'},
-            { text: 'Título', align: 'center',value: 'title' },
-            { text: 'Data de criação',align: 'center', value: 'createdAt' },
-            { text: 'Remover', align:'center', sortable: false, value: 'id'}
-          ],
-          headerSearchList: [
-            { text: 'Memória', align: 'center', sortable: false, value: 'images'},
-            { text: 'Titulo', align: 'center', value: 'title' },
-            { text: 'Data de criação',align: 'center', value: 'createdAt' },
-            { text: 'Adicionar',align: 'center', sortable: false, value: 'id' },
-          ]
-        }  
+      return {
+        dialog:false,
+        collection: '',
+        searchList: [],
+        search:"",
+        selectedFile: null,
+        urls: [],
+        headers: [
+          { text: 'Memória', align: 'center', sortable: false, value: 'images'},
+          { text: 'Título', align: 'center',value: 'title' },
+          { text: 'Data de criação',align: 'center', value: 'createdAt' },
+          { text: 'Remover', align:'center', sortable: false, value: 'id'}
+        ],
+        headerSearchList: [
+          { text: 'Memória', align: 'center', sortable: false, value: 'images'},
+          { text: 'Titulo', align: 'center', value: 'title' },
+          { text: 'Data de criação',align: 'center', value: 'createdAt' },
+          { text: 'Adicionar',align: 'center', sortable: false, value: 'id' },
+        ],
+        items: [
+          { title: 'Editar', do: 'edit' },
+          { title: 'Remover Coleção', do: 'remove'}
+        ]
+      }
     },
     components: {
-      Foto,
+      Foto, 
       EditHeader
     },
     methods: {
+      handleMyClick(action) {
+        if (action=='edit') this.dialog=true
+        else if (action=='remove') this.removeCollection()
+        else console.log("Ação não reconhecida: " + action)
+      },
       handleClick: function(value){
           this.$router.push('/memories/' + value.id)
       },
@@ -186,7 +219,7 @@ export default {
         if (index==-1) return false;
         else return true;
       },
-      remove(id) {
+      removeMemory(id) {
         var idCollection = this.$route.params.id
         var token = localStorage.getItem('jwt')
         axios.put("http://localhost:1337/memories/"+id+"/removeFromCollections",  {idCollection}, {headers: {'Authorization': `${token}`}})
@@ -198,7 +231,7 @@ export default {
             console.log(err)
           })
       },
-      removeMemory() {
+      removeCollection() {
         var idCollection = this.$route.params.id
         var token = localStorage.getItem('jwt')
         axios.delete("http://localhost:1337/collections/"+idCollection, {headers: {'Authorization': `${token}`}})

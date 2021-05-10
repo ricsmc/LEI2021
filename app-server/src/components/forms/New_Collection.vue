@@ -12,9 +12,9 @@
 
                         <v-col cols="12">
                             <v-text-field 
-                            prepend-icon="mdi-account"
                             type="text" 
                             v-model="name" 
+                            :rules="[rules.required]"
                             label="Nome"
                             ></v-text-field>
                         </v-col>
@@ -23,16 +23,15 @@
                             <v-textarea 
                             outlined 
                             :counter="200"
-                            :rules="[v => (v || '' ).length <= 200 || 'Descrição deverá conter 200 caracteres ou menos']"
+                            :rules="[rules.length]"
                             type="text" 
-                            prepend-icon="mdi-pencil" 
                             v-model="descricao"  
                             label="Descrição"
                             ></v-textarea>
                         </v-col>
 
                         <v-container>
-                          <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="150" style="height:40px" class="white--text" elevation="1" v-on:click="newCollection()" color="#4F4E81">Criar</v-btn>
+                          <v-btn :loading="loading" :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="150" style="height:40px" class="white--text" elevation="1" v-on:click="newCollection()" color="#4F4E81">Criar</v-btn>
                         </v-container>
 
                     </v-container>
@@ -52,9 +51,14 @@ export default {
     name: 'new_collection',
     data() {
         return {
+            loading:false,
             name: "",
             descricao: "",
             dialog:false,
+            rules: {
+                required: value => !!value || "This camp is required.",
+                length: v => (v || '' ).length <= 200 || 'Descrição deverá conter 200 caracteres ou menos'
+            },
         }
     },
     methods: {
@@ -64,6 +68,7 @@ export default {
         this.dialog=false
       },
       newCollection() {
+        this.loading=true
         var json = {}
         json['name'] = this.name
         json['public'] = false
@@ -73,6 +78,7 @@ export default {
         axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
           .then(data => {
             this.clearVariables()
+            this.loading=false
             this.$router.push('/collections/' + data.data.id)
             this.$router.go()
           })

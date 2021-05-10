@@ -16,7 +16,7 @@
             type="text" 
             class="titulo" 
             style="border-style: none !important;" 
-            :rules="rules" 
+            :rules="[rules.required]" 
             v-model="title" 
             label="Título *"
             ></v-text-field>
@@ -35,7 +35,7 @@
             outlined 
             auto-grow 
             type="text" 
-            :rules="rules" 
+            :rules="[rules.required]" 
             v-model="content" 
             label="Corpo *"
             ></v-textarea>
@@ -130,7 +130,7 @@
 
         <v-row>
           <v-container>
-            <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+            <v-btn :loading="loading" :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
           </v-container>
         </v-row>
     </v-container>
@@ -150,6 +150,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
         },
         data() {
             return {
+                loading:false,
                 values: [],
                 images: [],
                 videos: [],
@@ -159,9 +160,9 @@ import NewPerson from '@/components/forms/New_Person.vue'
                 title: "",
                 content: "",
                 local: '',
-                rules: [
-                  value => !!value || 'Required',
-                ],
+                rules: {
+                  required: value => !!value || "This camp is required.",
+                }
             }
         },
         watch: {
@@ -198,6 +199,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
             });
           },
           post(){
+            this.loading=true
             let formData = new FormData();
 
             for (let i = 0; i < this.images.length; i++) {
@@ -223,6 +225,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
             axios.post("http://localhost:1337/memories", formData , {headers: {'Authorization': `${token}`}})
               .then(data => {
                 this.ligaMemoriaAPessoa(data.data.id)
+                this.loading=false
                 this.$router.push('/memories/' + data.data.id)
                 this.$router.go()
               })

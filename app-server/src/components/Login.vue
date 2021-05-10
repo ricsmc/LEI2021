@@ -42,7 +42,7 @@
                             </v-container>
                         </v-card-text>
                         <v-card-actions class="justify-center">
-                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="login()" color="#4F4E81">Login</v-btn>
+                            <v-btn :loading="loading" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="login()" color="#4F4E81">Login</v-btn>
                         </v-card-actions>
                         <v-card-actions class="justify-center">
                             <GoogleLogin  :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
@@ -64,7 +64,7 @@
                                     <v-text-field 
                                     type="text" 
                                     v-model="username" 
-                                    :rules="[rules.required]"
+                                    :rules="[rules.required,rules.length]"
                                     label="Username" >
                                     </v-text-field>
                                 </v-col>
@@ -99,7 +99,7 @@
                             </v-container>
                         </v-card-text>
                         <v-card-actions class="justify-center">
-                            <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="register()" color="#4F4E81">Register</v-btn>
+                            <v-btn :loading="loading" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="register()" color="#4F4E81">Register</v-btn>
                         </v-card-actions>
                         <v-card-actions v-if="!google_id" class="justify-center">
                             <GoogleLogin  :params="params" :onSuccess="onSuccessRegister" :onFailure="onFailure">
@@ -130,6 +130,7 @@ import bcrypt from 'bcryptjs'
         name: 'Login',
         data() {
             return {
+                    loading:false,
                     tab: 0,
                     tabs: [
                         {name:"Login", icon:"mdi-account"},
@@ -137,6 +138,7 @@ import bcrypt from 'bcryptjs'
                     ],
                     rules: {
                         required: value => !!value || "This camp is required.",
+                        length: v => (v || '' ).length <= 20 || 'Username deverá conter 20 caracteres ou menos'
                     },
                     username: "",
                     password: "",
@@ -169,6 +171,7 @@ import bcrypt from 'bcryptjs'
         },        
         methods: {
             login() {
+                this.loading=true
                 var json = {}
                 json['username'] = this.username
                 json['password'] = this.password
@@ -181,6 +184,7 @@ import bcrypt from 'bcryptjs'
                         this.$emit('loged')
                         this.$router.go()
                         this.dialog = false
+                        this.loading = false
                     })
                     .catch(err => {
                             this.alert = true
@@ -209,6 +213,7 @@ import bcrypt from 'bcryptjs'
             onFailure(){   
             },
             register() {
+                this.loading=true
                 var json = {}
                 json['username'] = this.username
                 json['email']    = this.email
@@ -230,6 +235,7 @@ import bcrypt from 'bcryptjs'
                                 this.$emit('loged')
                                 this.$router.go()
                                 this.dialog = false
+                                this.loading = false
                             })
                             .catch(err => {
                                     this.alert = true

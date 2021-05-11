@@ -45,12 +45,20 @@
       @updatePag:page="updatePag"/>
     </v-container>
 
+    <v-container>
+      <v-row>
+        <v-col align="right">
+          <NewCollection button='true'/>
+        </v-col>
+      </v-row>
+    </v-container>
+
   </div>
 </template>
 
 
 <script>
-
+import NewCollection from '@/components/forms/New_Collection.vue'
 import HorizontalList from '@/components/lists/Horizontal_List_Pag.vue'
 import gql from 'graphql-tag'
 import axios from 'axios'
@@ -58,7 +66,8 @@ import axios from 'axios'
 export default {
   name: 'Collections',
   components: {
-   HorizontalList
+   HorizontalList,
+   NewCollection
   },
   data() {
     return {

@@ -44,6 +44,23 @@
       @updatePag:page="updatePag"/>
     </v-container>
 
+    <v-container>
+      <v-row>
+        <v-col align="right">
+          <v-btn
+            @click="goToNewMemory()"
+            color="black"
+            outlined
+            elevation="8"
+            large
+            icon
+          >
+          <v-icon>mdi-plus</v-icon> 
+          </v-btn>      
+        </v-col>
+      </v-row>
+    </v-container>
+
   </div>
 </template>
 
@@ -70,6 +87,9 @@ export default {
     }
   },
   methods: {
+    goToNewMemory(){
+      this.$router.push('/new_memory')
+    },
     update(value){
       this.memories=value;
     },

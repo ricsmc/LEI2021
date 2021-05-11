@@ -95,6 +95,7 @@
                 type="text"
                 v-model="newAbout"
                 no-resize
+                class="pa-0"
                 rows="4"
               ></v-textarea>
               <v-btn 

@@ -2,7 +2,18 @@
     <div id="new_collection">
         <v-dialog max-width="400px" v-model="dialog">
             <template v-slot:activator="{ on }">
-                <a v-on="on"> Nova Coleção </a>
+                <v-btn
+                  v-if="button"
+                  v-on="on"
+                  color="black"
+                  outlined
+                  elevation="8"
+                  large
+                  icon
+                >
+                <v-icon>mdi-plus</v-icon> 
+                </v-btn> 
+                <a v-else v-on="on"> Nova Coleção </a>
             </template>
             <v-card >
                 <v-card-text >
@@ -60,6 +71,9 @@ export default {
                 length: v => (v || '' ).length <= 200 || 'Descrição deverá conter 200 caracteres ou menos'
             },
         }
+    },
+    props: {
+        button: String
     },
     methods: {
       clearVariables() {  

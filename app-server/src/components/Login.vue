@@ -48,7 +48,7 @@
                             <GoogleLogin  :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
                                 <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" outlined elevation="1" color="#4F4E81">
                                     <img width="20px" style=" margin-right:10px" alt="Google sign-in" 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Google
+                src="../../public/logo_google.webp" />Google
                                 </v-btn>
                             </GoogleLogin>
                         </v-card-actions>
@@ -105,7 +105,7 @@
                             <GoogleLogin  :params="params" :onSuccess="onSuccessRegister" :onFailure="onFailure">
                                 <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" outlined elevation="1" color="#4F4E81">
                                     <img width="20px" style=" margin-right:10px" alt="Google sign-up" 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Google
+                src="../../public/logo_google.webp" />Google
                                 </v-btn>
                             </GoogleLogin>
                         </v-card-actions>            

@@ -4,7 +4,7 @@
         <div class="dropbtn">
             <v-avatar size="50" class="avatar">
                 <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-                <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
+                <v-img v-else src="../../../public/user.png"></v-img>
             </v-avatar>
             <b class="username">{{utilizador.username}}</b>
             <i class="fa fa-sort-desc" style="margin-left:10px;"></i>

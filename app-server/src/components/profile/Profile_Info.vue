@@ -9,7 +9,7 @@
             <div style="padding: 60px 0 0 0">
               <v-avatar size="160" class="profile_pic">
                 <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-                <v-img v-else src="https://cdn140.picsart.com/297361716279211.png?type=webp&to=min&r=640"></v-img>
+                <v-img v-else src="../../../public/user.png"></v-img>
               </v-avatar>
               <v-dialog
                 v-model="dialog"

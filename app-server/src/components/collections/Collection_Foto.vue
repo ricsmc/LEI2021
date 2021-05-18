@@ -21,7 +21,7 @@
         </div>
 
         <div class="carddAlone" v-else>
-          <img src="https://atasouthport.com/wp-content/uploads/2017/04/default-image-620x600.jpg"/>
+          <img src="../../../public/default.jpg"/>
         </div>
 
     </div>

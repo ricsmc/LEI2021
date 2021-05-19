@@ -28,7 +28,7 @@
             </v-container>
             
             <v-spacer></v-spacer>
-            <v-btn @click="editing=!editing" icon v-if="memory.utilizador.username===user">
+            <v-btn @click="editing=!editing" icon v-if="memory.utilizador.username==user">
               <v-icon v-if="editing" class="fa fa-times fa-lg" aria-hidden="true" color="red"></v-icon>
               <v-icon v-else class="fa fa-pencil fa-lg" aria-hidden="true" ></v-icon>
             </v-btn>
@@ -276,6 +276,25 @@ export default {
           this.play_p="mdi-play";
           this.video.pause();
         }
+      },
+      saveInfo(){
+        let formData = new FormData();
+        var json = {}
+        json['title'] = this.title
+        json['content'] = this.content
+        json['local'] = this.local
+        json['date_of_memory'] = this.date
+        var token = localStorage.getItem('jwt')
+
+        formData.append("data", JSON.stringify(json));
+
+        axios.put("http://localhost:1337/memories/" + this.$route.params.id, formData , {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.go()
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     },
     apollo: {

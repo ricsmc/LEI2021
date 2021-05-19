@@ -24,7 +24,7 @@
           </div>
 
           <div class="onePic" v-else>
-            <img src="https://atasouthport.com/wp-content/uploads/2017/04/default-image-620x600.jpg"/>
+            <img src="../../../public/default.jpg"/>
           </div>
 
           <v-card-title>

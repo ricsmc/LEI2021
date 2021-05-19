@@ -23,9 +23,9 @@
         </v-container>
         <v-container>
           <v-row align="center" justify="center">
-            <TeamCard v-bind:name="'Ricardo Cunha'" v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block"></TeamCard>
-            <TeamCard v-bind:name="'Luis Ramos'"    v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
-            <TeamCard v-bind:name="'Luís Vila'"     v-bind:description="'Developer'" v-bind:img="'https://cdn.vuetifyjs.com/images/profiles/marcus.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Ricardo Cunha'" v-bind:description="'Developer'" v-bind:img="'ricardo.jpg'" style="display:inline-block"></TeamCard>
+            <TeamCard v-bind:name="'Luis Ramos'"    v-bind:description="'Developer'" v-bind:img="'ramos.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Luís Vila'"     v-bind:description="'Developer'" v-bind:img="'vila.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>  
         </v-container>
       </section>
@@ -37,9 +37,9 @@
         </v-container> 
         <v-container> 
           <v-row align="center" justify="center">
-            <TeamCard v-bind:name="'Onde estamos'" v-bind:description="'Braga, Portugal'" v-bind:img="'https://freepikpsd.com/wp-content/uploads/2019/10/icone-location-png-3-Transparent-Images.png'" style="display:inline-block"></TeamCard>
-            <TeamCard v-bind:name="'Telefone'"     v-bind:description="'912345678'"       v-bind:img="'http://pixsector.com/cache/ed4319ca/av393c12b3aec5df31bb8.png'" style="display:inline-block; margin-left:1%"></TeamCard>
-            <TeamCard v-bind:name="'E-mail'"       v-bind:description="'memory@book.com'" v-bind:img="'https://icons-for-free.com/iconfiles/png/512/inbox+letter+mail+message+text+icon-1320086048829188486.png'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'Onde estamos'" v-bind:description="'Braga, Portugal'" v-bind:img="'location.png'" style="display:inline-block"></TeamCard>
+            <TeamCard v-bind:name="'Telefone'"     v-bind:description="'912345678'"       v-bind:img="'contact.png'" style="display:inline-block; margin-left:1%"></TeamCard>
+            <TeamCard v-bind:name="'E-mail'"       v-bind:description="'memory@book.com'" v-bind:img="'email.png'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>
         </v-container>
       </section>

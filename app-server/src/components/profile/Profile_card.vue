@@ -11,8 +11,7 @@
         ></v-progress-linear>
       </template>
      
-      <v-img height="250" :src="this.img"></v-img>
-     
+      <v-img height="250" :src="image"></v-img>
       <v-card-title>{{name}}</v-card-title>
          
       <v-card-text>
@@ -29,6 +28,7 @@ export default {
   name:"Profile_card",
   data(){
     return {
+       image: this.img
       }
   },
   props:['name', 'description', 'img']

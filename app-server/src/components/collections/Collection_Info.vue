@@ -39,7 +39,7 @@
             @click:row="handleClick"
             class="elevation-1">
             <template v-slot:[`item.images`]="{ value }">
-              <img v-if="value.length==0" src="https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-sobre-o-error-404-not-found.jpeg" height="80px" width="140">
+              <img v-if="value.length==0" src="../../../public/erro404.jpeg" height="80px" width="140">
               <img v-else :src="`http://localhost:1337`+value[0].url" height="80px" width="140">    
             </template>
             <template v-slot:[`item.createdAt`]="{ value }">

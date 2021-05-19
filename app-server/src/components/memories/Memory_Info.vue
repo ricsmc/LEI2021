@@ -28,7 +28,7 @@
             </v-container>
             
             <v-spacer></v-spacer>
-            <v-btn @click="editing=!editing" icon v-if="memory.utilizador.username==user">
+            <v-btn @click="editing=!editing" icon v-if="memory.utilizador.id==user">
               <v-icon v-if="editing" class="fa fa-times fa-lg" aria-hidden="true" color="red"></v-icon>
               <v-icon v-else class="fa fa-pencil fa-lg" aria-hidden="true" ></v-icon>
             </v-btn>
@@ -248,7 +248,10 @@ export default {
       this.title= this.memory.title
       this.local= this.memory.local
       this.content= this.memory.content
-      this.user= localStorage.getItem("user")
+      this.user= localStorage.getItem("id")
+    },
+    updated(){
+      this.user= localStorage.getItem("id")
     },
     methods: {
       adicionar() {

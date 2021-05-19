@@ -6,23 +6,100 @@
           class="mx-auto"
           max-width="900"
           min-width="100%"
-          min-height="300"
           outlined
         >
-
+          <v-app-bar
+          flat
+          color="white"
+          >
+            <v-toolbar-title
+            v-if="!editing"
+            >
+              {{memory.title}}
+            </v-toolbar-title>
+            <v-container v-else style="padding:30px 0 0 0">
+              <v-text-field
+              type="text"
+              label="Título"
+              v-model="title"
+              clearable
+              >
+              </v-text-field>
+            </v-container>
+            
+            <v-spacer></v-spacer>
+            <v-btn @click="editing=!editing" icon v-if="memory.utilizador.username===user">
+              <v-icon v-if="editing" class="fa fa-times fa-lg" aria-hidden="true" color="red"></v-icon>
+              <v-icon v-else class="fa fa-pencil fa-lg" aria-hidden="true" ></v-icon>
+            </v-btn>
+            
+          </v-app-bar>
+          
+          
       
-          <v-card-title>
-            {{memory.title}}
-          </v-card-title>
-      
-          <v-card-subtitle>
-            <v-icon small>mdi-map-marker</v-icon>
-            <span v-if="memory.local">{{memory.local}}</span>   •   <span v-if="memory.date_of_memory">{{memory.date_of_memory.split("T")[0]}}</span>
+          <v-card-subtitle v-if="!editing">
+            <span v-if="memory.local"><v-icon small>mdi-map-marker</v-icon>{{memory.local}}</span>   <span v-if="memory.local && memory.date_of_memory">•</span>   <span v-if="memory.date_of_memory">{{memory.date_of_memory.split("T")[0]}}</span>
           </v-card-subtitle>
-              <v-card-text  v-for="person in memory.people" :key="person.name"><b>Personagem</b> : {{person.name}} </v-card-text>
-          <v-card-text>
+          <v-container v-else>
+            <v-row>
+            <v-col>
+              <v-text-field
+                type="text"
+                v-model="local"
+                clearable
+                label="Local"
+                append-icon="mdi-map-marker"
+                >
+              </v-text-field>
+            </v-col>
+            <v-col>
+              <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="date"
+                    label="Data"
+                    append-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  ref="picker"
+                  v-model="date"
+                  color="#4F4E81"
+                  :max="new Date().toISOString().substr(0, 10)"
+                  min="1900-01-01"
+                  @change="save"
+                ></v-date-picker>
+            </v-menu>
+            </v-col>
+            </v-row>
+          </v-container>
+          
+          <v-card-text  v-for="person in memory.people" :key="person.name"><b>Personagem</b> : {{person.name}} </v-card-text>
+          <v-card-text v-if="!editing">
             {{memory.content}}
           </v-card-text>
+          <v-container v-else>
+            <v-textarea
+            v-model="content"
+            label="Conteúdo"
+            >
+            </v-textarea>
+          </v-container>
+          <v-card-actions v-if="editing">
+            <v-btn plain @click="saveInfo()">
+              Guardar
+            </v-btn>
+          </v-card-actions>
           <v-card-actions>
             <v-row>
               <v-col cols="6">
@@ -49,6 +126,7 @@
           
          
         </v-card>
+        
         </v-col>
         <v-col>
           <v-row>
@@ -126,13 +204,7 @@
           </v-container>
           </v-card>
         </v-col>
-        
       </v-row>
-      
-     
-      
-      
-
     </v-container>
 </template>
 
@@ -155,7 +227,14 @@ export default {
           },
           play_p: "mdi-play",
           video: '',
-          juice: ''
+          juice: '',
+          editing:false,
+          menu:false,
+          date:null,
+          title:null,
+          local:null,
+          content:null,
+          user:null
           
           } 
     },
@@ -165,6 +244,11 @@ export default {
     created(){
       this.video= document.querySelector('.video')
       this.juice= document.querySelector('.orange-juice')
+      this.date= this.memory.date_of_memory.split("T")[0]
+      this.title= this.memory.title
+      this.local= this.memory.local
+      this.content= this.memory.content
+      this.user= localStorage.getItem("user")
     },
     methods: {
       adicionar() {

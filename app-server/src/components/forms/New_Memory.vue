@@ -73,7 +73,7 @@
 
       </v-row>
 
-      <v-row>
+      <v-row justify="center" align="center">
 
 
           <v-col cols="3">
@@ -87,7 +87,21 @@
               ></v-file-input>
           </v-col>
 
-          <v-col cols="3" offset="4">
+          <v-col cols="3" offset="1">
+            <v-combobox 
+              multiple
+              v-model="select" 
+              label="Tags" 
+              chips
+              deletable-chips
+              class="tag-input"
+              :search-input.sync="search" 
+              @keyup.tab="updateTags"
+              @paste="updateTags">
+            </v-combobox>
+          </v-col>
+
+          <v-col cols="3" offset="1" style="margin-top:30px">
               <v-autocomplete
                 v-model="values"
                 :items="people"
@@ -162,7 +176,9 @@ import NewPerson from '@/components/forms/New_Person.vue'
                 local: '',
                 rules: {
                   required: value => !!value || "This camp is required.",
-                }
+                },
+                select: [],
+                search: ""
             }
         },
         watch: {
@@ -178,6 +194,14 @@ import NewPerson from '@/components/forms/New_Person.vue'
             this.images.forEach(f => {
               this.urls.push(URL.createObjectURL(f))
             })
+          },
+          updateTags() {
+            this.$nextTick(() => {
+              this.select.push(...this.search.split(","));
+              this.$nextTick(() => {
+                this.search = "";
+              });
+            });
           },
           updateValues(valor) {
             this.values.push(valor)
@@ -278,6 +302,19 @@ import NewPerson from '@/components/forms/New_Person.vue'
   height: 80px;
   width: 80px;
 }
+
+.tag-input span.chip {
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 1em;
+}
+
+.tag-input span.v-chip {
+  background-color: #1976d2;
+  font-size:1em;
+  padding-left:7px;
+}
+
 
 
 </style>

@@ -143,11 +143,15 @@ export default {
     },
     async getInfoMemories() {
       var result
-      if (this.filter=='Tag') {
+      if (this.filter) {  
+        var valor
+        if (this.filter=='Título')  valor="title_contains";
+        if (this.filter=='Descrição')  valor="content_contains";
+        if (this.filter=='Tag')  valor="tags";
         result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!, $start: Int!, $limit: Int!)  {
-              memories(where: { tags: $value }, start:$start, limit:$limit) {
+              memories(where: { ${valor}: $value }, start:$start, limit:$limit) {
                 id
                 title
                 content
@@ -155,30 +159,6 @@ export default {
                   url
                 }
                 tags
-              }
-            }
-          `,
-          variables: {
-            value: this.value,
-            start: this.start,
-            limit: this.limit,
-          },
-        })
-      }
-      else if (this.filter) {  
-        var valor
-        if (this.filter=='Título')  valor="title";
-        if (this.filter=='Descrição')  valor="content";
-        result = await this.$apollo.query({
-          query: gql`
-            query Memories ($value: String!, $start: Int!, $limit: Int!)  {
-              memories(where: { ${valor}_contains: $value }, start:$start, limit:$limit) {
-                id
-                title
-                content
-                images {
-                  url
-                }
               }
             }
           `,

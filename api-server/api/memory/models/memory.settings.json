@@ -53,8 +53,11 @@
       "via": "memories"
     },
     "people": {
-      "via": "memories",
-      "collection": "person"
+      "collection": "person",
+      "via": "memories"
+    },
+    "tags": {
+      "type": "json"
     }
   }
 }

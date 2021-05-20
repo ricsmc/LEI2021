@@ -83,7 +83,7 @@ export default {
       totalPags: 0,
       word: "",
       filter: "",
-      values: ['Título','Descrição']
+      values: ['Título','Descrição','Tag']
     }
   },
   methods: {
@@ -97,11 +97,42 @@ export default {
       this.pag=value;
     },
     async procurar() {
-      if (this.filter) {
+      var token = localStorage.getItem('jwt')
+      var result
+      if (this.filter=='Tag') {
+        await axios.get('http://localhost:1337/memories/count?tags=' + this.word ,{headers: {'Authorization': `${token}`}})
+          .then(response => {
+            this.pag=0
+            this.number = response.data
+            this.totalPags = Math.floor(this.number/4)
+            if ((this.number%4)!=0) this.totalPags = this.totalPags + 1  
+          })
+          .catch(error => console.log(error))
+
+        result = await this.$apollo.query({
+          query: gql`
+            query Memories ($value: String!)  {
+              memories(where: { tags: $value },limit:4) {
+                id
+                title
+                content
+                images {
+                  url
+                }
+                tags
+              }
+            }
+          `,
+          variables: {
+            value: this.word,
+          },
+        })
+        this.memories = result.data.memories
+      }
+      else {
         var valor
         if (this.filter=='Título')  valor="title";
         if (this.filter=='Descrição')  valor="content";
-        var token = localStorage.getItem('jwt')
         await axios.get('http://localhost:1337/memories/count?'+valor+'_contains=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
             this.pag=0
@@ -111,7 +142,7 @@ export default {
           })
           .catch(error => console.log(error))
         
-        var result = await this.$apollo.query({
+        result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!)  {
               memories(where: { ${valor}_contains: $value },limit:4) {

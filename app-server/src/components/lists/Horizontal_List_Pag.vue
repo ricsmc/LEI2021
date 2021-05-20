@@ -142,8 +142,30 @@ export default {
       return result
     },
     async getInfoMemories() {
-      var result  
-      if (this.filter) {
+      var result
+      if (this.filter=='Tag') {
+        result = await this.$apollo.query({
+          query: gql`
+            query Memories ($value: String!, $start: Int!, $limit: Int!)  {
+              memories(where: { tags: $value }, start:$start, limit:$limit) {
+                id
+                title
+                content
+                images {
+                  url
+                }
+                tags
+              }
+            }
+          `,
+          variables: {
+            value: this.value,
+            start: this.start,
+            limit: this.limit,
+          },
+        })
+      }
+      else if (this.filter) {  
         var valor
         if (this.filter=='Título')  valor="title";
         if (this.filter=='Descrição')  valor="content";

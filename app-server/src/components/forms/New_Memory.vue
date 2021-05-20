@@ -242,6 +242,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
             json['content'] = this.content
             json['local'] = this.local
             json['date_of_memory'] = this.date
+            json['tags'] = this.select
             var token = localStorage.getItem('jwt')
 
             formData.append("data", JSON.stringify(json));

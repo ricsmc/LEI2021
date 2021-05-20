@@ -689,6 +689,9 @@
                     "type": "string"
                   }
                 },
+                "tags": {
+                  "type": "object"
+                },
                 "created_by": {
                   "type": "string"
                 },

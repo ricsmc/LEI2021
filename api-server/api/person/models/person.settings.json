@@ -25,8 +25,8 @@
       "type": "datetime"
     },
     "memories": {
-      "collection": "memory",
       "via": "people",
+      "collection": "memory",
       "dominant": true
     }
   }

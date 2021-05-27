@@ -85,6 +85,24 @@
           </v-container>
           
           <v-card-text  v-for="person in memory.people" :key="person.name"><b>Personagem</b> : {{person.name}} </v-card-text>
+          <v-card-text v-if="memory.tags">
+            <span v-if="!editing">
+              <b>Tags</b> : <span  v-for="tag in memory.tags" :key="tag">#{{tag}} </span>
+            </span>
+            <v-col v-else class="pa-0">
+              <v-combobox 
+                multiple
+                v-model="select" 
+                label="Tags" 
+                chips
+                deletable-chips
+                class="tag-input"
+                :search-input.sync="search" 
+                @keyup.tab="updateTags"
+                @paste="updateTags">
+              </v-combobox>
+            </v-col>
+          </v-card-text>
           <v-card-text v-if="!editing">
             {{memory.content}}
           </v-card-text>
@@ -120,6 +138,7 @@
             <v-col cols="1">
               <v-btn dark @click="adicionar()"> Adicionar </v-btn>
             </v-col>
+           
             </v-row>
             
           </v-card-actions>
@@ -176,20 +195,48 @@
       <v-row>
         <v-col>
 
-          <v-card outlined id="galeria">
-        <v-card-title>Galeria</v-card-title>
+      <v-card outlined id="galeria">
+        <v-card-title >Galeria</v-card-title>
         <v-card-subtitle>{{memory.images.length}} {{memory.images.length == 1 ? 'Foto' : 'Fotos'}}</v-card-subtitle>
-        <v-carousel style="width:100%;height:auto;" v-model="model" show-arrows-on-hover key="" hide-delimiter-background>
+        <v-carousel style="width:100%;height:auto;"  show-arrows-on-hover key="" hide-delimiter-background>
           <v-carousel-item v-for="image in memory.images" :key="image.url">
-              <v-img max-height="500px" contain :src="`http://localhost:1337`+image.url"></v-img>
+              <v-row>
+                <v-col cols="10" offset="1">
+                <v-img max-height="500px" contain :src="`http://localhost:1337`+image.url"></v-img>
+                </v-col>
+                <v-col v-if="memory.utilizador.id==user">
+                  <Confirmation tag='image' :memory="memory" :objecto="image"/>
+                </v-col>
+              </v-row>
           </v-carousel-item>
           
-        </v-carousel>
-      </v-card>
+          </v-carousel>
+        </v-card>
         </v-col>
-        
-      
       </v-row>
+
+      <v-row v-if="memory.utilizador.id==user">
+        <v-col justify="center" align="center">
+          <v-btn
+            dark
+            rounded
+            depressed
+            :loading="isSelecting1"
+            @click="onButtonClick1"
+          >
+          Adicionar imagens
+          </v-btn>
+            <input
+              ref="uploader1"
+              class="d-none"
+              type="file"
+              accept="image/*"
+              multiple
+              @change="onFileChangedImage"
+            >
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col>
           <v-card outlined id="videos">
@@ -198,13 +245,41 @@
             </v-card-title>
             <v-card-subtitle>{{memory.videos.length}} {{memory.videos.length == 1 ? 'Video' : 'Videos'}}</v-card-subtitle>
             <v-container v-for="video in memory.videos" :key="video.url">
-              <v-col align="center">
-                <video style="height:500px;"  class="my_video" :src="`http://localhost:1337`+video.url" controls></video>
-              </v-col>
+              <v-row>
+                <v-col cols="10" offset="1" align="center">
+                  <video style="height:500px;"  class="my_video" :src="`http://localhost:1337`+video.url" controls></video>
+                </v-col>
+                <v-col v-if="memory.utilizador.id==user">
+                  <Confirmation tag='video' :memory="memory" :objecto="video"/>
+                </v-col>
+              </v-row>
           </v-container>
           </v-card>
         </v-col>
       </v-row>
+
+      <v-row v-if="memory.utilizador.id==user">
+        <v-col justify="center" align="center">
+          <v-btn
+            dark
+            rounded
+            depressed
+            :loading="isSelecting2"
+            @click="onButtonClick2"
+          >
+          Adicionar videos
+          </v-btn>
+            <input
+              ref="uploader2"
+              class="d-none"
+              type="file"
+              accept="video/*"
+              multiple
+              @change="onFileChangedVideo"
+            >
+        </v-col>
+      </v-row>
+
     </v-container>
 </template>
 
@@ -212,6 +287,7 @@
 <script>
 import gql from 'graphql-tag'
 import axios from 'axios'
+import Confirmation from '@/components/memories/Confirmation.vue'
 
 export default {
     data() {
@@ -234,26 +310,124 @@ export default {
           title:null,
           local:null,
           content:null,
-          user:null
-          
+          user:null,
+          select: [],
+          search: "",
+          isSelecting1:false,
+          isSelecting2:false,
+          dialog: false,
           } 
     },
     components: {
-    
+      Confirmation
+    },
+    watch: {
+      'memory': function() {
+         if (this.memory.date_of_memory) this.date= this.memory.date_of_memory.split("T")[0]
+         this.title= this.memory.title
+         this.local= this.memory.local
+         this.content= this.memory.content
+         this.select= this.memory.tags
+      }
     },
     created(){
       this.video= document.querySelector('.video')
       this.juice= document.querySelector('.orange-juice')
-      this.date= this.memory.date_of_memory.split("T")[0]
-      this.title= this.memory.title
-      this.local= this.memory.local
-      this.content= this.memory.content
       this.user= localStorage.getItem("id")
     },
     updated(){
       this.user= localStorage.getItem("id")
     },
     methods: {
+      updateTags() {
+        this.$nextTick(() => {
+          this.select.push(...this.search.split(","));
+          this.$nextTick(() => {
+            this.search = "";
+          });
+        });
+      },
+      save(date) {
+        this.$refs.menu.save(date)
+      },
+      onButtonClick1() {
+        this.isSelecting1 = true
+        window.addEventListener('focus', () => {
+          this.isSelecting1 = false
+        }, { once: true })
+        this.$refs.uploader1.click()
+      },
+      onButtonClick2() {
+        this.isSelecting2 = true
+        window.addEventListener('focus', () => {
+          this.isSelecting2 = false
+        }, { once: true })
+        this.$refs.uploader2.click()
+      },
+      onFileChangedImage(e) {
+
+        let formData = new FormData();
+
+        for (let i = 0; i < e.target.files.length; i++) {
+          const file = e.target.files[i];
+          formData.append(`files.images`, file, file.name);
+        }
+
+        var json = {}
+        json['utilizador'] = localStorage.getItem('id')
+
+        var token = localStorage.getItem('jwt')
+        formData.append("data", JSON.stringify(json));
+
+        axios.put("http://localhost:1337/memories/"+this.$route.params.id, formData , {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.go()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
+      },
+       onFileChangedVideo(e) {
+
+        let formData = new FormData();
+
+        for (let i = 0; i < e.target.files.length; i++) {
+          const file = e.target.files[i];
+           formData.append(`files.videos`, file, file.name);
+        }
+
+        var json = {}
+        json['utilizador'] = localStorage.getItem('id')
+
+        var token = localStorage.getItem('jwt')
+        formData.append("data", JSON.stringify(json));
+
+        axios.put("http://localhost:1337/memories/"+this.$route.params.id, formData , {headers: {'Authorization': `${token}`}})
+          .then(() => {
+            this.$router.go()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
+      },
+      removeImage(image){
+        console.log(JSON.stringify(image))
+        
+        var index = this.memory.images.map(function(item) { return item.url; }).indexOf(image.url);
+        this.memory.images.splice(index, 1);
+
+        console.log(this.memory.images)
+      },
+      removeVideo(video){
+        console.log(JSON.stringify(video))
+        
+        var index = this.memory.videos.map(function(item) { return item.url; }).indexOf(video.url);
+        this.memory.videos.splice(index, 1);
+
+        console.log(this.memory.videos)
+      },
       adicionar() {
         if (this.values.length>0) {
           this.values.forEach(elem => {
@@ -287,6 +461,7 @@ export default {
         json['content'] = this.content
         json['local'] = this.local
         json['date_of_memory'] = this.date
+        json['tags'] = this.select
         var token = localStorage.getItem('jwt')
 
         formData.append("data", JSON.stringify(json));
@@ -310,9 +485,12 @@ export default {
             content
             date_of_memory
             images {
+              id
               url
             }
+            tags
             videos {
+              id
               url
             }
             people {
@@ -375,6 +553,18 @@ h1 {
 .username {
     text-transform: none;
     align-content: left;
+}
+
+.tag-input span.chip {
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 1em;
+}
+
+.tag-input span.v-chip {
+  background-color: #1976d2;
+  font-size:1em;
+  padding-left:7px;
 }
 
 </style>

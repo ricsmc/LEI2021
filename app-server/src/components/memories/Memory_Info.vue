@@ -84,7 +84,17 @@
             </v-row>
           </v-container>
           
-          <v-card-text  v-for="person in memory.people" :key="person.name"><b>Personagem</b> : {{person.name}} </v-card-text>
+          <v-card-text v-if="memory.people.length > 1"><b>Personagens</b> :
+          <span v-for="(person,index) in memory.people" :key="person.name">
+            <router-link class="person-link" style="color:#424292;" :to="'/person/' + person.id" > {{person.name}}
+            </router-link>
+            <span class="person-link" v-if="index < memory.people.length-1">, </span>
+          </span>
+          </v-card-text>
+
+          <v-card-text v-else-if="memory.people.length == 1"><b>Personagem</b> :<router-link class="person-link" style="color:#424292;" :to="'/person/' + person.id"  v-for="person in memory.people" :key="person.id"> {{person.name}}
+          </router-link></v-card-text>
+          
           <v-card-text v-if="memory.tags">
             <span v-if="!editing">
               <b>Tags</b> : <span  v-for="tag in memory.tags" :key="tag">#{{tag}} </span>
@@ -495,6 +505,7 @@ export default {
               url
             }
             people {
+              id
               name
               local_of_birth
               date_of_birth
@@ -566,6 +577,16 @@ h1 {
   background-color: #1976d2;
   font-size:1em;
   padding-left:7px;
+}
+
+.person-link {
+  color:#424292;
+  text-decoration: none;
+}
+
+.person-link:hover{
+  color:#1f1f44;
+  font-weight: bold;
 }
 
 </style>

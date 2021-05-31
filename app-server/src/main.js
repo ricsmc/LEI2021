@@ -40,6 +40,10 @@ const router = new VueRouter({
       components: require("./components/profile/Profile.vue")
     },
     {
+      path: "/person/:id",
+      components: require("./components/personagem/Person.vue")
+    },
+    {
       path: "/collections",
       components: require("./components/collections/Collections.vue")
     },

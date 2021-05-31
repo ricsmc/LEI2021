@@ -218,7 +218,8 @@
       <v-row v-if="memory.utilizador.id==user">
         <v-col justify="center" align="center">
           <v-btn
-            dark
+            outlined
+            color="#4F4E81"
             rounded
             depressed
             :loading="isSelecting1"

@@ -152,6 +152,7 @@ import EditHeader from '@/components/collections/Collection_Header_Edit.vue'
 import Foto from '@/components/collections/Collection_Foto.vue'
 import axios from 'axios'
 import gql from 'graphql-tag'
+import jwt from 'jsonwebtoken'
 
 export default {
     data() {
@@ -160,6 +161,8 @@ export default {
         collection: '',
         searchList: [],
         search:"",
+        userId: "",
+        payload: null,
         selectedFile: null,
         urls: [],
         headers: [
@@ -179,6 +182,10 @@ export default {
           { title: 'Remover Coleção', do: 'remove'}
         ]
       }
+    },
+    created() {
+      this.payload = jwt.decode(localStorage.getItem('jwt'))
+      this.userId = this.payload.id
     },
     components: {
       Foto, 
@@ -203,7 +210,7 @@ export default {
         const file = this.selectedFile;
         formData.append(`files.collection_picture`, file, file.name);
         var json = {}
-        json['utilizador'] = localStorage.getItem('id')
+        json['utilizador'] = this.userId
         var token = localStorage.getItem('jwt')
         formData.append("data", JSON.stringify(json))
         axios.put("http://localhost:1337/collections/"+idCollection, formData , {headers: {'Authorization': `${token}`}})

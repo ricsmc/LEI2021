@@ -156,6 +156,7 @@
 import axios from 'axios'
 import gql from 'graphql-tag'
 import NewPerson from '@/components/forms/New_Person.vue'
+import jwt from 'jsonwebtoken'
 
     export default {
         name: 'New_Memory',
@@ -178,8 +179,14 @@ import NewPerson from '@/components/forms/New_Person.vue'
                   required: value => !!value || "This camp is required.",
                 },
                 select: [],
-                search: ""
+                search: "",
+                payload: null,
+                userId:""
             }
+        },
+        created() {
+          this.payload = jwt.decode(localStorage.getItem('jwt'))
+          this.userId = this.payload.id
         },
         watch: {
           menu (val) {
@@ -237,7 +244,7 @@ import NewPerson from '@/components/forms/New_Person.vue'
             }
 
             var json = {}
-            json['utilizador'] = localStorage.getItem('id')
+            json['utilizador'] = this.userId
             json['title'] = this.title
             json['content'] = this.content
             json['local'] = this.local
@@ -269,8 +276,10 @@ import NewPerson from '@/components/forms/New_Person.vue'
                 }
               }
             `,
-            variables: {
-              id: localStorage.getItem('id')
+            variables() {
+              return {
+                id: this.userId
+              }
             }
           }
         }      

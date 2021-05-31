@@ -177,10 +177,7 @@ import bcrypt from 'bcryptjs'
                 json['password'] = this.password
                 axios.post("http://localhost:7000/users/login", json)
                     .then(data => {
-                        localStorage.setItem('user',data.data.username)
                         localStorage.setItem('jwt',data.data.token)
-                        localStorage.setItem('level',data.data.level)
-                        localStorage.setItem('id',data.data.id)
                         this.$emit('loged')
                         this.$router.go()
                         this.dialog = false
@@ -197,10 +194,7 @@ import bcrypt from 'bcryptjs'
                 json['password'] = "empty"
                 axios.post("http://localhost:7000/users/google/login", json)
                     .then(data => {
-                        localStorage.setItem('user',data.data.username)
                         localStorage.setItem('jwt',data.data.token)
-                        localStorage.setItem('level',data.data.level)
-                        localStorage.setItem('id',data.data.id)
                         this.$emit('loggedIn')
                         this.$router.go()
                         this.dialog = false
@@ -228,10 +222,7 @@ import bcrypt from 'bcryptjs'
                         json['password'] = this.password
                         axios.post("http://localhost:7000/users/login", json)
                             .then(data => {
-                                localStorage.setItem('user',data.data.username)
                                 localStorage.setItem('jwt',data.data.token)
-                                localStorage.setItem('level',data.data.level)
-                                localStorage.setItem('id',data.data.id)
                                 this.$emit('loged')
                                 this.$router.go()
                                 this.dialog = false

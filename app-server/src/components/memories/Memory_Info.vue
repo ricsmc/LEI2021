@@ -299,6 +299,7 @@
 import gql from 'graphql-tag'
 import axios from 'axios'
 import Confirmation from '@/components/memories/Confirmation.vue'
+import jwt from 'jsonwebtoken'
 
 export default {
     data() {
@@ -321,12 +322,14 @@ export default {
           title:null,
           local:null,
           content:null,
-          user:null,
+          user:"",
           select: [],
           search: "",
           isSelecting1:false,
           isSelecting2:false,
           dialog: false,
+          token: localStorage.getItem('jwt'),
+          payload: null,
           } 
     },
     components: {
@@ -344,10 +347,11 @@ export default {
     created(){
       this.video= document.querySelector('.video')
       this.juice= document.querySelector('.orange-juice')
-      this.user= localStorage.getItem("id")
+      this.payload = jwt.decode(this.token)
+      this.user= this.payload.id
     },
     updated(){
-      this.user= localStorage.getItem("id")
+      this.user= this.payload.id
     },
     methods: {
       updateTags() {
@@ -385,7 +389,7 @@ export default {
         }
 
         var json = {}
-        json['utilizador'] = localStorage.getItem('id')
+        json['utilizador'] = this.user
 
         var token = localStorage.getItem('jwt')
         formData.append("data", JSON.stringify(json));
@@ -409,7 +413,7 @@ export default {
         }
 
         var json = {}
-        json['utilizador'] = localStorage.getItem('id')
+        json['utilizador'] = this.user
 
         var token = localStorage.getItem('jwt')
         formData.append("data", JSON.stringify(json));
@@ -537,7 +541,7 @@ export default {
       }`,
       variables(){
         return {
-          id: localStorage.getItem('id')
+          id: this.user
         }
       }
     }

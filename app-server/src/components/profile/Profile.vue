@@ -16,14 +16,22 @@
 import gql from 'graphql-tag'
 import ProfileInfo from '@/components/profile/Profile_Info.vue'
 import ProfileInfoEdit from '@/components/profile/Profile_Info_Edit.vue'
+import jwt from 'jsonwebtoken'
 
   export default {
     name: "profile",
     data() {
       return{
-        idUser: localStorage.getItem('id'),
-        level: localStorage.getItem('level')
+        token: localStorage.getItem('jwt'),
+        payload: null,
+        idUser: null,
+        level: null,
       }  
+    },
+    created(){
+      this.payload = jwt.decode(this.token),
+      this.idUser = this.payload.id,
+      this.level = this.payload.level
     },
     components: {
       ProfileInfo,

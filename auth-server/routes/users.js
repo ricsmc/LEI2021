@@ -31,8 +31,8 @@ function auth(req,res,next){
 
 router.post('/login',cors(), auth,  function(req,res,next){
   var privateKey = fs.readFileSync(__dirname + '/../keys/mykey.pem')
-  jwt.sign({username: req.user.username, level: req.user.level, 
-            sub:'Trabalho de LEI2021', id: req.user.id},
+  jwt.sign({username: req.user.username, level: req.user.level, id: req.user.id,
+            sub:'Trabalho de LEI2021'},
             privateKey,
             {algorithm:'RS256'}
             ,

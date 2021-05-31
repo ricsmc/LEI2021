@@ -7,7 +7,7 @@
       <router-link to="/"><img src="../public/memorybook_light2.png" class="logo"/></router-link>
       <v-spacer/>
       <div v-if="this.token" class="dropdown">
-        <Dropdown :utilizador="utilizador"></Dropdown>
+        <Dropdown></Dropdown>
       </div>
       <div v-else>
           <div @click="stopApollo"/>
@@ -30,7 +30,6 @@ import Burger from '@/components/menu/Burger.vue';
 import Menu from '@/components/menu/Menu.vue';
 import Login from '@/components/Login.vue';
 import Footer from '@/components/Footer.vue';
-import gql from 'graphql-tag'
 import Dropdown from '@/components/menu/DropDown.vue';
 
 
@@ -41,45 +40,20 @@ export default {
     return {
       data:"",
       show_login:false,
-      token:false,
-      id:'',
+      token:localStorage.getItem('jwt'),
       about:true
     }
   },
   created() {
-    this.token=localStorage.getItem('jwt'),
-    this.data=localStorage.getItem('user')
-    if(!this.token){
-      this.$apollo.queries.utilizador.skip = true
+    if(this.token){
+      this.about = true
     }
-    else this.$apollo.queries.utilizador.skip = false
-    this.id = localStorage.getItem('id')
-    this.about = true
   },
-
   updated(){
     if(this.$route.name == "about")
       this.about = false
     else
       this.about = true
-  },
-
-  apollo: {
-    utilizador: {
-      query : gql`query Utilizador ($id: ID!){
-          utilizador (id: $id) {
-            id
-            username
-            profile_picture {url}
-        }
-      }
-    `,
-    variables(){
-      return {
-        id: localStorage.getItem('id')
-      }
-    }
-  }
   },
   components: {
     Burger,
@@ -92,8 +66,6 @@ export default {
     loged: function(da){
       this.data = da
       console.log("username: " + da)
-      this.$apollo.queries.users.skip = false
-
     },
     toggle_login: function(){
       if(this.show_login) this.show_login=false

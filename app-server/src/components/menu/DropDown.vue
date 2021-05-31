@@ -25,19 +25,50 @@
 
 <script>
 import NewCollection from '@/components/forms/New_Collection.vue'
+import gql from 'graphql-tag'
+import jwt from 'jsonwebtoken'
+
     export default {
         name: "dropdwon",
+        data() {
+          return {
+            payload: null,
+            token:localStorage.getItem('jwt'),
+            userId:"",
+            utilizador:null
+          }
+        },
         components: {
           NewCollection
+        },
+        created() {
+          this.payload = jwt.decode(this.token),
+          this.userId = this.payload.id
         },
         methods: {
             handleLogout() {
                 localStorage.clear();
             },
         },
-        props : {
-            utilizador : Object,
-        },      
+        apollo: {
+            utilizador: {
+              query : gql`query Utilizador ($id: ID!){
+                  utilizador (id: $id) {
+                    id
+                    username
+                    profile_picture {
+                      url
+                      }
+                    }
+                  }
+                `,
+            variables(){
+              return {
+                id: this.userId
+              }
+            }
+          }
+        }   
     }
 </script>
 

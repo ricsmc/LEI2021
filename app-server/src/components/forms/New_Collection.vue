@@ -56,7 +56,7 @@
 
 <script>
 import axios from 'axios'
-
+import jwt from 'jsonwebtoken'
 
 export default {
     name: 'new_collection',
@@ -86,7 +86,7 @@ export default {
         var json = {}
         json['name'] = this.name
         json['public'] = false
-        json['utilizador'] = localStorage.getItem('id')
+        json['utilizador'] = jwt.decode(localStorage.getItem('jwt')).id
         json['description'] = this.descricao
         var token = localStorage.getItem('jwt')
         axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})

@@ -14,14 +14,20 @@
 import gql from 'graphql-tag'
 import CollectionInfo from '@/components/collections/Collection_Info.vue'
 import CollectionInfoEdit from '@/components/collections/Collection_Info_Edit.vue'
+import jwt from 'jsonwebtoken'
 
 export default {
     name: "collection",
     data() {
         return{
-            idUser: localStorage.getItem('id'),
-            level: localStorage.getItem('level')
+            payload:null,
+            userId: "",
+            level: null
         }  
+    },
+    created() {
+      this.payload = jwt.decode(localStorage.getItem('jwt'))
+      this.userId = this.payload.id
     },
     components: {
         CollectionInfo,

@@ -19,6 +19,7 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
     "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
     "mock-aws-s3": "^4.0.1",
     "nock": "^13.0.11",
     "v-video-embed": "^1.0.8",

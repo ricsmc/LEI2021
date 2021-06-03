@@ -40,16 +40,16 @@ import jwt from 'jsonwebtoken'
     apollo: {
       memories: { 
         query : gql`
-        query Memories ($id: ID!){
-          memories(where:{utilizador:  $id}){
-            id
-            title
-            images {
-              url
-            }
-          }   
-        }`,
-        variables(){
+          query Memories ($id: ID!){
+            memories(where:{utilizador:  $id}){
+              id
+              title
+              images {
+                url
+              }
+            }   
+          }`,
+        variables() {
           return {
             id: this.$route.params.id
           }
@@ -57,21 +57,21 @@ import jwt from 'jsonwebtoken'
       },
       collections: {
         query: gql`
-        query Collections ($id: ID!){
-          collections(where:{utilizador:  $id}){
-            id
-            name
-            public
-            collection_picture {
-              url
-            }
-            memories {
-              images {
+          query Collections ($id: ID!){
+            collections(where:{utilizador:  $id}){
+              id
+              name
+              public
+              collection_picture {
                 url
               }
+              memories {
+                images {
+                  url
+                }
+              }
             }
-          }
-        }`,
+          }`,
         variables(){
           return {
             id: this.$route.params.id
@@ -80,17 +80,17 @@ import jwt from 'jsonwebtoken'
       },
       utilizador: {
         query : gql`
-        query Utilizador ($id: ID!){
-          utilizador (id: $id) {
-            id
-            username
-            about
-            profile_picture {
-              url
-              width
+          query Utilizador ($id: ID!){
+            utilizador (id: $id) {
+              id
+              username
+              about
+              profile_picture {
+                url
+                width
+              }
             }
-          }
-        }`,
+          }`,
         variables(){
           return {
             id: this.$route.params.id

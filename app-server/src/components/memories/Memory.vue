@@ -1,17 +1,16 @@
 <template>
   <div class="memory">
-    <Memory_Info/>
+    <MemoryInfo/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Memory_Info from '@/components/memories/Memory_Info.vue'
+import MemoryInfo from '@/components/memories/Memory_Info.vue'
 
 export default {
   name: 'Memory',
   components: {
-    Memory_Info
+    MemoryInfo
   }
 }
 </script>

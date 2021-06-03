@@ -1,6 +1,6 @@
 <template>
     <div id="collection" v-if="collection">
-        <div v-if="idUser==collection.utilizador.id || level=='admin'">
+        <div v-if="userId==collection.utilizador.id || level=='admin'">
             <CollectionInfoEdit/>
         </div>
         <div v-else>
@@ -35,14 +35,14 @@ export default {
     },
     apollo: {
       collection:{
-        query: gql`query Collection ($id: ID!){
-            collection (id: $id) {
-                utilizador {
-                  id
-                }
-            }
-        }
-        `,
+        query: gql`
+          query Collection ($id: ID!){
+              collection (id: $id) {
+                  utilizador {
+                    id
+                  }
+              }
+          }`,
         variables(){
           return {
             id: this.$route.params.id

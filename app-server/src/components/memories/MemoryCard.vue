@@ -16,7 +16,6 @@
         </v-card>
       </v-flex>
     </v-container>
-
   </div>   
 </template>
 

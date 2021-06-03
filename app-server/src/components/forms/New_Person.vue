@@ -9,7 +9,6 @@
             <v-card >
                 <v-card-text >
                     <v-container>
-
                         <v-col cols="12">
                             <v-text-field 
                             prepend-icon="mdi-account"
@@ -57,18 +56,24 @@
                             </v-menu>
                         </v-col>
 
-        
                         <v-container>
-                          <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="150" style="height:40px;margin-top:40px" class="white--text" elevation="1" v-on:click="criarUser()" color="#4F4E81">Criar</v-btn>
+                          <v-btn 
+                          :style="{left: '50%', transform:'translateX(-50%)'}" 
+                          v-ripple="{ class: 'primary--text' }" 
+                          width="150" 
+                          style="height:40px;margin-top:40px" 
+                          class="white--text" 
+                          elevation="1" 
+                          v-on:click="criarUser()" 
+                          color="#4F4E81"
+                          >Criar</v-btn>
                         </v-container>
-
                     </v-container>
                 </v-card-text>
             </v-card>
         </v-dialog>
     </div>
 </template>
-
 
 
 <script>
@@ -81,7 +86,7 @@ export default {
         return {
             name: "",
             local: "",
-            dialog:false,
+            dialog: false,
             menu: false,
             dateOfBirth: null,
             dateOfDeath: null,

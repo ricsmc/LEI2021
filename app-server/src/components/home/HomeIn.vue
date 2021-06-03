@@ -11,7 +11,7 @@
         </div>
         
         <div cols=12>
-            <Horizontal_List :flag="'memories'" :items="memories"/>
+            <HorizontalList :flag="'memories'" :items="memories"/>
         </div>
 
     </div>
@@ -23,7 +23,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import Horizontal_List from '@/components/lists/Horizontal_List.vue'
+import HorizontalList from '@/components/lists/Horizontal_List.vue'
 
 
     export default {
@@ -34,24 +34,27 @@ import Horizontal_List from '@/components/lists/Horizontal_List.vue'
             }
         },
         components: {
-            Horizontal_List
+            HorizontalList
         },
         apollo: {
             memories: {
-            query : gql`query Memories {
-                memories (sort:"createdAt:DESC" , limit:12) {
-                    id
-                    title
-                    images {
-                        url
+            query : gql`
+                query Memories {
+                    memories (sort:"createdAt:DESC" , limit:12) {
+                        id
+                        title
+                        images {
+                            url
+                        }
                     }
-                }
-            }
-            `
+                }`
             }
         }
     }
 </script>
+
+
+
 
 <style>
 

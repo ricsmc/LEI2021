@@ -2,15 +2,16 @@
     <div class="sidebar">
         <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
         <transition name="slide">
-            <div v-if="isPanelOpen"
-                 class="sidebar-panel">
+            <div v-if="isPanelOpen" class="sidebar-panel">
                 <slot></slot>
             </div>
         </transition>
     </div>
 </template>
+
+
 <script>
-    import { store, mutations } from '@/store.js'
+import { store, mutations } from '@/store.js'
 
     export default {
         methods: {
@@ -23,7 +24,10 @@
         }
     }
 </script>
+
+
 <style>
+
     .slide-enter-active,
     .slide-leave-active
     {

@@ -1,7 +1,7 @@
 <template>
   <div id="home" class="home" >
     <div v-if="this.token" justify="center" class="homeIn">
-       <HomeIn/>
+        <HomeIn/>
     </div>
     <div v-else>
         <HomeOut/>
@@ -13,8 +13,8 @@
 
 
 <script>
-import HomeIn from '@/components/HomeIn.vue'
-import HomeOut from '@/components/HomeOut.vue'
+import HomeIn from '@/components/home/HomeIn.vue'
+import HomeOut from '@/components/home/HomeOut.vue'
 
     export default {
         name: 'home',
@@ -29,6 +29,9 @@ import HomeOut from '@/components/HomeOut.vue'
         }
     }
 </script>
+
+
+
 
 <style>
 

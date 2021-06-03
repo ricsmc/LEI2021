@@ -2,12 +2,11 @@
   <div id="new_memory" >
     <span class="headline">
         <h2 style="padding: 20px 0px 0px 0px; color:#4F4E81">
-        Nova Memória
+          Nova Memória
         </h2>
     </span>
 
     <v-container pa-0>
-
       <v-row style="margin-top:20px">
         <v-col cols="8">
             <v-text-field 
@@ -23,13 +22,16 @@
         </v-col>
 
         <v-col cols="2" offset="1">
-          <v-text-field type="text" prepend-icon="mdi-map-marker" v-model="local" label="Local"></v-text-field>
+          <v-text-field 
+          type="text" 
+          prepend-icon="mdi-map-marker" 
+          v-model="local" 
+          label="Local"
+          ></v-text-field>
         </v-col>
-
       </v-row>
 
       <v-row>
-
         <v-col cols="8">
             <v-textarea 
             outlined 
@@ -60,6 +62,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
+
               <v-date-picker
                 ref="picker"
                 v-model="date"
@@ -70,12 +73,9 @@
               ></v-date-picker>
           </v-menu>
         </v-col>
-
       </v-row>
 
       <v-row justify="center" align="center">
-
-
           <v-col cols="3">
               <v-file-input
                 v-model="videos"
@@ -114,15 +114,14 @@
                 return-object
                 multiple
               ></v-autocomplete>
-            </v-col>
-            <v-col sm="1">
-              <NewPerson  @updateValues:value="updateValues" style="margin-left:10px"></NewPerson>
-            </v-col>
-          
+          </v-col>
+
+          <v-col sm="1">
+            <NewPerson  @updateValues:value="updateValues" style="margin-left:10px"></NewPerson>
+          </v-col>
         </v-row>
 
         <v-row>
-          
           <v-col cols="3" >
               <v-file-input
                 v-model="images"
@@ -139,12 +138,21 @@
           <v-col cols="1" v-for="url in urls" :key="url">
             <v-img class="preview" :src="url"></v-img>
           </v-col>
-
         </v-row>
 
         <v-row>
           <v-container>
-            <v-btn :loading="loading" :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px" class="white--text" elevation="1" v-on:click="post()" color="#4F4E81">Criar</v-btn>
+            <v-btn 
+            :loading="loading" 
+            :style="{left: '50%', transform:'translateX(-50%)'}" 
+            v-ripple="{ class: 'primary--text' }" 
+            width="300" 
+            style="height:40px" 
+            class="white--text" 
+            elevation="1" 
+            v-on:click="post()" 
+            color="#4F4E81"
+            >Criar</v-btn>
           </v-container>
         </v-row>
     </v-container>
@@ -214,7 +222,7 @@ import jwt from 'jsonwebtoken'
             this.values.push(valor)
             this.people.push(valor)
           },
-          save (date) {
+          save(date) {
             this.$refs.menu.save(date)
           },
           ligaMemoriaAPessoa(idMemory) {
@@ -274,8 +282,7 @@ import jwt from 'jsonwebtoken'
                   id
                   name
                 }
-              }
-            `,
+              }`,
             variables() {
               return {
                 id: this.userId
@@ -287,25 +294,26 @@ import jwt from 'jsonwebtoken'
 
 </script>
 
+
+
 <style>
 
 .headline {
-    text-align: center;
+  text-align: center;
 }
 .titulo {
-    font-size: 150%;
-    
+  font-size: 150%;
 }
 
 .titulo.v-text-field>.v-input__control>.v-input__slot:before {
-    border-style: none;
+  border-style: none;
 }
 .titulo.v-text-field>.v-input__control>.v-input__slot:after {
-    border-style: none;
+  border-style: none;
 }
 
 .titulo.v-input v-label {
-    font-size: 20em;
+  font-size: 20em;
 }
 
 .preview {
@@ -324,7 +332,5 @@ import jwt from 'jsonwebtoken'
   font-size:1em;
   padding-left:7px;
 }
-
-
 
 </style>

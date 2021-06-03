@@ -161,18 +161,15 @@ export default {
     chooseImg() {
       this.$refs.uploader.click()
     },
-    onFileChanged(e) {
-      var id = this.$route.params.id    
+    onFileChanged(e) {   
       this.selectedFile = e.target.files[0]
-      console.log(this.selectedFile)  
-      let formData = new FormData();
       const file = this.selectedFile;
+      let formData = new FormData();
       formData.append(`files.profile_picture`, file, file.name);
       var json = {}
       formData.append("data", JSON.stringify(json))
       var token = localStorage.getItem('jwt')
-      console.log(token)
-      axios.put("http://localhost:1337/utilizadors/"+id, formData , {headers: {'Authorization': `${token}`}})
+      axios.put("http://localhost:1337/utilizadors/"+this.$route.params.id , formData , {headers: {'Authorization': `${token}`}})
         .then(() => {
           this.$router.go()
         })
@@ -182,32 +179,6 @@ export default {
     },
     updateSelected(value) {
       this.selected = value
-    },
-    handleClick: function(value){
-      this.$router.push('/profile/' + value.id)
-    },
-    scrollTo(element, scrollPixels, duration) {
-      const scrollPos = element.scrollLeft;
-      if ( !( (scrollPos === 0 || scrollPixels > 0) && (element.clientWidth + scrollPos === element.scrollWidth || scrollPixels < 0))) {
-        const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
-        
-        var fn = function scroll(timestamp) {
-          const timeElapsed = timestamp - startTime;
-          const progress = Math.min(timeElapsed / duration, 1);
-          element.scrollLeft = scrollPos + scrollPixels * progress;
-          if (timeElapsed < duration) window.requestAnimationFrame(fn); 
-          else return;
-        }
-        window.requestAnimationFrame(fn);
-      }
-    },
-    swipe(direction) {
-      const content = this.$refs.content;
-      var w = window.innerWidth / 2;
-      this.scrollTo(content, w*direction, 500);
-    },
-    img_click(){
-      this.view_profile_pic = true
     }
   }
 }

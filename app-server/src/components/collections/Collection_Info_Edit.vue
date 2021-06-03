@@ -49,7 +49,6 @@
                   </v-list>
                 </v-menu>
               </v-col>
-
             </v-row>
 
             <div class="descricao" v-if="collection.description">
@@ -139,10 +138,6 @@
           </v-data-table>
         </v-col>
       </v-row>
-
-
-
-
     </v-container>
 </template>
 
@@ -338,13 +333,12 @@ export default {
 
 
 
+
 <style> 
 
 .header h1 {
    padding: 15px 0 15px 0px;
 }
-
-
 
 .header a,b {
   text-decoration: none;
@@ -384,7 +378,5 @@ export default {
 .click {
   cursor: pointer;
 }
-
-
 
 </style>

@@ -24,7 +24,7 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-      components: require("./components/Home.vue")
+      components: require("./components/home/Home.vue")
     },
     {
       path: "/login",

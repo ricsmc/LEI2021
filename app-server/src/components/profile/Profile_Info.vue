@@ -3,34 +3,32 @@
     <v-row no-gutter align="center">
       <v-col cols=6>
         <v-responsive min-width=500 max-width=500>
-        <v-row align="center" >
-          
-          <v-col cols=2 offset="2">  
-            <div style="padding: 60px 0 0 0">
-              <v-avatar size="160" class="profile_pic">
-                <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-                <v-img v-else src="../../../public/user.png"></v-img>
-              </v-avatar>
-              <v-dialog
-                v-model="dialog"
-                v-if="utilizador.profile_picture"  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
-                >
-                <v-card>
-                
-                  <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
-                  
-                </v-card>
-              </v-dialog>
-            </div>
-          </v-col >
+          <v-row align="center" >
 
-          <v-col cols=6 offset=2>
-            <div style="padding: 80px 0 0 0px">
-            <h2>{{utilizador.username}}</h2>
-            </div> 
-          </v-col>
+            <v-col cols=2 offset="2">  
+              <div style="padding: 60px 0 0 0">
+                <v-avatar size="160" class="profile_pic">
+                  <v-img v-if="utilizador.profile_picture" @click.stop="dialog = true" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                  <v-img v-else src="../../../public/user.png"></v-img>
+                </v-avatar>
+                <v-dialog
+                  v-model="dialog"
+                  v-if="utilizador.profile_picture"  :max-width="utilizador.profile_picture.width > 800 ? 800 : utilizador.profile_picture.width"
+                  >
+                  <v-card>
+                    <v-img v-if="utilizador.profile_picture" :src="'http://localhost:1337' + utilizador.profile_picture.url"></v-img>
+                  </v-card>
+                </v-dialog>
+              </div>
+            </v-col >
 
-        </v-row>
+            <v-col cols=6 offset=2>
+              <div style="padding: 80px 0 0 0px">
+              <h2>{{utilizador.username}}</h2>
+              </div> 
+            </v-col>
+
+          </v-row>
         </v-responsive>
       </v-col>
       
@@ -101,38 +99,15 @@ export default {
   methods : {
     updateSelected(value) {
       this.selected = value
-    },
-    handleClick: function(value){
-      this.$router.push('/profile/' + value.id)
-    },
-    scrollTo(element, scrollPixels, duration) {
-      const scrollPos = element.scrollLeft;
-      if ( !( (scrollPos === 0 || scrollPixels > 0) && (element.clientWidth + scrollPos === element.scrollWidth || scrollPixels < 0))) {
-        const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
-        
-        var fn = function scroll(timestamp) {
-          const timeElapsed = timestamp - startTime;
-          const progress = Math.min(timeElapsed / duration, 1);
-          element.scrollLeft = scrollPos + scrollPixels * progress;
-          if (timeElapsed < duration) window.requestAnimationFrame(fn); 
-          else return;
-        }
-        window.requestAnimationFrame(fn);
-      }
-    },
-    swipe(direction) {
-      const content = this.$refs.content;
-      var w = window.innerWidth / 2;
-      this.scrollTo(content, w*direction, 500);
-    },
-    img_click(){
-      this.view_profile_pic = true
     }
   }
 }
 
 </script>
+
+
 <style>
+
 .mem_col {
     float: none;
     color: black;
@@ -146,7 +121,6 @@ export default {
 .mem_col:hover{
   background-color: #ddd;
 }
-
 
 .profile_pic {
   cursor: pointer;

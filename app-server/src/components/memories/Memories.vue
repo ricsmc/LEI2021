@@ -55,12 +55,11 @@
             large
             icon
           >
-          <v-icon>mdi-plus</v-icon> 
+            <v-icon> mdi-plus </v-icon> 
           </v-btn>      
         </v-col>
       </v-row>
     </v-container>
-
   </div>
 </template>
 

@@ -3,9 +3,11 @@
     <div id="about" class="about" >
 
       <section class="item">
+
         <v-container>
           <h1 class="display-4">SOBRE NÓS</h1>
         </v-container> 
+
         <v-container style="margin-top:10%">
           <h1 class="overline">Somos um projeto que pretende fornecer às pessoas uma plataforma onde possam partilhar as suas memórias.</h1>
           <h1 class="overline">Partilhe connosco as suas experiências e conheça a de tantos outros!</h1>
@@ -14,13 +16,15 @@
             <i class="fa fa-chevron-down fa-2x" aria-hidden="true"></i>
           </div>
         </v-container>
+
       </section>
 
-
       <section class="item">
+
         <v-container>
           <h1 class="display-4">CONHEÇA A EQUIPA</h1>
         </v-container>
+
         <v-container>
           <v-row align="center" justify="center">
             <TeamCard v-bind:name="'Ricardo Cunha'" v-bind:description="'Developer'" v-bind:img="'ricardo.jpg'" style="display:inline-block"></TeamCard>
@@ -28,13 +32,16 @@
             <TeamCard v-bind:name="'Luís Vila'"     v-bind:description="'Developer'" v-bind:img="'vila.jpg'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>  
         </v-container>
+
       </section>
 
         
       <section class="item">
+
         <v-container>
           <h1 class="display-4">CONTACTOS</h1>
         </v-container> 
+
         <v-container> 
           <v-row align="center" justify="center">
             <TeamCard v-bind:name="'Onde estamos'" v-bind:description="'Braga, Portugal'" v-bind:img="'location.png'" style="display:inline-block"></TeamCard>
@@ -42,6 +49,7 @@
             <TeamCard v-bind:name="'E-mail'"       v-bind:description="'memory@book.com'" v-bind:img="'email.png'" style="display:inline-block; margin-left:1%"></TeamCard>
           </v-row>
         </v-container>
+        
       </section>
    
     </div>

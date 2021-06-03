@@ -11,16 +11,16 @@
                   large
                   icon
                 >
-                <v-icon>mdi-plus</v-icon> 
+                    <v-icon>mdi-plus</v-icon> 
                 </v-btn> 
                 <a v-else v-on="on"> Nova Coleção </a>
             </template>
+
             <v-card >
                 <v-card-text >
                     <v-container>
-
                         <h1 style="text-align:center">Nova Coleção</h1>
-
+                      
                         <v-col cols="12">
                             <v-text-field 
                             type="text" 
@@ -42,7 +42,17 @@
                         </v-col>
 
                         <v-container>
-                          <v-btn :loading="loading" :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="150" style="height:40px" class="white--text" elevation="1" v-on:click="newCollection()" color="#4F4E81">Criar</v-btn>
+                          <v-btn 
+                          :loading="loading" 
+                          :style="{left: '50%', transform:'translateX(-50%)'}" 
+                          v-ripple="{ class: 'primary--text' }" 
+                          width="150" 
+                          style="height:40px" 
+                          class="white--text" 
+                          elevation="1" 
+                          v-on:click="newCollection()" 
+                          color="#4F4E81"
+                          >Criar</v-btn>
                         </v-container>
 
                     </v-container>
@@ -76,30 +86,30 @@ export default {
         button: String
     },
     methods: {
-      clearVariables() {  
-        this.name="",
-        this.descricao="",
-        this.dialog=false
-      },
-      newCollection() {
-        this.loading=true
-        var json = {}
-        json['name'] = this.name
-        json['public'] = false
-        json['utilizador'] = jwt.decode(localStorage.getItem('jwt')).id
-        json['description'] = this.descricao
-        var token = localStorage.getItem('jwt')
-        axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
-          .then(data => {
-            this.clearVariables()
-            this.loading=false
-            this.$router.push('/collections/' + data.data.id)
-            this.$router.go()
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }
+        clearVariables() {  
+          this.name="",
+          this.descricao="",
+          this.dialog=false
+        },
+        newCollection() {
+          this.loading=true
+          var json = {}
+          json['name'] = this.name
+          json['public'] = false
+          json['utilizador'] = jwt.decode(localStorage.getItem('jwt')).id
+          json['description'] = this.descricao
+          var token = localStorage.getItem('jwt')
+          axios.post("http://localhost:1337/collections",  json ,{headers: {'Authorization': `${token}`}})
+            .then(data => {
+              this.clearVariables()
+              this.loading=false
+              this.$router.push('/collections/' + data.data.id)
+              this.$router.go()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
     }
 }    
 

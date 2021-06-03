@@ -1,22 +1,18 @@
 <template>
     <v-footer color="white" padless>
-  
-      <v-row no-gutters>
-        
+      <v-row no-gutters>     
         <v-col cols="4" class="meterCentro">
           <div class="centra">
             <v-btn 
               v-for="icon in icons"
               :key="icon.name"
-               @click="goToLink(icon.link)"
+              @click="goToLink(icon.link)"
               color="#4F4E81"
               rounded
               class="my-2"
               icon
             >
-              <v-icon size="24px">
-                {{ icon.name }}
-              </v-icon>
+              <v-icon size="24px"> {{ icon.name }} </v-icon>
             </v-btn>
           </div>
         </v-col>
@@ -52,6 +48,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
    data: () => ({
     memories: 0,
@@ -67,7 +64,7 @@ export default {
       {name: 'mdi-linkedin', link: '/'},
       {name: 'mdi-instagram', link: '/'},
     ],
-    toke:''
+    token:''
   }),
   created(){
     this.token = localStorage.getItem('jwt')
@@ -91,9 +88,10 @@ export default {
 
 
 <style scoped>
-    b {
-        color:#4F4E81
-    }
+
+b {
+    color:#4F4E81
+}
 
 .meterCentro {
   text-align: center;
@@ -104,4 +102,5 @@ export default {
   top: 50%;
   transform: translateY(-50%);
 }
+
 </style>

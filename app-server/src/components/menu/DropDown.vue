@@ -52,23 +52,23 @@ import jwt from 'jsonwebtoken'
         },
         apollo: {
             utilizador: {
-              query : gql`query Utilizador ($id: ID!){
+              query : gql`
+                query Utilizador ($id: ID!){
                   utilizador (id: $id) {
                     id
                     username
                     profile_picture {
                       url
-                      }
                     }
                   }
-                `,
-            variables(){
-              return {
-                id: this.userId
+                }`,
+              variables(){
+                return {
+                  id: this.userId
+                }
               }
             }
-          }
-        }   
+          }   
     }
 </script>
 

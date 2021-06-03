@@ -1,78 +1,73 @@
 <template>
     <div>
         <v-row no-gutter style="padding: 100px 0 0 0">
-        <v-col cols=6 >
-        <v-card
-            class="mx-auto"
-            max-width="344"
-            min-height="200"
-            outlined
-        >
-            <v-list-item three-line style="padding: 50px 0 0 20px">
-            <v-list-item-content>
-                <v-list-item-title class="headline mb-1 text-left">
-                {{person.name}}
-                </v-list-item-title>
-                <v-list-item-subtitle v-if="person.local_of_birth">Local de Nascimento: {{person.local_of_birth}}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="person.date_of_birth">Data de Nascimento: {{person.date_of_birth.split("T")[0]}}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="person.date_of_death">Data de Morte: {{person.date_of_death.split("T")[0]}}</v-list-item-subtitle>
-                
-            </v-list-item-content>
-        
-            </v-list-item>
-        
-        
-        </v-card>
-        </v-col>
+            <v-col cols=6 >
+                <v-card
+                    class="mx-auto"
+                    max-width="344"
+                    min-height="200"
+                    outlined
+                >
+                    <v-list-item three-line style="padding: 50px 0 0 20px">
+                        <v-list-item-content>
+                            <v-list-item-title class="headline mb-1 text-left">
+                            {{person.name}}
+                            </v-list-item-title>
+                            <v-list-item-subtitle v-if="person.local_of_birth">Local de Nascimento: {{person.local_of_birth}}</v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="person.date_of_birth">Data de Nascimento: {{person.date_of_birth.split("T")[0]}}</v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="person.date_of_death">Data de Morte: {{person.date_of_death.split("T")[0]}}</v-list-item-subtitle>  
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-card>
+            </v-col>
             
-        <v-col cols=6 style="padding:0 0 0 0">
-            <Horizontal_List :card="'2'" :flag="'memories'" :items="person.memories"/>
-        </v-col>
-      </v-row>
-    </div>
-      
+            <v-col cols=6 style="padding:0 0 0 0">
+                <HorizontalList :card="'2'" :flag="'memories'" :items="person.memories"/>
+            </v-col>
+        </v-row>
+    </div>   
 </template>
 
 
 <script>
 import gql from 'graphql-tag'
-import Horizontal_List from '@/components/lists/Horizontal_List.vue'
+import HorizontalList from '@/components/lists/Horizontal_List.vue'
 
 export default {
     data() {
         return {
-          } 
+        } 
     },
     components: {
-      Horizontal_List
+      HorizontalList
     },
     apollo: {
       person: { 
         query : gql`
-        query Person ($id: ID!){
-          person(id:$id){
-            id
-            name
-            local_of_birth
-            date_of_birth
-            date_of_death
-            memories {
+          query Person ($id: ID!){
+            person(id:$id){
               id
-              title
-              images {
-                url
+              name
+              local_of_birth
+              date_of_birth
+              date_of_death
+              memories {
+                id
+                title
+                images {
+                  url
+                }
               }
-            }
-          }   
-        }`,
-      variables(){
-        return {
-          id: this.$route.params.id
+            }   
+          }`,
+        variables() {
+          return {
+            id: this.$route.params.id
+          }
         }
       }
     }
   }
-}
 </script>
 
 

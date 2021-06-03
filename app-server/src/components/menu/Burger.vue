@@ -12,8 +12,11 @@
         </slot>
     </div>
 </template>
+
+
+
 <script>
-    import { store, mutations } from '@/store.js'
+import { store, mutations } from '@/store.js'
     
     export default {
         computed: {
@@ -31,6 +34,7 @@
 
 
 <style>
+
    .hidden {
         visibility: hidden;
     }
@@ -39,7 +43,6 @@
         cursor: pointer;
     }
 
-    /* remove blue outline */
     button:focus {
         outline: 0;
     }
@@ -111,4 +114,5 @@
     #burger.active .burger-bar--3 {
         transform: rotate(-45deg)
     }
+    
 </style>

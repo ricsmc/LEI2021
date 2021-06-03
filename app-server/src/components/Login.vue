@@ -1,16 +1,17 @@
 <template>
-  <div id="login">
-      <v-dialog max-width="400px" v-model="dialog">
-        <template v-slot:activator="{ on }">
-            <v-btn
-            color="#4F4E81"
-            text
-            x-large
-            plain
-            elevation="0"
-            v-on="on"
-            >Login</v-btn>
-        </template>
+    <div id="login">
+        <v-dialog max-width="400px" v-model="dialog">
+            <template v-slot:activator="{ on }">
+                <v-btn
+                color="#4F4E81"
+                text
+                x-large
+                plain
+                elevation="0"
+                v-on="on"
+                >Login</v-btn>
+            </template>
+            
             <v-tabs v-model="tab" show-arrows color="#4F4E81" background-color="white" icons-and-text light grow>
                 <v-tabs-slider color="#4F4E81"></v-tabs-slider>
                 <v-tab v-for="i in tabs" :key="i.name" >
@@ -34,21 +35,33 @@
                                     <v-text-field 
                                     :append-icon="valueLogin ? 'mdi-eye' : 'mdi-eye-off'" 
                                     :type="valueLogin ? 'password' : 'text'" 
-                                    v-model="password" label="Password"
+                                    v-model="password" 
+                                    label="Password"
                                     :rules="[rules.required]"
                                     @click:append="() => (valueLogin = !valueLogin)">
                                     </v-text-field>
                                 </v-col>
                             </v-container>
                         </v-card-text>
+
                         <v-card-actions class="justify-center">
-                            <v-btn :loading="loading" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="login()" color="#4F4E81">Login</v-btn>
+                            <v-btn 
+                            :loading="loading" 
+                            v-ripple="{ class: 'primary--text' }" 
+                            width="300" 
+                            style="height:40px;" 
+                            class="white--text" 
+                            elevation="1" 
+                            v-on:click="login()" 
+                            color="#4F4E81"
+                            >Login</v-btn>
                         </v-card-actions>
+
                         <v-card-actions class="justify-center">
-                            <GoogleLogin  :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
+                            <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">
                                 <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" outlined elevation="1" color="#4F4E81">
-                                    <img width="20px" style=" margin-right:10px" alt="Google sign-in" 
-                src="../../public/logo_google.webp" />Google
+                                    <img width="20px" style=" margin-right:10px" alt="Google sign-in" src="../../public/logo_google.webp"/>
+                                    Google
                                 </v-btn>
                             </GoogleLogin>
                         </v-card-actions>
@@ -98,14 +111,24 @@
                                 </v-col>
                             </v-container>
                         </v-card-text>
+
                         <v-card-actions class="justify-center">
-                            <v-btn :loading="loading" v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" class="white--text" elevation="1" v-on:click="register()" color="#4F4E81">Register</v-btn>
+                            <v-btn 
+                            :loading="loading" 
+                            v-ripple="{ class: 'primary--text' }" 
+                            width="300" style="height:40px;" 
+                            class="white--text" 
+                            elevation="1" 
+                            v-on:click="register()" 
+                            color="#4F4E81"
+                            >Register</v-btn>
                         </v-card-actions>
+
                         <v-card-actions v-if="!google_id" class="justify-center">
-                            <GoogleLogin  :params="params" :onSuccess="onSuccessRegister" :onFailure="onFailure">
+                            <GoogleLogin :params="params" :onSuccess="onSuccessRegister" :onFailure="onFailure">
                                 <v-btn v-ripple="{ class: 'primary--text' }" width="300" style="height:40px;" outlined elevation="1" color="#4F4E81">
-                                    <img width="20px" style=" margin-right:10px" alt="Google sign-up" 
-                src="../../public/logo_google.webp" />Google
+                                    <img width="20px" style=" margin-right:10px" alt="Google sign-up" src="../../public/logo_google.webp" />
+                                    Google
                                 </v-btn>
                             </GoogleLogin>
                         </v-card-actions>            
@@ -113,8 +136,8 @@
                 </v-tab-item>
 
             </v-tabs>   
-      </v-dialog>
-  </div>
+        </v-dialog>
+    </div>
 </template>
 
 
@@ -125,56 +148,51 @@ import axios from 'axios'
 import GoogleLogin from 'vue-google-login'
 import bcrypt from 'bcryptjs'
 
-
     export default {
         name: 'Login',
         data() {
             return {
-                    loading:false,
-                    tab: 0,
-                    tabs: [
-                        {name:"Login", icon:"mdi-account"},
-                        {name:"Register", icon:"mdi-account-outline"}
-                    ],
-                    rules: {
-                        required: value => !!value || "This camp is required.",
-                        length: v => (v || '' ).length <= 20 || 'Username deverá conter 20 caracteres ou menos'
-                    },
-                    username: "",
-                    password: "",
-                    passverify: "",
-                    email: "",
-                    btnText: "Show Password",
-                    type: "password",
-                    valueLogin: String,
-                    valueRegistarPass: String,
-                    valueRegistarConfirPass: String,
-                    params: {
-                        client_id: "700992731861-u8shkr16p914ldvtbnsq4ketr09m62ul.apps.googleusercontent.com"
-                    },
-                    renderParams: {
-                        width: 300,
-                        height: 40,
-                        longtitle: true
-                    },
-                    alert:false,
-                    message:'',
-                    dialog:false,
-                    google_profile_pic:'',
-                    google_id : false
+                tab: 0,
+                tabs: [
+                    {name:"Login", icon:"mdi-account"},
+                    {name:"Register", icon:"mdi-account-outline"}
+                ],
+                rules: {
+                    required: value => !!value || "This camp is required.",
+                    length: v => (v || '' ).length <= 20 || 'Username deverá conter 20 caracteres ou menos'
+                },
+                params: {
+                    client_id: "700992731861-u8shkr16p914ldvtbnsq4ketr09m62ul.apps.googleusercontent.com"
+                },
+                username: "",
+                password: "",
+                passverify: "",
+                email: "",
+                type: "password",
+                valueLogin: String,
+                valueRegistarPass: String,
+                valueRegistarConfirPass: String,
+                message:'',
+                alert: false,
+                loading: false,
+                dialog: false,
+                google_id : false,
+                google_profile_pic:''
             }
         },
         computed: {
             passwordMatch() {
                 return () => this.password === this.passverify || "Password must match";
             }
-        },        
+        },  
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        components: {
+            GoogleLogin
+        },    
         methods: {
-            login() {
-                this.loading=true
-                var json = {}
-                json['username'] = this.username
-                json['password'] = this.password
+            postLogin(json) {
                 axios.post("http://localhost:7000/users/login", json)
                     .then(data => {
                         localStorage.setItem('jwt',data.data.token)
@@ -184,9 +202,16 @@ import bcrypt from 'bcryptjs'
                         this.loading = false
                     })
                     .catch(err => {
-                            this.alert = true
-                            this.message = err.response.data.message
+                        this.alert = true
+                        this.message = err.response.data.message
                     })
+            },
+            login() {
+                this.loading = true
+                var json = {}
+                json['username'] = this.username
+                json['password'] = this.password
+                this.postLogin(json)
             },
             onSuccess(googleUser) {
                 var json = {}
@@ -200,8 +225,8 @@ import bcrypt from 'bcryptjs'
                         this.dialog = false
                     })
                     .catch(err => {
-                            this.alert = true
-                            this.message = err.response.data.message                
+                        this.alert = true
+                        this.message = err.response.data.message                
                     })
             },
             onFailure(){   
@@ -220,19 +245,8 @@ import bcrypt from 'bcryptjs'
                 axios.post("http://localhost:7000/users/register", json)
                     .then( () => {
                         json['password'] = this.password
-                        axios.post("http://localhost:7000/users/login", json)
-                            .then(data => {
-                                localStorage.setItem('jwt',data.data.token)
-                                this.$emit('loged')
-                                this.$router.go()
-                                this.dialog = false
-                                this.loading = false
-                            })
-                            .catch(err => {
-                                    this.alert = true
-                                    this.message = err.response.data.message
-                            })
-                        })
+                        this.postLogin(json)
+                    })
                     .catch(err => {
                         this.alert = true
                         this.message = err.response.data.message
@@ -243,20 +257,16 @@ import bcrypt from 'bcryptjs'
                 this.email = googleUser.getBasicProfile().getEmail()
                 this.google_profile_pic = googleUser.getBasicProfile().getImageUrl()
                 this.google_id = googleUser.getBasicProfile().getId()
-            },
-                       
-        },
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        components: {
-            GoogleLogin
+            },             
         }
     }
   
 </script>
 
+
+
 <style scoped>
+
     #login {
         margin: auto;
     }

@@ -1,5 +1,6 @@
 <template>
   <div v-if="this.items" class="horizontalList">
+      
       <div class="esq">
         <button v-if="this.items.length>0" style="height: 200px;" id="left_button" @click="swipe(-1,'left_button')">
           <i class="fa fa-angle-left fa-5x" ></i>

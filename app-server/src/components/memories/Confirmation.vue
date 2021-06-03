@@ -71,18 +71,15 @@ export default {
                 index = this.memory.videos.map(function(item) { return item.url; }).indexOf(this.objecto.url);
                 this.memory.videos.splice(index, 1);
             }
-            
-            console.log(this.memory.images)
             json['videos'] = this.memory.videos
             json['images'] = this.memory.images
             var token = localStorage.getItem('jwt')
             axios.put("http://localhost:1337/memories/"+this.$route.params.id, json , {headers: {'Authorization': `${token}`}})
-            .then(() => {
-                })
-            .catch(err => {
-              console.log(err)
-            })
-
+              .then(() => {
+              })
+              .catch(err => {
+                console.log(err)
+              })
             this.dialog=false
         }
     },

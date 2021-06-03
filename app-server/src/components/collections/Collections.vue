@@ -32,7 +32,6 @@
       </v-row>
     </v-container>
     
-    
     <v-container>
       <HorizontalList 
       :flag="'collections'" 
@@ -157,6 +156,8 @@ export default {
   }
 }
 </script>
+
+
 
 
 <style>

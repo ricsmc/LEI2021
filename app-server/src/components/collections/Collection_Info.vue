@@ -126,13 +126,12 @@ export default {
 
 
 
+
 <style> 
 
 h1 {
    padding: 15px 0 15px 0;
 }
-
-
 
 .header a,b {
   text-decoration: none;
@@ -164,8 +163,6 @@ h1 {
 .listMemories {
   background-color: cadetblue;
 }
-
-
 
 .searchList {
   background-color: cadetblue;

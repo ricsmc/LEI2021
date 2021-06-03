@@ -41,6 +41,9 @@ export default {
 
 </script>
 
+
+
+
 <style>
 
 .cardd {
@@ -52,7 +55,6 @@ export default {
 .carddAlone {
   margin-left:15px;
 }
-
 
 .cardd img {
   width: 120px;

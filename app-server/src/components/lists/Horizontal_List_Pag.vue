@@ -84,7 +84,6 @@ export default {
         this.$emit('update:items', result.data.collections)
       }
       this.$emit('updatePag:page', pag)
-      
     },
     async getInfoCollections() {
       var result  
@@ -199,7 +198,6 @@ export default {
     
 <style>
 
-
 .pagination{
    text-align: center;
    font-size: 20px;
@@ -209,7 +207,6 @@ export default {
  width: 25%;
  display: inline-block;
 }
-
 
 .center{
  text-align: center;

@@ -30,7 +30,17 @@
                         </v-col>
 
                         <v-container>
-                          <v-btn :loading="isLoading" :style="{left: '50%', transform:'translateX(-50%)'}" v-ripple="{ class: 'primary--text' }" width="150" style="height:40px" class="white--text" elevation="1" v-on:click="updateCollection()" color="#4F4E81">Guardar</v-btn>
+                          <v-btn 
+                          :loading="isLoading" 
+                          :style="{left: '50%', transform:'translateX(-50%)'}" 
+                          v-ripple="{ class: 'primary--text' }" 
+                          width="150" 
+                          style="height:40px" 
+                          class="white--text" 
+                          elevation="1" 
+                          v-on:click="updateCollection()" 
+                          color="#4F4E81"
+                          >Guardar</v-btn>
                         </v-container>
 
                     </v-container>

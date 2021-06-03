@@ -47,29 +47,5 @@
 
 <style>
 
-.first {
-    width: 100%;
-    height: 100vh;
-}
-
-.second {
-    width: 100%;
-    height: 100vh;
-}
-
-.third {
-    width: 100%;
-    height: 100vh;
-}
-
-.see_all {
-    justify-content:center;
-    color: #4F4E81;
-}
-
-.see_all:hover {
-    text-decoration: underline;
-    color: #015AEE; 
-}
 
 </style>

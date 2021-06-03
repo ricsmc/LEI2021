@@ -26,6 +26,10 @@ const router = new VueRouter({
       path: "/",
       components: require("./components/home/Home.vue")
     },
+    { 
+      path: '/home', 
+      redirect: '/' 
+    },
     {
       path: "/login",
       components: require("./components/Login.vue")
@@ -62,6 +66,9 @@ const router = new VueRouter({
     {
       path: "/new_memory",
       components: require("./components/forms/New_Memory.vue")
+    },
+    { path: "*", 
+      components: require("./components/NotFound.vue")
     }
   ]
 });

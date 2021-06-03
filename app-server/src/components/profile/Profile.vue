@@ -9,10 +9,14 @@
         </div>
       </v-container>
     </div>
+    <div v-else>
+      <NotFound/>
+    </div>
 </template>
 
 
 <script>
+import NotFound from '@/components/NotFound.vue'
 import gql from 'graphql-tag'
 import ProfileInfo from '@/components/profile/Profile_Info.vue'
 import ProfileInfoEdit from '@/components/profile/Profile_Info_Edit.vue'
@@ -34,6 +38,7 @@ import jwt from 'jsonwebtoken'
       this.level = this.payload.level
     },
     components: {
+      NotFound,
       ProfileInfo,
       ProfileInfoEdit
     },

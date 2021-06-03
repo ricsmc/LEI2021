@@ -306,10 +306,15 @@
         </v-col>
       </v-row>
     </v-container>
+    
+    <div v-else>
+      <NotFound/>
+    </div>
 </template>
 
 
 <script>
+import NotFound from '@/components/NotFound.vue'
 import gql from 'graphql-tag'
 import axios from 'axios'
 import Confirmation from '@/components/memories/Confirmation.vue'
@@ -340,6 +345,7 @@ export default {
         } 
     },
     components: {
+      NotFound,
       Confirmation
     },
     watch: {

@@ -7,11 +7,15 @@
             <CollectionInfo/>
         </div>
     </div>
+    <div v-else>
+      <NotFound/>
+    </div>
 </template>
 
 
 <script>
 import gql from 'graphql-tag'
+import NotFound from '@/components/NotFound.vue'
 import CollectionInfo from '@/components/collections/Collection_Info.vue'
 import CollectionInfoEdit from '@/components/collections/Collection_Info_Edit.vue'
 import jwt from 'jsonwebtoken'
@@ -30,8 +34,9 @@ export default {
       this.userId = this.payload.id
     },
     components: {
-        CollectionInfo,
-        CollectionInfoEdit
+      NotFound,
+      CollectionInfo,
+      CollectionInfoEdit
     },
     apollo: {
       collection:{

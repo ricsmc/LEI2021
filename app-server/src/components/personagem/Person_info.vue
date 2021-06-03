@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="this.person">
         <v-row no-gutter style="padding: 100px 0 0 0">
             <v-col cols=6 >
                 <v-card
@@ -26,10 +26,14 @@
             </v-col>
         </v-row>
     </div>   
+    <div v-else>
+      <NotFound/>
+    </div>
 </template>
 
 
 <script>
+import NotFound from '@/components/NotFound.vue'
 import gql from 'graphql-tag'
 import HorizontalList from '@/components/lists/Horizontal_List.vue'
 
@@ -39,6 +43,7 @@ export default {
         } 
     },
     components: {
+      NotFound,
       HorizontalList
     },
     apollo: {

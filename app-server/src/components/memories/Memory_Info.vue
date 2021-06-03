@@ -110,7 +110,12 @@
 
             <v-card-text v-if="memory.tags">
               <span v-if="!editing">
-                <b>Tags</b> : <span  v-for="tag in memory.tags" :key="tag">#{{tag}} </span>
+                <b>Tags</b> : 
+                <span class="special" v-for="tag in memory.tags" :key="tag">
+                  <a style="color:#424292" class="tags" :href="'/memories?tag=' + tag"> 
+                    #{{tag}} 
+                  </a>
+                </span>
               </span>
               <v-col v-else class="pa-0">
                 <v-combobox 
@@ -578,6 +583,21 @@ h1 {
 }
 
 .person-link:hover{
+  color:#1f1f44;
+  font-weight: bold;
+}
+
+.tags{
+  margin-right: 2px;
+}
+
+
+.special a{
+  color:#424292;
+  text-decoration: none; 
+}
+
+.special a:hover{
   color:#1f1f44;
   font-weight: bold;
 }

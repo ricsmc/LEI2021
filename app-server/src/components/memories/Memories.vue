@@ -82,8 +82,16 @@ export default {
       totalPags: 0,
       word: "",
       filter: "",
+      memories: false,
       values: ['Título','Descrição','Tag']
     }
+  },
+  created() {
+    if (this.$route.query.tag) {
+      this.filter = 'Tag'
+      this.word = this.$route.query.tag
+    }
+    this.procurar()
   },
   methods: {
     goToNewMemory(){
@@ -96,13 +104,14 @@ export default {
       this.pag=value;
     },
     async procurar() {
+      var token = localStorage.getItem('jwt')
+      var result = ''
       if (this.filter) {
         var valor
         if (this.filter=='Título')  valor="title_contains";
         if (this.filter=='Descrição')  valor="content_contains";
         if (this.filter=='Tag')  valor="tags";
 
-        var token = localStorage.getItem('jwt')
         await axios.get('http://localhost:1337/memories/count?'+valor+'=' + this.word ,{headers: {'Authorization': `${token}`}})
           .then(response => {
             this.pag=0
@@ -112,7 +121,7 @@ export default {
           })
           .catch(error => console.log(error))
         
-        var result = await this.$apollo.query({
+        result = await this.$apollo.query({
           query: gql`
             query Memories ($value: String!)  {
               memories(where: { ${valor}: $value },limit:4) {
@@ -130,34 +139,32 @@ export default {
             value: this.word,
           },
         })
-        this.memories = result.data.memories
       }
-    }
-  },
-  apollo: {
-    memories: {
-      query: gql`
-      query Memories {
-        memories(limit:4) {
-          id
-          title
-          images {
-            url
-          }
-        }
+      else {
+
+        await axios.get('http://localhost:1337/memories/count',{headers: {'Authorization': `${token}`}})
+           .then(response => {
+              this.number = response.data
+              this.totalPags = Math.floor(this.number/4)
+              if ((this.number%4)!=0) this.totalPags = this.totalPags + 1  
+             })
+           .catch(error => console.log(error))
+        
+        result = await this.$apollo.query({
+          query: gql`
+            query Memories {
+              memories(limit:4) {
+                id
+                title
+                images {
+                  url
+                }
+              }
+            }`,
+        })
       }
-    `
+      this.memories = result.data.memories
     }
-  },
-  mounted () {
-    var token = localStorage.getItem('jwt')
-    axios.get('http://localhost:1337/memories/count',{headers: {'Authorization': `${token}`}})
-       .then(response => {
-          this.number = response.data
-          this.totalPags = Math.floor(this.number/4)
-          if ((this.number%4)!=0) this.totalPags = this.totalPags + 1  
-         })
-       .catch(error => console.log(error))
   }
 }
 </script>

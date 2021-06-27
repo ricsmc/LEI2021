@@ -24,7 +24,7 @@
         </v-col>
 
         <v-col cols="2">
-            <v-btn style="margin-top:10px" dark @click="procurar()"> 
+            <v-btn style="margin-top:10px" outlined color="#4F4E81" depressed @click="procurar()"> 
               Procurar
             </v-btn>        
         </v-col>
@@ -49,14 +49,15 @@
         <v-col align="right">
           <v-btn
             @click="goToNewMemory()"
-            color="black"
-            outlined
-            elevation="8"
+            color="#4F4E81"
+            elevation="4"
+            rounded
             large
             icon
           >
-            <v-icon> mdi-plus </v-icon> 
-          </v-btn>      
+            <v-icon large> mdi-plus </v-icon> 
+          </v-btn>
+   
         </v-col>
       </v-row>
     </v-container>

@@ -24,7 +24,7 @@
         </v-col>
 
         <v-col cols="2">
-            <v-btn style="margin-top:10px" dark @click="procurar()"> 
+            <v-btn style="margin-top:10px" outlined color="#4F4E81" depressed @click="procurar()"> 
               Procurar
             </v-btn>        
         </v-col>

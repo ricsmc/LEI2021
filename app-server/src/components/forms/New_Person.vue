@@ -2,7 +2,7 @@
     <div id="person">
         <v-dialog max-width="400px" v-model="dialog">
             <template v-slot:activator="{ on }">
-                <v-btn icon color="#4F4E81" rounded elevation="1" v-on="on"> 
+                <v-btn icon large color="#4F4E81" rounded elevation="4" v-on="on"> 
                     <v-icon large>mdi-plus</v-icon>
                 </v-btn>
             </template>

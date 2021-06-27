@@ -11,10 +11,10 @@
         </div>
 
         <div class="dropdown-content">
-            <router-link :to="'/users/' + utilizador.id">Perfil</router-link>
-            <router-link to="/new_memory">Nova Memória</router-link>
+            <router-link style="color:#4F4E81" :to="'/users/' + utilizador.id">Perfil</router-link>
+            <router-link style="color:#4F4E81" to="/new_memory">Nova Memória</router-link>
             <NewCollection/> 
-            <a v-on:click="handleLogout()" href="/">
+            <a style="color:#4F4E81" v-on:click="handleLogout()" href="/">
                 <i style="margin-right:2px" class="fa fa-sign-out" aria-hidden="true"></i>
                 Logout
             </a>

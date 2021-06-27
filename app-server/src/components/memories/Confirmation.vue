@@ -27,6 +27,14 @@
   
           <v-card-actions>
               <v-spacer></v-spacer>
+                  <v-btn
+                  color="primary"
+                  text
+                  @click="delet"
+                >
+                  Sim
+                </v-btn>
+
                 <v-btn
                   color="red"
                   text
@@ -35,13 +43,7 @@
                   Cancelar
                 </v-btn>
   
-            <v-btn
-              color="primary"
-              text
-              @click="delet"
-            >
-              Sim
-            </v-btn>
+            
           </v-card-actions>
         </v-card>
       </v-dialog>

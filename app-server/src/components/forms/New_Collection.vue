@@ -2,18 +2,10 @@
     <div id="new_collection">
         <v-dialog max-width="400px" v-model="dialog">
             <template v-slot:activator="{ on }">
-                <v-btn
-                  v-if="button"
-                  v-on="on"
-                  color="black"
-                  outlined
-                  elevation="8"
-                  large
-                  icon
-                >
-                    <v-icon>mdi-plus</v-icon> 
-                </v-btn> 
-                <a v-else v-on="on"> Nova Coleção </a>
+                <v-btn v-if="button" icon color="#4F4E81" large rounded elevation="4" v-on="on"> 
+                    <v-icon large>mdi-plus</v-icon>
+                </v-btn>
+                <a v-else style="color:#4F4E81" v-on="on"> Nova Coleção </a>
             </template>
 
             <v-card >

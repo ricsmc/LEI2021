@@ -170,7 +170,7 @@
                 </v-col>
 
                 <v-col cols="1">
-                  <v-btn dark @click="adicionar()"> 
+                  <v-btn outlined color="#4F4E81" depressed @click="adicionar()"> 
                     Adicionar 
                   </v-btn>
                 </v-col>
@@ -287,7 +287,8 @@
       <v-row v-if="memory.utilizador.id==user">
         <v-col justify="center" align="center">
           <v-btn
-            dark
+            outlined
+            color="#4F4E81"
             rounded
             depressed
             :loading="isSelecting2"
@@ -307,14 +308,10 @@
       </v-row>
     </v-container>
     
-    <div v-else>
-      <NotFound/>
-    </div>
 </template>
 
 
 <script>
-import NotFound from '@/components/NotFound.vue'
 import gql from 'graphql-tag'
 import axios from 'axios'
 import Confirmation from '@/components/memories/Confirmation.vue'
@@ -341,11 +338,10 @@ export default {
           isSelecting2:false,
           dialog: false,
           token: localStorage.getItem('jwt'),
-          payload: null,
+          payload: null
         } 
     },
     components: {
-      NotFound,
       Confirmation
     },
     watch: {

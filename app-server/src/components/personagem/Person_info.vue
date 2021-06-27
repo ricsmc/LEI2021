@@ -26,14 +26,10 @@
             </v-col>
         </v-row>
     </div>   
-    <div v-else>
-      <NotFound/>
-    </div>
 </template>
 
 
 <script>
-import NotFound from '@/components/NotFound.vue'
 import gql from 'graphql-tag'
 import HorizontalList from '@/components/lists/Horizontal_List.vue'
 
@@ -43,7 +39,6 @@ export default {
         } 
     },
     components: {
-      NotFound,
       HorizontalList
     },
     apollo: {
